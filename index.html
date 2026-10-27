@@ -3,13 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Francisco Araújo | Staff Backend Engineer • Financial Systems & Payments</title>
+    <title>Francisco Araújo | Staff Backend Engineer • Financial Systems & Payments Infrastructure</title>
+    <meta name="description" content="Engenheiro Backend Especialista em Meios de Pagamento, Autorizadores Transacionais de Baixa Latência, Mensageria ISO 8583, SoftHSM C++, EMV e Liquidação Financeira.">
+    
     <!-- Tailwind CSS CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
-    <!-- Google Fonts Inter & JetBrains Mono -->
+    
+    <!-- Google Fonts: Inter & JetBrains Mono -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    
     <!-- Lucide Icons -->
     <script src="https://unpkg.com/lucide@latest"></script>
 
@@ -19,270 +23,602 @@
             theme: {
                 extend: {
                     fontFamily: {
-                        sans: ['Inter', 'sans-serif'],
+                        sans: ['Inter', 'system-ui', 'sans-serif'],
                         mono: ['JetBrains Mono', 'monospace'],
                     },
                     colors: {
                         fintech: {
-                            dark: '#090D16',
-                            card: '#0f172a',
-                            cardLight: '#ffffff',
-                            border: '#1e293b',
-                            accent: '#10b981',       /* Emerald */
-                            accentGlow: 'rgba(16, 185, 129, 0.2)',
-                            cyan: '#06b6d4',         /* High-tech cyan */
-                            amber: '#f59e0b',
-                            slate: '#94a3b8'
+                            base: '#040711',         /* Deep institutional obsidian */
+                            card: '#080E1E',         /* Dark navy banking card */
+                            cardElevated: '#0D172F', /* Raised card hover */
+                            border: '#152342',       /* Crisp metallic border */
+                            borderLight: '#1E325E',
+                            emerald: '#00D47E',      /* High-yield fintech green */
+                            emeraldGlow: 'rgba(0, 212, 126, 0.15)',
+                            cobalt: '#2563EB',       /* Institutional trust blue */
+                            sapphire: '#38BDF8',     /* Cyber clearing cyan */
+                            gold: '#F59E0B',         /* PCI / Security badge gold */
+                            slateText: '#94A3B8',
                         }
                     },
                     animation: {
                         'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-                        'float': 'float 6s ease-in-out infinite',
+                        'marquee': 'marquee 35s linear infinite',
+                        'spin-slow': 'spin 12s linear infinite',
+                        'float': 'float 5s ease-in-out infinite',
                     },
                     keyframes: {
+                        marquee: {
+                            '0%': { transform: 'translateX(0%)' },
+                            '100%': { transform: 'translateX(-50%)' },
+                        },
                         float: {
-                            '0%, 100%': { transform: 'translateY(0)' },
-                            '50%': { transform: 'translateY(-8px)' },
+                            '0%, 100%': { transform: 'translateY(0px)' },
+                            '50%': { transform: 'translateY(-6px)' },
                         }
                     }
                 }
             }
         }
     </script>
+
     <style>
-        /* Custom scrollbar & glassmorphism utilities */
+        /* Custom institutional scrollbar */
         ::-webkit-scrollbar {
-            width: 8px;
+            width: 7px;
         }
         ::-webkit-scrollbar-track {
-            background: #090d16;
+            background: #040711;
         }
         ::-webkit-scrollbar-thumb {
-            background: #1e293b;
+            background: #152342;
             border-radius: 4px;
         }
         ::-webkit-scrollbar-thumb:hover {
-            background: #334155;
+            background: #2563EB;
         }
-        .code-pattern {
-            background-image: radial-gradient(rgba(16, 185, 129, 0.12) 1px, transparent 1px), radial-gradient(rgba(6, 182, 212, 0.08) 1px, transparent 1px);
-            background-size: 32px 32px;
-            background-position: 0 0, 16px 16px;
+
+        /* Banking Grid Pattern */
+        .fintech-grid {
+            background-color: #040711;
+            background-image: 
+                linear-gradient(rgba(21, 35, 66, 0.4) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(21, 35, 66, 0.4) 1px, transparent 1px);
+            background-size: 40px 40px;
+            background-position: -1px -1px;
         }
-        .glass-panel {
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+
+        /* Mesh lighting for corporate depth */
+        .radial-mesh {
+            background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.14) 0%, transparent 60%),
+                        radial-gradient(circle at 85% 30%, rgba(0, 212, 126, 0.08) 0%, transparent 45%),
+                        radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 40%);
         }
+
+        /* Metallic Sheen Border */
+        .glass-metal {
+            background: linear-gradient(135deg, rgba(13, 23, 47, 0.85) 0%, rgba(8, 14, 30, 0.95) 100%);
+            backdrop-filter: blur(16px);
+            -webkit-backdrop-filter: blur(16px);
+            border: 1px solid rgba(30, 50, 94, 0.8);
+        }
+
+        .glass-metal:hover {
+            border-color: rgba(56, 189, 248, 0.4);
+            box-shadow: 0 10px 30px -10px rgba(0, 212, 126, 0.1);
+        }
+
+        /* Gold Card Chip Simulation */
+        .card-chip {
+            background: linear-gradient(135deg, #d4af37 0%, #f3e5ab 50%, #aa7c11 100%);
+            box-shadow: inset 0 1px 2px rgba(255,255,255,0.4), 0 2px 4px rgba(0,0,0,0.4);
+        }
+
+        /* Code/Terminal syntax styling */
+        .terminal-glow {
+            box-shadow: 0 0 35px -5px rgba(0, 212, 126, 0.15), 0 0 15px -3px rgba(37, 99, 235, 0.2);
+        }
+
         @media print {
             .no-print { display: none !important; }
             body { background: white !important; color: black !important; }
-            .page-break { page-break-before: always; }
+            .print-only { display: block !important; }
         }
     </style>
 </head>
-<body class="bg-[#090D16] text-slate-100 font-sans antialiased selection:bg-emerald-500 selection:text-black min-h-screen">
+<body class="bg-[#040711] text-slate-100 font-sans antialiased selection:bg-[#00D47E] selection:text-black min-h-screen">
+
+    <!-- FINANCIAL TICKER TAPE (Top Institutional Header) -->
+    <aside aria-label="Telemetria de Rede Financeira" class="w-full bg-[#020409] border-b border-[#152342] py-1.5 overflow-hidden text-[11px] font-mono select-none no-print">
+        <div class="flex whitespace-nowrap animate-marquee">
+            <div class="flex items-center gap-8 text-slate-400 px-4">
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <strong class="text-white">SWITCH CORE:</strong> OPERATIONAL (SLA 99.999%)
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <strong class="text-slate-300">PCI-PIN ENCRYPTION:</strong> 3DES / AES LMK VERIFIED
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <strong class="text-slate-300">P99 ONLINE LATENCY:</strong> &lt; 142ms
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+                    <strong class="text-slate-300">ISO 8583 MESH:</strong> BASE I / BASE II ACTIVE
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <strong class="text-slate-300">TRANSACTIONAL OUTBOX:</strong> ZERO DATA LOSS (ACID)
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <strong class="text-slate-300">SETTLEMENT CYCLE:</strong> D+0 RECONCILIATION
+                </span>
+            </div>
+            <!-- Duplicate for seamless infinite loop -->
+            <div class="flex items-center gap-8 text-slate-400 px-4" aria-hidden="true">
+                <span class="inline-flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <strong class="text-white">SWITCH CORE:</strong> OPERATIONAL (SLA 99.999%)
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="shield-check" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <strong class="text-slate-300">PCI-PIN ENCRYPTION:</strong> 3DES / AES LMK VERIFIED
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
+                    <strong class="text-slate-300">P99 ONLINE LATENCY:</strong> &lt; 142ms
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="network" class="w-3.5 h-3.5 text-blue-400"></i>
+                    <strong class="text-slate-300">ISO 8583 MESH:</strong> BASE I / BASE II ACTIVE
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="database" class="w-3.5 h-3.5 text-emerald-400"></i>
+                    <strong class="text-slate-300">TRANSACTIONAL OUTBOX:</strong> ZERO DATA LOSS (ACID)
+                </span>
+                <span class="text-slate-600">•</span>
+                <span class="inline-flex items-center gap-1.5">
+                    <i data-lucide="landmark" class="w-3.5 h-3.5 text-amber-400"></i>
+                    <strong class="text-slate-300">SETTLEMENT CYCLE:</strong> D+0 RECONCILIATION
+                </span>
+            </div>
+        </div>
+    </aside>
 
     <!-- Notification Toast -->
-    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out flex items-center gap-3 px-5 py-3 rounded-xl bg-slate-900/90 text-white border border-emerald-500/40 shadow-2xl glass-panel">
-        <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
-        <span id="toast-message" class="text-sm font-medium">Email copiado para a área de transferência!</span>
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-24 opacity-0 transition-all duration-300 ease-out flex items-center gap-3 px-5 py-3 rounded-xl bg-[#080E1E] text-white border border-[#00D47E]/40 shadow-2xl glass-metal">
+        <i data-lucide="check-circle" class="w-5 h-5 text-[#00D47E]"></i>
+        <span id="toast-message" class="text-xs font-mono font-medium">Email copiado para a área de transferência!</span>
     </div>
 
-    <!-- Navigation Bar -->
-    <header class="sticky top-0 z-40 w-full border-b border-slate-800/80 bg-[#090D16]/80 glass-panel no-print">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
-            <a href="#" class="flex items-center gap-2 group">
-                <div class="w-9 h-9 rounded-lg bg-gradient-to-tr from-emerald-500 to-cyan-500 p-0.5 shadow-lg shadow-emerald-500/20 group-hover:scale-105 transition-transform">
-                    <div class="w-full h-full bg-[#090D16] rounded-[7px] flex items-center justify-center font-mono font-black text-emerald-400 text-sm">
-                        FA
+    <!-- MAIN EXECUTIVE HEADER -->
+    <header class="sticky top-0 z-40 w-full border-b border-[#152342]/90 bg-[#040711]/90 backdrop-blur-md no-print">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 py-3.5 flex items-center justify-between">
+            
+            <!-- Corporate Brand Mark -->
+            <a href="#" class="flex items-center gap-3 group">
+                <div class="relative w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-[#00D47E] to-cyan-400 p-[1.5px] shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-all">
+                    <div class="w-full h-full bg-[#040711] rounded-[10px] flex items-center justify-center font-mono font-black text-white text-sm">
+                        <span class="text-[#00D47E]">F</span>A
                     </div>
                 </div>
                 <div class="flex flex-col">
-                    <span class="font-bold text-sm tracking-tight text-white flex items-center gap-1.5">
-                        Francisco Araújo
-                        <span class="inline-block w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    </span>
-                    <span class="text-[10px] font-mono text-emerald-400/90 uppercase tracking-widest">Lead / Staff Backend</span>
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-sm tracking-tight text-white group-hover:text-slate-200">Francisco Araújo</span>
+                        <span class="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 uppercase">Staff Engineer</span>
+                    </div>
+                    <span class="text-[11px] font-mono text-slate-400 tracking-wider">Financial Core &amp; Payments Architecture</span>
                 </div>
             </a>
 
-            <!-- Desktop Nav Links -->
-            <nav class="hidden md:flex items-center gap-7 text-sm font-medium text-slate-300">
-                <a href="#about" class="hover:text-emerald-400 transition-colors">Visão Geral</a>
-                <a href="#orionpay" class="hover:text-emerald-400 transition-colors flex items-center gap-1.5">
-                    <span class="w-1.5 h-1.5 rounded-full bg-cyan-400"></span> OrionPay Core
+            <!-- Executive Navigation -->
+            <nav class="hidden lg:flex items-center gap-8 text-xs font-mono uppercase tracking-wider text-slate-300">
+                <a href="#overview" class="hover:text-[#00D47E] transition-colors flex items-center gap-1.5">
+                    <span>//</span> Visão Geral
                 </a>
-                <a href="#skills" class="hover:text-emerald-400 transition-colors">Competências</a>
-                <a href="#experience" class="hover:text-emerald-400 transition-colors">Trajetória</a>
-                <a href="#contact" class="hover:text-emerald-400 transition-colors">Contato</a>
+                <a href="#simulator" class="hover:text-cyan-400 transition-colors flex items-center gap-1.5 text-cyan-300 font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span> Simulador Switch
+                </a>
+                <a href="#orionpay" class="hover:text-[#00D47E] transition-colors flex items-center gap-1.5">
+                    <span>//</span> OrionPay Core
+                </a>
+                <a href="#experience" class="hover:text-[#00D47E] transition-colors flex items-center gap-1.5">
+                    <span>//</span> Trajetória B3 / Bancos
+                </a>
+                <a href="#skills" class="hover:text-[#00D47E] transition-colors flex items-center gap-1.5">
+                    <span>//</span> Competências
+                </a>
             </nav>
 
-            <!-- Actions & Print CTA -->
-            <div class="flex items-center gap-3">
-                <button onclick="window.print()" title="Imprimir / Exportar Currículo" class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-slate-700 bg-slate-800/60 hover:bg-slate-700/80 text-xs font-mono text-slate-300 transition-colors">
-                    <i data-lucide="printer" class="w-3.5 h-3.5"></i>
-                    <span>PDF / Print</span>
+            <!-- Actions & CTAs -->
+            <div class="flex items-center gap-2.5">
+                <button onclick="window.print()" title="Imprimir Dossiê Técnico" class="hidden sm:inline-flex items-center gap-2 px-3.5 py-2 rounded-lg border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] hover:border-slate-600 text-xs font-mono text-slate-300 transition-all">
+                    <i data-lucide="file-text" class="w-3.5 h-3.5 text-slate-400"></i>
+                    <span>Exportar PDF</span>
                 </button>
-                <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-semibold text-xs transition-all shadow-lg shadow-emerald-500/25 active:scale-95">
-                    <i data-lucide="mail" class="w-3.5 h-3.5"></i>
-                    <span>Falar Comigo</span>
+                <a href="#contact" class="inline-flex items-center gap-2 px-4 py-2 rounded-lg bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-emerald-500/20 active:scale-95">
+                    <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                    <span>Contato Executivo</span>
                 </a>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="relative code-pattern overflow-hidden">
+    <!-- MAIN PAGE CONTAINER -->
+    <main class="relative fintech-grid radial-mesh overflow-hidden">
         
-        <!-- HERO SECTION -->
-        <section class="relative pt-12 pb-20 lg:pt-20 lg:pb-28 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid lg:grid-cols-12 gap-12 items-center">
+        <!-- HERO SECTION: INSTITUTIONAL CORE -->
+        <section id="overview" class="relative pt-12 pb-16 lg:pt-20 lg:pb-24 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid lg:grid-cols-12 gap-10 items-center">
                 
-                <!-- Left Details -->
+                <!-- Left Column: Executive Value Proposition -->
                 <div class="lg:col-span-7 space-y-6">
-                    <!-- Status Badge -->
-                    <div class="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full border border-emerald-500/30 bg-emerald-950/40 text-emerald-300 text-xs font-mono font-medium tracking-wide">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-ping"></span>
-                        <span>Sistemas Críticos &amp; Mensageria Financeira</span>
+                    
+                    <!-- Regulatory & Compliance Badge -->
+                    <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full border border-blue-500/30 bg-blue-950/40 text-blue-300 text-xs font-mono">
+                        <i data-lucide="landmark" class="w-3.5 h-3.5 text-blue-400"></i>
+                        <span>Infraestrutura Financeira &amp; Redes de Pagamentos</span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#00D47E] animate-pulse"></span>
                     </div>
 
-                    <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-white leading-tight">
-                        Engenharia Backend de <span class="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-cyan-400 to-teal-300">Missão Crítica</span> &amp; Pagamentos
-                    </h1>
-
-                    <p class="text-base sm:text-lg text-slate-300 leading-relaxed max-w-2xl">
-                        Especialista Backend com 13+ anos de experiência na concepção e escala de autorizadores transacionais, switches adquirentes, barramentos de mensageria (<span class="font-mono text-cyan-300">ISO 8583 / VisaNet</span>), segurança criptográfica (<span class="font-mono text-emerald-300">HSM, EMV, PIN Block</span>) e compensação financeira.
-                    </p>
-
-                    <!-- Quick Metadata Pills -->
-                    <div class="flex flex-wrap gap-4 text-xs font-mono text-slate-400 pt-1">
-                        <span class="inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-md border border-slate-800">
-                            <i data-lucide="map-pin" class="w-3.5 h-3.5 text-emerald-400"></i> Barueri, SP – Brasil
-                        </span>
-                        <span class="inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-md border border-slate-800">
-                            <i data-lucide="code" class="w-3.5 h-3.5 text-cyan-400"></i> Java 21 • Spring Boot • C++
-                        </span>
-                        <span class="inline-flex items-center gap-1.5 bg-slate-900/80 px-3 py-1.5 rounded-md border border-slate-800">
-                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-amber-400"></i> ACID &amp; Zero Data Loss
-                        </span>
+                    <div class="space-y-3">
+                        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-tight">
+                            Arquitetura de <br>
+                            <span class="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400">
+                                Missão Crítica
+                            </span>
+                            &amp; Core Bancário
+                        </h1>
+                        <p class="text-sm sm:text-base text-slate-300 leading-relaxed max-w-2xl font-normal">
+                            Engenheiro Especialista com <strong class="text-white font-semibold">13+ anos de atuação contínua</strong> projetando e operando motores de autorização em tempo real (<span class="font-mono text-cyan-300">ISO 8583 / VisaNet</span>), segurança criptográfica de hardware (<span class="font-mono text-[#00D47E]">SoftHSM C++, PKCS#11, EMV, PIN Block</span>), switches adquirentes e conciliação em lote para os maiores players financeiros do Brasil.
+                        </p>
                     </div>
 
-                    <!-- Call to Actions -->
+                    <!-- Fintech Badges Grid -->
+                    <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1 text-xs font-mono">
+                        <div class="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80">
+                            <i data-lucide="server" class="w-4 h-4 text-[#00D47E]"></i>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">Stack Core</div>
+                                <div class="text-slate-200 font-bold">Java 21 • C++ • Spring</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80">
+                            <i data-lucide="lock" class="w-4 h-4 text-amber-400"></i>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">Criptografia</div>
+                                <div class="text-slate-200 font-bold">PCI-PIN • TMK / ZPK</div>
+                            </div>
+                        </div>
+
+                        <div class="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80 col-span-2 sm:col-span-1">
+                            <i data-lucide="check-check" class="w-4 h-4 text-cyan-400"></i>
+                            <div>
+                                <div class="text-[10px] text-slate-500 uppercase">Garantia</div>
+                                <div class="text-slate-200 font-bold">100% ACID • Zero Loss</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Direct Contacts & Credentials Strip -->
                     <div class="flex flex-wrap items-center gap-3 pt-3">
-                        <button onclick="copyEmail()" class="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-slate-800/90 hover:bg-slate-700 border border-slate-700 text-slate-200 text-sm font-medium transition-all group">
-                            <i data-lucide="copy" class="w-4 h-4 text-emerald-400 group-hover:scale-110 transition-transform"></i>
-                            <span class="font-mono text-xs">chicoaraujo1063@gmail.com</span>
+                        <button onclick="copyEmail()" class="inline-flex items-center gap-2.5 px-4 py-2.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-[#00D47E]/60 text-slate-200 text-xs font-mono transition-all group">
+                            <i data-lucide="copy" class="w-4 h-4 text-[#00D47E] group-hover:scale-110 transition-transform"></i>
+                            <span>chicoaraujo1063@gmail.com</span>
                         </button>
 
-                        <a href="https://www.linkedin.com/in/francisco-araujo-b0185772/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-sm font-medium transition-all hover:text-white">
+                        <a href="https://www.linkedin.com/in/francisco-araujo-b0185772/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white">
                             <i data-lucide="linkedin" class="w-4 h-4 text-blue-400"></i>
                             <span>LinkedIn</span>
                         </a>
 
-                        <a href="https://github.com/franciscoaraujo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-sm font-medium transition-all hover:text-white">
+                        <a href="https://github.com/franciscoaraujo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white">
                             <i data-lucide="github" class="w-4 h-4 text-slate-300"></i>
                             <span>GitHub</span>
                         </a>
 
-                        <a href="tel:+5511994554739" class="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-slate-900 hover:bg-slate-800 border border-slate-800 text-slate-300 text-sm font-medium transition-all hover:text-white">
-                            <i data-lucide="phone" class="w-4 h-4 text-emerald-400"></i>
+                        <a href="tel:+5511994554739" class="inline-flex items-center gap-2 px-3.5 py-2.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-mono transition-all hover:text-white">
+                            <i data-lucide="phone" class="w-4 h-4 text-[#00D47E]"></i>
                             <span>+55 11 99455-4739</span>
                         </a>
                     </div>
                 </div>
 
-                <!-- Right Card: Live Architecture Mockup -->
-                <div class="lg:col-span-5">
-                    <div class="relative rounded-2xl border border-slate-800 bg-slate-900/90 p-5 shadow-2xl glass-panel animate-float">
-                        <!-- Window Chrome -->
-                        <div class="flex items-center justify-between pb-4 border-b border-slate-800">
-                            <div class="flex items-center gap-2">
-                                <span class="w-3 h-3 rounded-full bg-red-500/80"></span>
-                                <span class="w-3 h-3 rounded-full bg-yellow-500/80"></span>
-                                <span class="w-3 h-3 rounded-full bg-emerald-500/80"></span>
-                                <span class="text-xs font-mono text-slate-400 ml-2">switch-core-node-01.fin</span>
+                <!-- Right Column: Institutional Fintech Card & Live Switch Telemetry Monitor -->
+                <div class="lg:col-span-5 space-y-4">
+                    
+                    <!-- Top: Executive Fintech ID Chip Card -->
+                    <div class="relative rounded-2xl p-5 border border-slate-700/80 bg-gradient-to-br from-[#0B132B] via-[#080E1E] to-[#040711] shadow-2xl overflow-hidden group">
+                        <!-- Card background accent lines -->
+                        <div class="absolute -right-8 -top-8 w-40 h-40 bg-blue-500/10 rounded-full blur-2xl pointer-events-none"></div>
+                        <div class="absolute right-4 bottom-4 opacity-5 pointer-events-none font-mono text-7xl font-black">VISA</div>
+
+                        <div class="flex items-center justify-between">
+                            <div class="flex items-center gap-3">
+                                <!-- Simulated Smart Card EMV Chip -->
+                                <div class="w-10 h-7 rounded card-chip relative border border-amber-600/40 p-1 flex flex-col justify-between">
+                                    <div class="w-full h-0.5 bg-amber-800/60"></div>
+                                    <div class="w-1/2 h-0.5 bg-amber-800/60 mx-auto"></div>
+                                    <div class="w-full h-0.5 bg-amber-800/60"></div>
+                                </div>
+                                <i data-lucide="wifi" class="w-4 h-4 text-slate-400 rotate-90"></i>
+                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-400">EMV / SoftPOS Level 2</span>
                             </div>
-                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-500/10 text-emerald-400 border border-emerald-500/20">ONLINE • 99.999% SLA</span>
+                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 font-semibold">
+                                SPB / BACEN COMPLIANT
+                            </span>
                         </div>
 
-                        <!-- Terminal Telemetry -->
-                        <div class="mt-4 space-y-3 font-mono text-xs">
-                            <div class="p-3 rounded-lg bg-black/50 border border-slate-800/80 space-y-1">
-                                <div class="text-slate-500">// Transação ISO 8583 MTI 0100 (Auth Request)</div>
-                                <div class="text-emerald-400 flex justify-between">
-                                    <span>&gt; ISO_MTI: 0100 [INBOUND_TERMINAL]</span>
-                                    <span class="text-cyan-300">LATENCY: 142ms</span>
-                                </div>
-                                <div class="text-slate-300">&gt; DE3_PROC_CODE: 000000 (Purchase)</div>
-                                <div class="text-slate-300">&gt; DE4_AMOUNT: 000000025000 (R$ 250,00)</div>
-                                <div class="text-slate-300">&gt; DE52_PINBLOCK: [TRANSLATING TMK -&gt; ZPK via C++ SoftHSM]</div>
-                                <div class="text-emerald-400">&gt; HSM_STATUS: 0000_SUCCESS | KCV_VALIDATED</div>
-                                <div class="text-cyan-400">&gt; OUTBOX_EVENT: [PAYMENT_AUTHORIZED_TX] -&gt; RabbitMQ/DLQ</div>
+                        <div class="mt-4 pt-2 flex justify-between items-end">
+                            <div>
+                                <div class="text-[10px] font-mono uppercase text-slate-500">Engenheiro Responsável</div>
+                                <div class="text-sm font-bold text-white tracking-wide">FRANCISCO J. O. ARAÚJO</div>
+                                <div class="text-[11px] font-mono text-[#00D47E]">STAFF BACKEND &bull; PAYMENTS SPECIALIST</div>
                             </div>
-
-                            <!-- Live Metric Counters -->
-                            <div class="grid grid-cols-2 gap-2 pt-1">
-                                <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                                    <span class="text-[10px] text-slate-400 uppercase">Throughput Pico</span>
-                                    <p class="text-base font-bold text-white mt-0.5 font-mono">12,400 <span class="text-xs font-normal text-slate-400">tps</span></p>
-                                </div>
-                                <div class="p-2.5 rounded-lg bg-slate-950/60 border border-slate-800/80">
-                                    <span class="text-[10px] text-slate-400 uppercase">Garantia Transacional</span>
-                                    <p class="text-base font-bold text-emerald-400 mt-0.5 font-mono">100% ACID</p>
-                                </div>
+                            <div class="text-right font-mono text-[10px] text-slate-400">
+                                <div>NODE: SW-SPB-BR01</div>
+                                <div class="text-cyan-400 font-bold">SP &bull; BRASIL</div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- Bottom: Live Switch Telemetry Monitor Window -->
+                    <div class="rounded-2xl border border-[#152342] bg-[#060B17]/95 shadow-2xl overflow-hidden terminal-glow">
+                        <!-- Terminal Bar -->
+                        <div class="px-4 py-3 bg-[#03060E] border-b border-[#152342] flex items-center justify-between">
+                            <div class="flex items-center gap-2">
+                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
+                                <span class="w-2.5 h-2.5 rounded-full bg-[#00D47E]"></span>
+                                <span class="text-xs font-mono text-slate-400 ml-1.5 flex items-center gap-1.5">
+                                    <i data-lucide="cpu" class="w-3.5 h-3.5 text-blue-400"></i>
+                                    switch-gateway-01.live.net
+                                </span>
+                            </div>
+                            <div class="flex items-center gap-2">
+                                <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950/90 text-[#00D47E] border border-emerald-800 flex items-center gap-1">
+                                    <span class="w-1.5 h-1.5 rounded-full bg-[#00D47E] animate-ping"></span>
+                                    ONLINE 99.999%
+                                </span>
+                            </div>
+                        </div>
+
+                        <!-- Live Metrics Bar -->
+                        <div class="grid grid-cols-3 gap-px bg-[#152342] text-center font-mono">
+                            <div class="bg-[#080E1E] p-2.5">
+                                <div class="text-[9px] text-slate-500 uppercase">Throughput Pico</div>
+                                <div class="text-xs font-bold text-white">14,250 <span class="text-[10px] text-[#00D47E]">tps</span></div>
+                            </div>
+                            <div class="bg-[#080E1E] p-2.5">
+                                <div class="text-[9px] text-slate-500 uppercase">Latência P99</div>
+                                <div class="text-xs font-bold text-cyan-300">138ms</div>
+                            </div>
+                            <div class="bg-[#080E1E] p-2.5">
+                                <div class="text-[9px] text-slate-500 uppercase">Integridade</div>
+                                <div class="text-xs font-bold text-[#00D47E]">100% ACID</div>
+                            </div>
+                        </div>
+
+                        <!-- Log Stream Preview -->
+                        <div class="p-3.5 font-mono text-[11px] space-y-1.5 text-slate-300 bg-[#040711]/90">
+                            <div class="text-slate-500">// Protocolo ISO 8583 (MTI 0100 Auth Request)</div>
+                            <div class="text-[#00D47E] flex justify-between">
+                                <span>&gt; ISO_MTI: 0100 [TERMINAL_INBOUND]</span>
+                                <span class="text-cyan-400">142ms</span>
+                            </div>
+                            <div class="text-slate-400">&gt; DE3_PROC_CODE: 000000 (Purchase Authorization)</div>
+                            <div class="text-slate-400">&gt; DE4_AMOUNT: 000000035000 (R$ 350,00)</div>
+                            <div class="text-amber-300">&gt; DE52_PINBLOCK: [C++ SoftHSM: TMK -&gt; ZPK Translation OK]</div>
+                            <div class="text-cyan-300">&gt; EMULATOR_OUT: VisaNet Base I Response: 00 (APPROVED)</div>
+                            <div class="text-[#00D47E]">&gt; OUTBOX_EVENT: [PAYMENT_SETTLED_TX] -&gt; RabbitMQ DLQ/0</div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
         </section>
 
-        <!-- STATS IMPACT STRIP -->
-        <section id="about" class="border-y border-slate-800/80 bg-slate-950/70 py-10 relative">
+        <!-- KPI IMPACT METRICS (FINANCIAL DASHBOARD STYLE) -->
+        <section class="border-y border-[#152342] bg-[#060B17]/90 py-8 relative">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 <div class="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
                     
-                    <div class="space-y-1 border-l-2 border-emerald-500 pl-4">
-                        <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono">13+ <span class="text-emerald-400 text-xl font-sans">Anos</span></div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Trajetória em Sistemas Críticos</p>
-                        <p class="text-[11px] text-slate-500">Adquirência, mensageria bancária e regulação</p>
+                    <!-- KPI 1 -->
+                    <div class="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-[#00D47E]/40 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Experiência Setorial</span>
+                            <i data-lucide="clock" class="w-4 h-4 text-[#00D47E]"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-white font-mono">13+ <span class="text-[#00D47E] text-lg font-sans">Anos</span></div>
+                        <p class="text-xs text-slate-400">Adquirência, mensageria de cartões e compensação bancária.</p>
                     </div>
 
-                    <div class="space-y-1 border-l-2 border-cyan-500 pl-4">
-                        <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono">&lt; 200<span class="text-cyan-400 text-xl font-sans">ms</span></div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Latência de Autorização</p>
-                        <p class="text-[11px] text-slate-500">Ciclo completo: captura, HSM e switch</p>
+                    <!-- KPI 2 -->
+                    <div class="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-cyan-400/40 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Tempo de Resposta P99</span>
+                            <i data-lucide="gauge" class="w-4 h-4 text-cyan-400"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-white font-mono">&lt; 180<span class="text-cyan-400 text-lg font-sans">ms</span></div>
+                        <p class="text-xs text-slate-400">Ciclo completo: captura NFC, HSM, roteamento e gravação.</p>
                     </div>
 
-                    <div class="space-y-1 border-l-2 border-emerald-500 pl-4">
-                        <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono">Zero <span class="text-emerald-400 text-xl font-sans">Loss</span></div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Transactional Outbox</p>
-                        <p class="text-[11px] text-slate-500">Consistência com Debezium, ShedLock &amp; RabbitMQ</p>
+                    <!-- KPI 3 -->
+                    <div class="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-blue-400/40 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Garantia Transacional</span>
+                            <i data-lucide="database" class="w-4 h-4 text-blue-400"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-white font-mono">Zero <span class="text-blue-400 text-lg font-sans">Loss</span></div>
+                        <p class="text-xs text-slate-400">Transactional Outbox, Debezium CDC e ShedLock distribuído.</p>
                     </div>
 
-                    <div class="space-y-1 border-l-2 border-amber-500 pl-4">
-                        <div class="text-3xl sm:text-4xl font-extrabold text-white font-mono">100% <span class="text-amber-400 text-xl font-sans">PCI-PIN</span></div>
-                        <p class="text-xs text-slate-400 uppercase tracking-wider font-semibold">Criptografia &amp; HSM</p>
-                        <p class="text-[11px] text-slate-500">3DES, AES, ZPK, TMK, LMK e verificação KCV</p>
+                    <!-- KPI 4 -->
+                    <div class="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-amber-400/40 transition-all">
+                        <div class="flex items-center justify-between">
+                            <span class="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">Conformidade PCI-PIN</span>
+                            <i data-lucide="shield-alert" class="w-4 h-4 text-amber-400"></i>
+                        </div>
+                        <div class="text-3xl sm:text-4xl font-black text-white font-mono">100% <span class="text-amber-400 text-lg font-sans">HSM</span></div>
+                        <p class="text-xs text-slate-400">3DES, AES, ZPK, TMK, LMK e validação de KCV sem vazamento.</p>
                     </div>
 
                 </div>
+            </div>
+        </section>
+
+        <!-- INTERACTIVE FINANCIAL SWITCH SIMULATOR (WOW FACTOR SECTION) -->
+        <section id="simulator" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center max-w-3xl mx-auto space-y-3 mb-12">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-cyan-950/70 border border-cyan-500/40 text-cyan-300 font-mono text-xs">
+                    <i data-lucide="play-circle" class="w-3.5 h-3.5"></i>
+                    <span>Simulador Interativo de Engenharia</span>
+                </div>
+                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+                    Audite o Ciclo Transacional em Tempo Real
+                </h2>
+                <p class="text-slate-400 text-sm sm:text-base">
+                    Dispare uma requisição transacional simulada e acompanhe o roteamento síncrono passando por cada camada de segurança, criptografia e autorização.
+                </p>
+            </div>
+
+            <!-- Simulator Card Container -->
+            <div class="rounded-2xl border border-[#152342] bg-[#060C1B] p-6 sm:p-8 shadow-2xl glass-metal">
+                
+                <!-- Controls & Trigger -->
+                <div class="flex flex-col sm:flex-row items-center justify-between gap-4 pb-6 border-b border-[#152342]">
+                    <div class="flex flex-wrap items-center gap-3">
+                        <label class="text-xs font-mono text-slate-400">Canal de Entrada:</label>
+                        <select id="sim-channel" class="px-3 py-1.5 rounded-lg bg-[#080E1E] border border-[#152342] text-xs font-mono text-white focus:outline-none focus:border-[#00D47E]">
+                            <option value="pos">POS / Terminal Físico (ISO 8583)</option>
+                            <option value="softpos">SoftPOS Android NFC (Tap to Pay)</option>
+                            <option value="ecommerce">E-commerce API Gateway</option>
+                        </select>
+
+                        <label class="text-xs font-mono text-slate-400 ml-2">Valor da Operação:</label>
+                        <span class="px-3 py-1.5 rounded-lg bg-[#080E1E] border border-[#152342] text-xs font-mono text-[#00D47E] font-bold">
+                            R$ 250,00 (Compra à Vista)
+                        </span>
+                    </div>
+
+                    <button id="btn-run-simulation" onclick="runTransactionSimulation()" class="w-full sm:w-auto inline-flex items-center justify-center gap-2 px-6 py-2.5 rounded-xl bg-gradient-to-r from-[#00D47E] to-cyan-500 hover:from-emerald-400 hover:to-cyan-400 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 active:scale-95">
+                        <i data-lucide="play" class="w-4 h-4 fill-current"></i>
+                        <span>Executar Autorização</span>
+                    </button>
+                </div>
+
+                <!-- Simulation Stages Pipeline Visualizer -->
+                <div class="py-8">
+                    <div class="grid grid-cols-1 sm:grid-cols-5 gap-3 relative">
+                        
+                        <!-- Step 1 -->
+                        <div id="sim-step-1" class="sim-step p-4 rounded-xl border border-[#152342] bg-[#080E1E] transition-all duration-300 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase">Etapa 01</span>
+                                <span class="step-status w-2 h-2 rounded-full bg-slate-700"></span>
+                            </div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i data-lucide="credit-card" class="w-4 h-4 text-slate-400"></i>
+                                <span>Captura / Inbound</span>
+                            </div>
+                            <div class="text-[11px] font-mono text-slate-400 step-desc">ISO 8583 MTI 0100</div>
+                        </div>
+
+                        <!-- Step 2 -->
+                        <div id="sim-step-2" class="sim-step p-4 rounded-xl border border-[#152342] bg-[#080E1E] transition-all duration-300 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase">Etapa 02</span>
+                                <span class="step-status w-2 h-2 rounded-full bg-slate-700"></span>
+                            </div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i data-lucide="key" class="w-4 h-4 text-slate-400"></i>
+                                <span>SoftHSM C++</span>
+                            </div>
+                            <div class="text-[11px] font-mono text-slate-400 step-desc">Tradução TMK → ZPK</div>
+                        </div>
+
+                        <!-- Step 3 -->
+                        <div id="sim-step-3" class="sim-step p-4 rounded-xl border border-[#152342] bg-[#080E1E] transition-all duration-300 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase">Etapa 03</span>
+                                <span class="step-status w-2 h-2 rounded-full bg-slate-700"></span>
+                            </div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i data-lucide="cpu" class="w-4 h-4 text-slate-400"></i>
+                                <span>Switch Core</span>
+                            </div>
+                            <div class="text-[11px] font-mono text-slate-400 step-desc">ShedLock &amp; Regras</div>
+                        </div>
+
+                        <!-- Step 4 -->
+                        <div id="sim-step-4" class="sim-step p-4 rounded-xl border border-[#152342] bg-[#080E1E] transition-all duration-300 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase">Etapa 04</span>
+                                <span class="step-status w-2 h-2 rounded-full bg-slate-700"></span>
+                            </div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i data-lucide="network" class="w-4 h-4 text-slate-400"></i>
+                                <span>Bandeira VisaNet</span>
+                            </div>
+                            <div class="text-[11px] font-mono text-slate-400 step-desc">Base I (MTI 0110)</div>
+                        </div>
+
+                        <!-- Step 5 -->
+                        <div id="sim-step-5" class="sim-step p-4 rounded-xl border border-[#152342] bg-[#080E1E] transition-all duration-300 space-y-2">
+                            <div class="flex items-center justify-between">
+                                <span class="text-[10px] font-mono text-slate-500 uppercase">Etapa 05</span>
+                                <span class="step-status w-2 h-2 rounded-full bg-slate-700"></span>
+                            </div>
+                            <div class="text-xs font-bold text-white flex items-center gap-1.5">
+                                <i data-lucide="database" class="w-4 h-4 text-slate-400"></i>
+                                <span>Ledger Outbox</span>
+                            </div>
+                            <div class="text-[11px] font-mono text-slate-400 step-desc">ACID + RabbitMQ DLQ</div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Simulation Output Terminal Display -->
+                <div class="mt-2 p-4 rounded-xl bg-[#03060E] border border-[#152342] font-mono text-xs">
+                    <div class="flex items-center justify-between text-slate-500 text-[10px] pb-2 border-b border-[#152342]">
+                        <span>TELEMETRIA DE EXECUÇÃO SÍNCRONA</span>
+                        <span id="sim-latency-badge" class="text-slate-400">STATUS: AGUARDANDO DISPARO</span>
+                    </div>
+                    <div id="sim-console-output" class="pt-3 space-y-1.5 text-slate-400 min-h-[90px]">
+                        <div>&gt; Clique no botão "Executar Autorização" acima para testar o autorizador em tempo real...</div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
         <!-- FEATURED SHOWCASE: ORIONPAY DEEP DIVE -->
-        <section id="orionpay" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section id="orionpay" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#152342]">
             <div class="text-center max-w-3xl mx-auto space-y-3 mb-14">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-cyan-950/60 border border-cyan-500/30 text-cyan-300 font-mono text-xs">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00D47E]/10 border border-[#00D47E]/30 text-[#00D47E] font-mono text-xs font-bold">
                     <i data-lucide="layers" class="w-3.5 h-3.5"></i>
-                    <span>Projeto Autoral de Engenharia</span>
+                    <span>Arquitetura de Referência Autoral</span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
                     OrionPay: Plataforma Transacional de Ponta a Ponta
                 </h2>
-                <p class="text-slate-400 text-sm sm:text-base">
-                    Infraestrutura de adquirência de alta performance abrangendo desde a captura física/NFC até a segurança criptográfica de hardware, mensageria ISO 8583 e compensação financeira em lote.
+                <p class="text-slate-300 text-sm sm:text-base">
+                    Infraestrutura completa de adquirência concebida com separação estrita de domínios, desde o driver de captura móvel até a segurança criptográfica de hardware, switch autorizador e compensação financeira.
                 </p>
             </div>
 
@@ -291,8 +627,8 @@
                 
                 <!-- Component Selector Buttons -->
                 <div class="lg:col-span-4 space-y-3">
-                    <button onclick="switchOrionTab('switch')" id="tab-btn-switch" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-emerald-500 bg-slate-900/90 shadow-lg shadow-emerald-500/10 transition-all flex items-start gap-3.5">
-                        <div class="p-2.5 rounded-lg bg-emerald-500/10 text-emerald-400 shrink-0">
+                    <button onclick="switchOrionTab('switch')" id="tab-btn-switch" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-[#00D47E] bg-[#080E1E] shadow-lg shadow-emerald-500/10 transition-all flex items-start gap-3.5">
+                        <div class="p-2.5 rounded-lg bg-[#00D47E]/10 text-[#00D47E] shrink-0">
                             <i data-lucide="cpu" class="w-5 h-5"></i>
                         </div>
                         <div>
@@ -301,7 +637,7 @@
                         </div>
                     </button>
 
-                    <button onclick="switchOrionTab('softhsm')" id="tab-btn-softhsm" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 transition-all flex items-start gap-3.5">
+                    <button onclick="switchOrionTab('softhsm')" id="tab-btn-softhsm" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-[#152342] bg-[#080E1E]/50 hover:bg-[#080E1E] transition-all flex items-start gap-3.5">
                         <div class="p-2.5 rounded-lg bg-cyan-500/10 text-cyan-400 shrink-0">
                             <i data-lucide="shield" class="w-5 h-5"></i>
                         </div>
@@ -311,7 +647,7 @@
                         </div>
                     </button>
 
-                    <button onclick="switchOrionTab('visanet')" id="tab-btn-visanet" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 transition-all flex items-start gap-3.5">
+                    <button onclick="switchOrionTab('visanet')" id="tab-btn-visanet" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-[#152342] bg-[#080E1E]/50 hover:bg-[#080E1E] transition-all flex items-start gap-3.5">
                         <div class="p-2.5 rounded-lg bg-amber-500/10 text-amber-400 shrink-0">
                             <i data-lucide="network" class="w-5 h-5"></i>
                         </div>
@@ -321,8 +657,8 @@
                         </div>
                     </button>
 
-                    <button onclick="switchOrionTab('clearing')" id="tab-btn-clearing" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 transition-all flex items-start gap-3.5">
-                        <div class="p-2.5 rounded-lg bg-purple-500/10 text-purple-400 shrink-0">
+                    <button onclick="switchOrionTab('clearing')" id="tab-btn-clearing" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-[#152342] bg-[#080E1E]/50 hover:bg-[#080E1E] transition-all flex items-start gap-3.5">
+                        <div class="p-2.5 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">
                             <i data-lucide="coins" class="w-5 h-5"></i>
                         </div>
                         <div>
@@ -331,96 +667,61 @@
                         </div>
                     </button>
 
-                    <button onclick="switchOrionTab('softpos')" id="tab-btn-softpos" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-slate-800 bg-slate-900/40 hover:bg-slate-900/80 transition-all flex items-start gap-3.5">
-                        <div class="p-2.5 rounded-lg bg-blue-500/10 text-blue-400 shrink-0">
+                    <button onclick="switchOrionTab('softpos')" id="tab-btn-softpos" class="orion-tab-btn w-full text-left p-4 rounded-xl border border-[#152342] bg-[#080E1E]/50 hover:bg-[#080E1E] transition-all flex items-start gap-3.5">
+                        <div class="p-2.5 rounded-lg bg-indigo-500/10 text-indigo-400 shrink-0">
                             <i data-lucide="smartphone" class="w-5 h-5"></i>
                         </div>
                         <div>
                             <div class="text-sm font-bold text-white">SoftPOS Mobile NFC</div>
-                            <div class="text-xs text-slate-400 mt-0.5">EMV Kernel • Tap to Pay • GPO / Criptogramas</div>
+                            <div class="text-xs text-slate-400 mt-0.5">EMV Kernel • Tap to Pay • GPO / ARQC</div>
                         </div>
                     </button>
                 </div>
 
                 <!-- Component Dynamic Detail Display -->
                 <div class="lg:col-span-8">
-                    <div id="orion-content-card" class="rounded-2xl border border-slate-800 bg-slate-900/80 p-6 sm:p-8 glass-panel space-y-6">
-                        <!-- Populated by JavaScript switchOrionTab() -->
+                    <div id="orion-content-card" class="rounded-2xl border border-[#152342] bg-[#080E1E] p-6 sm:p-8 glass-metal space-y-6">
+                        <!-- Populated dynamically via switchOrionTab() -->
                     </div>
                 </div>
 
             </div>
         </section>
 
-        <!-- INTERACTIVE TECH STACK MATRIX -->
-        <section id="skills" class="py-20 border-t border-slate-800/80 bg-slate-950/40">
-            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-                
-                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-                    <div class="space-y-2">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 font-mono text-xs">
-                            <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
-                            <span>Competências &amp; Ferramental</span>
-                        </div>
-                        <h2 class="text-3xl font-extrabold text-white tracking-tight">
-                            Matriz de Especialidades Técnicas
-                        </h2>
-                        <p class="text-slate-400 text-sm max-w-xl">
-                            Filtre pelas áreas de atuação para auditar as tecnologias e padrões arquiteturais aplicados em produção.
-                        </p>
-                    </div>
-
-                    <!-- Category Filter Buttons -->
-                    <div class="flex flex-wrap gap-2" id="skill-filter-buttons">
-                        <button onclick="filterSkills('all')" class="skill-btn active px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors bg-emerald-500 text-slate-950" data-cat="all">Todas</button>
-                        <button onclick="filterSkills('payment')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors bg-slate-800 text-slate-300 hover:bg-slate-700" data-cat="payment">Meios de Pagamento</button>
-                        <button onclick="filterSkills('backend')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors bg-slate-800 text-slate-300 hover:bg-slate-700" data-cat="backend">Backend &amp; Linguagens</button>
-                        <button onclick="filterSkills('arch')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors bg-slate-800 text-slate-300 hover:bg-slate-700" data-cat="arch">Arquitetura &amp; Mensageria</button>
-                        <button onclick="filterSkills('infra')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-colors bg-slate-800 text-slate-300 hover:bg-slate-700" data-cat="infra">Infraestrutura &amp; Dados</button>
-                    </div>
-                </div>
-
-                <!-- Skill Badges Grid -->
-                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3" id="skills-grid">
-                    <!-- Cards will be rendered and filtered dynamically via JS -->
-                </div>
-
-            </div>
-        </section>
-
-        <!-- PROFESSIONAL EXPERIENCE TIMELINE -->
-        <section id="experience" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <!-- INSTITUTIONAL CAREER TIMELINE: B3, RABOBANK, SERASA, REDEFLEX -->
+        <section id="experience" class="py-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 border-t border-[#152342]">
             <div class="space-y-3 mb-14 text-center max-w-3xl mx-auto">
-                <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 font-mono text-xs">
+                <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
                     <i data-lucide="briefcase" class="w-3.5 h-3.5"></i>
-                    <span>Experiência Profissional Comprovada</span>
+                    <span>Carreira Corporativa Auditada</span>
                 </div>
                 <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    Trajetória Corporativa em Missão Crítica
+                    Trajetória em Mercados Financeiros &amp; Bancos
                 </h2>
                 <p class="text-slate-400 text-sm">
-                    Atuação contínua em empresas de pagamento, corretoras e consultorias globais atendendo grandes players bancários.
+                    Histórico comprovado em ambientes de extrema regulação (B3, bancos multinacionais e birôs de crédito).
                 </p>
             </div>
 
-            <!-- Vertical Timeline -->
-            <div class="relative border-l border-slate-800 ml-4 sm:ml-8 space-y-12">
+            <!-- Vertical Timeline with Enterprise Accents -->
+            <div class="relative border-l border-[#152342] ml-4 sm:ml-8 space-y-10">
                 
                 <!-- RedeFlex -->
                 <div class="relative pl-6 sm:pl-10 group">
-                    <span class="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-[#090D16] border-2 border-emerald-500 flex items-center justify-center">
-                        <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+                    <span class="absolute -left-3 top-2 w-6 h-6 rounded-full bg-[#040711] border-2 border-[#00D47E] flex items-center justify-center">
+                        <span class="w-2 h-2 rounded-full bg-[#00D47E] animate-pulse"></span>
                     </span>
-                    <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all space-y-3">
+                    <div class="p-6 rounded-2xl border border-[#152342] bg-[#080E1E]/80 hover:border-[#00D47E]/50 transition-all space-y-3 glass-metal">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
-                                <h3 class="text-lg font-bold text-white flex items-center gap-2">
-                                    RedeFlex
-                                    <span class="text-xs font-mono font-medium text-emerald-400 px-2 py-0.5 rounded bg-emerald-950/80 border border-emerald-800">Posição Atual</span>
-                                </h3>
-                                <div class="text-sm font-semibold text-emerald-400">Desenvolvedor Especialista Java</div>
+                                <div class="flex items-center gap-2.5">
+                                    <h3 class="text-xl font-bold text-white">RedeFlex</h3>
+                                    <span class="text-xs font-mono font-bold text-[#00D47E] px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-700/60">Posição Atual</span>
+                                    <span class="text-[10px] font-mono text-slate-400 bg-[#040711] px-2 py-0.5 rounded border border-[#152342]">Adquirência &amp; Meios de Pagamento</span>
+                                </div>
+                                <div class="text-sm font-semibold text-[#00D47E] mt-0.5">Desenvolvedor Especialista Java</div>
                             </div>
-                            <span class="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+                            <span class="text-xs font-mono text-slate-400 bg-[#040711] px-3 py-1 rounded-full border border-[#152342]">
                                 Março/2023 – Atual
                             </span>
                         </div>
@@ -428,76 +729,100 @@
                             Desenvolvimento e escalabilidade de gateways adquirentes e motores de mensageria de alta disponibilidade. Implementação de fluxos de tolerância a falhas utilizando Java 17, AWS e mensageria distribuída com RabbitMQ. Emprego ativo de IA Generativa para aceleração do diagnóstico de anomalias em sistemas distribuídos e otimização de rotinas criptográficas.
                         </p>
                         <div class="flex flex-wrap gap-1.5 pt-2">
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java 17</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">AWS</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">RabbitMQ</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">High Availability</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Generative AI Diagnostics</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Java 17 / 21</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">AWS Cloud</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">RabbitMQ DLQ</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">High Availability (99.999%)</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">IA Generativa em Sistemas</span>
                         </div>
                     </div>
                 </div>
 
-                <!-- Grupo GFT -->
+                <!-- Grupo GFT (B3, Rabobank, Serasa) -->
                 <div class="relative pl-6 sm:pl-10 group">
-                    <span class="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-[#090D16] border-2 border-cyan-500 flex items-center justify-center">
-                        <span class="w-2 h-2 rounded-full bg-cyan-400"></span>
+                    <span class="absolute -left-3 top-2 w-6 h-6 rounded-full bg-[#040711] border-2 border-blue-500 flex items-center justify-center">
+                        <span class="w-2 h-2 rounded-full bg-blue-400"></span>
                     </span>
-                    <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all space-y-4">
+                    <div class="p-6 rounded-2xl border border-[#152342] bg-[#080E1E]/80 hover:border-blue-500/50 transition-all space-y-4 glass-metal">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
-                                <h3 class="text-lg font-bold text-white">Grupo GFT</h3>
-                                <div class="text-sm font-semibold text-cyan-400">Desenvolvedor Java Sênior</div>
+                                <div class="flex items-center gap-2.5">
+                                    <h3 class="text-xl font-bold text-white">Grupo GFT</h3>
+                                    <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-0.5 rounded border border-cyan-800">Global Financial Consultancy</span>
+                                </div>
+                                <div class="text-sm font-semibold text-blue-400 mt-0.5">Desenvolvedor Java Sênior</div>
                             </div>
-                            <span class="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+                            <span class="text-xs font-mono text-slate-400 bg-[#040711] px-3 py-1 rounded-full border border-[#152342]">
                                 Fevereiro/2019 – Fevereiro/2023 (4 anos)
                             </span>
                         </div>
 
-                        <!-- Nested Client Projects -->
+                        <!-- Enterprise Clients Nested Showcase -->
                         <div class="space-y-3 pt-1">
-                            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80">
-                                <div class="text-xs font-bold text-emerald-400 uppercase tracking-wider font-mono">B3 – Brasil, Bolsa, Balcão</div>
-                                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            <!-- B3 -->
+                            <div class="p-4 rounded-xl bg-[#040711] border border-[#152342] hover:border-[#00D47E]/40 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="text-xs font-bold text-[#00D47E] font-mono uppercase tracking-wider flex items-center gap-2">
+                                        <i data-lucide="trending-up" class="w-3.5 h-3.5"></i>
+                                        <span>B3 – Brasil, Bolsa, Balcão</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Mercado Financeiro / Bolsa</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300">
                                     Desenvolvimento de funcionalidades críticas para plataformas reguladas de recebíveis financeiros, orquestração de APIs e processamento síncrono de alto throughput.
                                 </p>
                             </div>
 
-                            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80">
-                                <div class="text-xs font-bold text-cyan-400 uppercase tracking-wider font-mono">Rabobank Brasil</div>
-                                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            <!-- Rabobank -->
+                            <div class="p-4 rounded-xl bg-[#040711] border border-[#152342] hover:border-blue-400/40 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="text-xs font-bold text-cyan-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                                        <i data-lucide="landmark" class="w-3.5 h-3.5"></i>
+                                        <span>Rabobank Brasil</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Banco Internacional</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300">
                                     Concepção de barramentos de integração bancária seguros com Apache Camel e Spring Boot, garantindo transmissão transacional de dados sem perda de pacotes.
                                 </p>
                             </div>
 
-                            <div class="p-3.5 rounded-xl bg-slate-950/70 border border-slate-800/80">
-                                <div class="text-xs font-bold text-purple-400 uppercase tracking-wider font-mono">Serasa Experian</div>
-                                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                            <!-- Serasa Experian -->
+                            <div class="p-4 rounded-xl bg-[#040711] border border-[#152342] hover:border-indigo-400/40 transition-colors">
+                                <div class="flex items-center justify-between mb-1">
+                                    <div class="text-xs font-bold text-indigo-400 font-mono uppercase tracking-wider flex items-center gap-2">
+                                        <i data-lucide="shield" class="w-3.5 h-3.5"></i>
+                                        <span>Serasa Experian</span>
+                                    </div>
+                                    <span class="text-[10px] font-mono text-slate-500 uppercase">Birô de Crédito Massivo</span>
+                                </div>
+                                <p class="text-xs sm:text-sm text-slate-300">
                                     Modernização de sistemas legados Java EE para arquitetura de microsserviços, redução expressiva de débito técnico e aceleração da performance em consultas de crédito massivas.
                                 </p>
                             </div>
                         </div>
 
                         <div class="flex flex-wrap gap-1.5 pt-1">
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java EE / Spring Boot</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Apache Camel</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Microsserviços</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Sistemas Bancários</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Java EE / Spring Boot</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Apache Camel</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Enterprise Integration Patterns</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Regulatório &amp; SPB</span>
                         </div>
                     </div>
                 </div>
 
                 <!-- Duel Midia DV -->
                 <div class="relative pl-6 sm:pl-10 group">
-                    <span class="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-[#090D16] border-2 border-slate-600 flex items-center justify-center">
+                    <span class="absolute -left-3 top-2 w-6 h-6 rounded-full bg-[#040711] border-2 border-slate-600 flex items-center justify-center">
                         <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
                     </span>
-                    <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all space-y-3">
+                    <div class="p-6 rounded-2xl border border-[#152342] bg-[#080E1E]/80 hover:border-slate-700 transition-all space-y-2 glass-metal">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
                                 <h3 class="text-lg font-bold text-white">Duel Midia DV</h3>
-                                <div class="text-sm font-semibold text-slate-300">Desenvolvedor Java Backend</div>
+                                <div class="text-sm font-semibold text-slate-400">Desenvolvedor Java Backend</div>
                             </div>
-                            <span class="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+                            <span class="text-xs font-mono text-slate-400 bg-[#040711] px-3 py-1 rounded-full border border-[#152342]">
                                 Junho/2018 – Novembro/2018
                             </span>
                         </div>
@@ -509,16 +834,16 @@
 
                 <!-- Grupo Criar -->
                 <div class="relative pl-6 sm:pl-10 group">
-                    <span class="absolute -left-3 top-1.5 w-6 h-6 rounded-full bg-[#090D16] border-2 border-slate-600 flex items-center justify-center">
+                    <span class="absolute -left-3 top-2 w-6 h-6 rounded-full bg-[#040711] border-2 border-slate-600 flex items-center justify-center">
                         <span class="w-1.5 h-1.5 rounded-full bg-slate-400"></span>
                     </span>
-                    <div class="p-6 rounded-2xl border border-slate-800 bg-slate-900/60 hover:border-slate-700 transition-all space-y-3">
+                    <div class="p-6 rounded-2xl border border-[#152342] bg-[#080E1E]/80 hover:border-slate-700 transition-all space-y-3 glass-metal">
                         <div class="flex flex-wrap items-center justify-between gap-2">
                             <div>
                                 <h3 class="text-lg font-bold text-white">Grupo Criar</h3>
-                                <div class="text-sm font-semibold text-slate-300">Desenvolvedor Java / C++</div>
+                                <div class="text-sm font-semibold text-slate-400">Desenvolvedor Java / C++</div>
                             </div>
-                            <span class="text-xs font-mono text-slate-400 bg-slate-950 px-3 py-1 rounded-full border border-slate-800">
+                            <span class="text-xs font-mono text-slate-400 bg-[#040711] px-3 py-1 rounded-full border border-[#152342]">
                                 Maio/2013 – Abril/2018 (5 anos)
                             </span>
                         </div>
@@ -526,10 +851,9 @@
                             Engenharia de motor de reconhecimento facial em C++ e OpenCV para sistemas de certificação digital e controle de acesso estrito. Construção de coletores automatizados de dados via Java / JAX-RS e desenvolvimento de aplicativo corporativo Android nativo.
                         </p>
                         <div class="flex flex-wrap gap-1.5 pt-1">
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">C++</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">OpenCV</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Java / JAX-RS</span>
-                            <span class="text-[11px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300">Android Nativo</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">C++ / OpenCV</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Java / JAX-RS</span>
+                            <span class="text-[11px] font-mono px-2.5 py-1 rounded bg-[#040711] text-slate-300 border border-[#152342]">Android Nativo</span>
                         </div>
                     </div>
                 </div>
@@ -537,76 +861,120 @@
             </div>
         </section>
 
-        <!-- DIFFERENTIATORS & QUANTIFIABLE METRICS -->
-        <section class="py-20 border-t border-slate-800/80 bg-slate-950/60">
+        <!-- TECH STACK & REGULATORY MATRIX -->
+        <section id="skills" class="py-20 border-t border-[#152342] bg-[#060B17]/60">
             <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
                 
-                <div class="grid lg:grid-cols-12 gap-8 items-center">
+                <div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+                    <div class="space-y-2">
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-[#00D47E]/10 border border-[#00D47E]/30 text-[#00D47E] font-mono text-xs font-bold">
+                            <i data-lucide="check-square" class="w-3.5 h-3.5"></i>
+                            <span>Competências &amp; Stack Tecnológico</span>
+                        </div>
+                        <h2 class="text-3xl font-extrabold text-white tracking-tight">
+                            Matriz de Especialidades Técnicas
+                        </h2>
+                        <p class="text-slate-400 text-sm max-w-xl">
+                            Tecnologias, protocolos regulatórios e padrões arquiteturais aplicados em ambientes de produção transacional.
+                        </p>
+                    </div>
+
+                    <!-- Category Filter Buttons -->
+                    <div class="flex flex-wrap gap-2" id="skill-filter-buttons">
+                        <button onclick="filterSkills('all')" class="skill-btn active px-3.5 py-1.5 rounded-lg text-xs font-mono font-bold transition-all bg-[#00D47E] text-slate-950 shadow-md" data-cat="all">Todas</button>
+                        <button onclick="filterSkills('payment')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#080E1E] text-slate-300 border border-[#152342] hover:border-slate-500" data-cat="payment">Meios de Pagamento</button>
+                        <button onclick="filterSkills('backend')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#080E1E] text-slate-300 border border-[#152342] hover:border-slate-500" data-cat="backend">Backend &amp; C++</button>
+                        <button onclick="filterSkills('arch')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#080E1E] text-slate-300 border border-[#152342] hover:border-slate-500" data-cat="arch">Arquitetura &amp; Eventos</button>
+                        <button onclick="filterSkills('infra')" class="skill-btn px-3.5 py-1.5 rounded-lg text-xs font-mono font-medium transition-all bg-[#080E1E] text-slate-300 border border-[#152342] hover:border-slate-500" data-cat="infra">Infra &amp; Dados ACID</button>
+                    </div>
+                </div>
+
+                <!-- Skill Badges Grid -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3" id="skills-grid">
+                    <!-- Populated dynamically via JS -->
+                </div>
+
+            </div>
+        </section>
+
+        <!-- STRATEGIC ARCHITECTURAL PILLARS -->
+        <section class="py-20 border-t border-[#152342] bg-[#040711]">
+            <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                
+                <div class="grid lg:grid-cols-12 gap-10 items-center">
                     <div class="lg:col-span-5 space-y-4">
-                        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-emerald-950/60 border border-emerald-500/30 text-emerald-300 font-mono text-xs">
-                            <i data-lucide="check-check" class="w-3.5 h-3.5"></i>
-                            <span>Diferenciais Estratégicos</span>
+                        <div class="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
+                            <i data-lucide="shield-check" class="w-3.5 h-3.5 text-blue-400"></i>
+                            <span>Pilares de Confiabilidade</span>
                         </div>
                         <h2 class="text-3xl font-extrabold text-white tracking-tight">
                             Por que confiar a arquitetura do seu core financeiro?
                         </h2>
-                        <p class="text-slate-400 text-sm leading-relaxed">
-                            A interseção entre profundo domínio de protocolos regulados (ISO 8583, EMV), criptografia de baixo nível em C++ e design de microsserviços modernos com Java 21 permite construir sistemas à prova de falhas contábeis e gargalos de concorrência.
+                        <p class="text-slate-300 text-sm leading-relaxed">
+                            A convergência entre o domínio profundo de protocolos regulados (<span class="font-mono text-cyan-300">ISO 8583, EMV, SPB</span>), criptografia de baixo nível em C++ e microsserviços modernos com Java 21 permite erradicar divergências contábeis e gargalos de concorrência distribuída.
                         </p>
 
-                        <div class="pt-2 space-y-3 text-sm text-slate-300 font-medium">
+                        <div class="pt-2 space-y-3 text-sm text-slate-200">
                             <div class="flex items-center gap-2.5">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                                <span>Zero divergência entre autorização online e liquidação em lote</span>
+                                <i data-lucide="check" class="w-4 h-4 text-[#00D47E]"></i>
+                                <span>Zero perda de pacotes entre autorização online e liquidação em lote</span>
                             </div>
                             <div class="flex items-center gap-2.5">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                                <span>Capacidade de simulação isolada para homologação de bandeiras</span>
+                                <i data-lucide="check" class="w-4 h-4 text-[#00D47E]"></i>
+                                <span>Simulação isolada para homologação de bandeiras (VisaNet / Mastercard)</span>
                             </div>
                             <div class="flex items-center gap-2.5">
-                                <i data-lucide="check" class="w-4 h-4 text-emerald-400"></i>
-                                <span>Troubleshooting de concorrência distribuída e race conditions</span>
+                                <i data-lucide="check" class="w-4 h-4 text-[#00D47E]"></i>
+                                <span>Resolução cirúrgica de race conditions e locks em PostgreSQL</span>
                             </div>
                         </div>
 
                         <!-- Language Badges -->
                         <div class="pt-4 flex items-center gap-4 text-xs font-mono text-slate-400">
-                            <span class="flex items-center gap-1.5"><i data-lucide="languages" class="w-4 h-4 text-cyan-400"></i> Inglês: Intermediário Técnico (B1)</span>
-                            <span class="flex items-center gap-1.5"><i data-lucide="languages" class="w-4 h-4 text-purple-400"></i> Francês: Intermediário</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4 text-cyan-400"></i> Inglês: Intermediário Técnico (B1)</span>
+                            <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-4 h-4 text-indigo-400"></i> Francês: Intermediário</span>
                         </div>
                     </div>
 
                     <!-- Right Grid of Deliveries -->
                     <div class="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-                        <div class="p-5 rounded-xl border border-slate-800 bg-slate-900/70 space-y-2">
-                            <div class="text-emerald-400 font-mono text-xs font-bold uppercase tracking-wider">Tolerância a Falhas</div>
-                            <h4 class="text-white font-bold text-sm">Resiliência Transacional</h4>
+                        <div class="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
+                            <div class="text-[#00D47E] font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="repeat" class="w-3.5 h-3.5"></i> Resiliência Máxima
+                            </div>
+                            <h4 class="text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                Eliminação de pontos únicos de falha através de arquitetura hexagonal desacoplada, idempotência com ShedLock e recuperação de falhas via RabbitMQ DLQs.
+                                Eliminação de dual-writes e pontos únicos de falha através de arquitetura hexagonal desacoplada e recuperação de eventos via RabbitMQ Dead Letter Queues.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl border border-slate-800 bg-slate-900/70 space-y-2">
-                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider">Criptografia PCI-PIN</div>
-                            <h4 class="text-white font-bold text-sm">Segurança de Hardware (HSM)</h4>
+                        <div class="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
+                            <div class="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="lock" class="w-3.5 h-3.5"></i> Criptografia Bancária
+                            </div>
+                            <h4 class="text-white font-bold text-sm">Segurança de Hardware (SoftHSM)</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                Criptografia simétrica com gestão de TMK, ZPK e LMK. Tradução de PIN blocks em tempo de execução sem exposição de dados do portador em memória.
+                                Gestão de chaves simétricas TMK, ZPK e LMK. Tradução de PIN blocks em tempo de execução estrito sem expor dados confidenciais do portador do cartão.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl border border-slate-800 bg-slate-900/70 space-y-2">
-                            <div class="text-purple-400 font-mono text-xs font-bold uppercase tracking-wider">Engenharia de Clearing</div>
-                            <h4 class="text-white font-bold text-sm">Processamento Posicional Batch</h4>
+                        <div class="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
+                            <div class="text-blue-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="file-spreadsheet" class="w-3.5 h-3.5"></i> Engenharia de Clearing
+                            </div>
+                            <h4 class="text-white font-bold text-sm">Processamento Posicional em Lote</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                Pipelines Spring Batch de alto volume capazes de ingerir massa transacional e gerar arquivos posicionais Visa Base II (TC50) com verificação de integridade.
+                                Pipelines Spring Batch de alto volume capazes de ingerir massa transacional e gerar arquivos posicionais Visa Base II (TC50) com validação de integridade.
                             </p>
                         </div>
 
-                        <div class="p-5 rounded-xl border border-slate-800 bg-slate-900/70 space-y-2">
-                            <div class="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider">Engenharia Aumentada</div>
+                        <div class="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
+                            <div class="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+                                <i data-lucide="bot" class="w-3.5 h-3.5"></i> Engenharia Aumentada
+                            </div>
                             <h4 class="text-white font-bold text-sm">IA Generativa em Sistemas</h4>
                             <p class="text-xs text-slate-400 leading-relaxed">
-                                Utilização prática de modelos de IA para aceleração de testes transacionais simulados, detecção de gargalos de I/O em banco e resolução ágil de incidentes.
+                                Emprego prático de modelos para simulação de cenários estocásticos de carga, detecção automatizada de gargalos de I/O e resolução ágil de incidentes.
                             </p>
                         </div>
                     </div>
@@ -615,79 +983,80 @@
             </div>
         </section>
 
-        <!-- CONTACT / GET IN TOUCH SECTION -->
+        <!-- EXECUTIVE CONTACT SECTION (FINTECH METAL CARD DESIGN) -->
         <section id="contact" class="py-20 max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="rounded-3xl border border-emerald-500/30 bg-gradient-to-b from-slate-900 to-[#090D16] p-8 sm:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl">
-                <!-- Background Accent Glow -->
-                <div class="absolute -top-24 left-1/2 transform -translate-x-1/2 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none"></div>
+            <div class="rounded-3xl border border-[#00D47E]/40 bg-gradient-to-b from-[#080E1E] via-[#060B17] to-[#040711] p-8 sm:p-12 text-center space-y-6 relative overflow-hidden shadow-2xl glass-metal">
+                <!-- Radial Glow -->
+                <div class="absolute -top-24 left-1/2 transform -translate-x-1/2 w-[500px] h-[500px] bg-[#00D47E]/10 rounded-full blur-3xl pointer-events-none"></div>
 
-                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-mono font-medium">
-                    <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
-                    Disponível para Projetos Críticos &amp; Liderança Técnica
+                <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 text-xs font-mono font-semibold">
+                    <span class="w-2 h-2 rounded-full bg-[#00D47E] animate-pulse"></span>
+                    Disponível para Liderança Técnica &amp; Desafios de Alta Complexidade
                 </div>
 
-                <h2 class="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-                    Vamos desenhar ou escalar sua infraestrutura de pagamentos?
+                <h2 class="text-3xl sm:text-4xl font-black text-white tracking-tight">
+                    Vamos desenhar ou escalar sua infraestrutura financeira?
                 </h2>
                 
-                <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto">
-                    Entre em contato direto para conversar sobre desafios de baixa latência, switches adquirentes, conformidade de segurança e arquitetura transacional resiliente.
+                <p class="text-slate-300 text-sm sm:text-base max-w-xl mx-auto leading-relaxed">
+                    Entre em contato para avaliar arquiteturas de autorizadores, switches adquirentes, barramentos de mensageria ISO 8583 e adequação a normas de segurança.
                 </p>
 
-                <!-- Contact CTAs -->
-                <div class="flex flex-wrap justify-center gap-4 pt-4">
-                    <button onclick="copyEmail()" class="inline-flex items-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-emerald-500 to-emerald-600 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-sm transition-all shadow-xl shadow-emerald-500/20 active:scale-95">
+                <!-- Action CTAs -->
+                <div class="flex flex-wrap justify-center gap-3.5 pt-4">
+                    <button onclick="copyEmail()" class="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider transition-all shadow-xl shadow-emerald-500/20 active:scale-95">
                         <i data-lucide="copy" class="w-4 h-4"></i>
-                        <span>Copiar Email: chicoaraujo1063@gmail.com</span>
+                        <span>Copiar: chicoaraujo1063@gmail.com</span>
                     </button>
 
-                    <a href="https://www.linkedin.com/in/francisco-araujo-b0185772/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-white font-medium text-sm transition-all">
+                    <a href="https://www.linkedin.com/in/francisco-araujo-b0185772/" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-white font-medium text-xs font-mono transition-all">
                         <i data-lucide="linkedin" class="w-4 h-4 text-blue-400"></i>
-                        <span>Conectar no LinkedIn</span>
+                        <span>LinkedIn Profile</span>
                     </a>
 
-                    <a href="https://github.com/franciscoaraujo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-slate-700 bg-slate-800/80 hover:bg-slate-700 text-white font-medium text-sm transition-all">
+                    <a href="https://github.com/franciscoaraujo" target="_blank" rel="noopener" class="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-white font-medium text-xs font-mono transition-all">
                         <i data-lucide="github" class="w-4 h-4 text-slate-300"></i>
-                        <span>Explorar Repositórios</span>
+                        <span>Repositórios GitHub</span>
                     </a>
                 </div>
 
-                <div class="text-xs font-mono text-slate-500 pt-4 flex flex-wrap justify-center items-center gap-6">
-                    <span>📍 Barueri, SP - Brasil</span>
-                    <span>📞 +55 11 99455-4739</span>
-                    <span>⏰ Fuso Horário: GMT-3 (São Paulo)</span>
+                <div class="text-xs font-mono text-slate-400 pt-6 flex flex-wrap justify-center items-center gap-6 border-t border-[#152342]">
+                    <span class="flex items-center gap-1.5"><i data-lucide="map-pin" class="w-3.5 h-3.5 text-[#00D47E]"></i> Barueri, SP - Brasil</span>
+                    <span class="flex items-center gap-1.5"><i data-lucide="phone" class="w-3.5 h-3.5 text-cyan-400"></i> +55 11 99455-4739</span>
+                    <span class="flex items-center gap-1.5"><i data-lucide="globe" class="w-3.5 h-3.5 text-blue-400"></i> Fuso Horário: GMT-3 (São Paulo / B3)</span>
                 </div>
             </div>
         </section>
 
     </main>
 
-    <!-- FOOTER -->
-    <footer class="border-t border-slate-800 bg-[#060910] py-8 text-xs text-slate-500 font-mono no-print">
+    <!-- CORPORATE FOOTER -->
+    <footer class="border-t border-[#152342] bg-[#020409] py-8 text-xs text-slate-500 font-mono no-print">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-emerald-400"></span>
-                <span>Francisco José Oliveira Araújo • Staff / Especialista Backend</span>
+                <span class="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+                <span class="text-slate-300 font-semibold">Francisco José Oliveira Araújo</span>
+                <span>• Staff / Especialista Backend</span>
             </div>
             <div>
-                &copy; <span id="current-year">2026</span> • Engenharia de Meios de Pagamento e Sistemas Distribuídos
+                &copy; <span id="current-year">2026</span> • Engenharia de Meios de Pagamento e Sistemas Financeiros
             </div>
         </div>
     </footer>
 
     <!-- INTERACTIVE JAVASCRIPT LOGIC -->
     <script>
-        // OrionPay tab data dictionary
+        // OrionPay Component Dictionary
         const orionData = {
             switch: {
                 title: "Switch Adquirente & Core Transacional",
                 stack: "Java 21 • Spring Boot • PostgreSQL • ShedLock • RabbitMQ",
-                badge: "Ciclo Online < 200ms",
+                badge: "Ciclo Online < 180ms",
                 summary: "Motor de autorização transacional de alta vazão concebido com separação estrita de conceitos (Separation of Concerns). Desenhado para isolar o fluxo online do processamento analítico e batch pós-corte.",
                 highlights: [
                     { label: "Transactional Outbox Pattern", desc: "Captura atômica de eventos de pagamento em banco relacional e publicação resiliente no RabbitMQ via Debezium, eliminando dual-writes e perda de dados contábeis." },
                     { label: "Controle de Concorrência Distribuída", desc: "Aplicação de ShedLock e níveis de isolamento rigorosos no PostgreSQL para prevenir race conditions e garantir transações 100% ACID em picos de tráfego." },
-                    { label: "Resiliência & Retry Estratégico", desc: "Circuit breakers, Dead Letter Queues (DLQ) e mecanismos de reprocessamento para contingência de mensageria com operadoras e emissores." }
+                    { label: "Resiliência & Retry Estratégico", desc: "Circuit breakers, Dead Letter Queues (DLQ) e mecanismos de contingência de mensageria com operadoras e emissores." }
                 ],
                 flow: ["Terminal / POS", "Switch Online Core", "SoftHSM (PIN Trans)", "VisaNet Emulator", "Database Outbox"]
             },
@@ -741,36 +1110,33 @@
             }
         };
 
-        // Render OrionPay detail section
+        // Render OrionPay detail
         function switchOrionTab(tabKey) {
             const data = orionData[tabKey];
             if (!data) return;
 
-            // Highlight active button
             document.querySelectorAll('.orion-tab-btn').forEach(btn => {
-                btn.classList.remove('border-emerald-500', 'bg-slate-900/90', 'shadow-lg');
-                btn.classList.add('border-slate-800', 'bg-slate-900/40');
+                btn.classList.remove('border-[#00D47E]', 'bg-[#080E1E]', 'shadow-lg');
+                btn.classList.add('border-[#152342]', 'bg-[#080E1E]/50');
             });
             const activeBtn = document.getElementById(`tab-btn-${tabKey}`);
             if (activeBtn) {
-                activeBtn.classList.add('border-emerald-500', 'bg-slate-900/90', 'shadow-lg');
-                activeBtn.classList.remove('border-slate-800', 'bg-slate-900/40');
+                activeBtn.classList.add('border-[#00D47E]', 'bg-[#080E1E]', 'shadow-lg');
+                activeBtn.classList.remove('border-[#152342]', 'bg-[#080E1E]/50');
             }
 
             const card = document.getElementById('orion-content-card');
             
-            // Build flow pills
             const flowHtml = data.flow.map((step, idx) => `
-                <div class="flex items-center gap-1.5 font-mono text-[11px] text-emerald-300 bg-slate-950 px-2.5 py-1 rounded border border-slate-800">
+                <div class="flex items-center gap-1.5 font-mono text-[11px] text-[#00D47E] bg-[#040711] px-2.5 py-1 rounded border border-[#152342]">
                     <span>${idx + 1}. ${step}</span>
                 </div>
             `).join('<span class="text-slate-600 font-mono text-xs">→</span>');
 
-            // Build highlights
             const highlightsHtml = data.highlights.map(h => `
-                <div class="p-3.5 rounded-xl bg-slate-950/60 border border-slate-800/90 space-y-1">
+                <div class="p-3.5 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
                     <div class="text-xs font-bold text-white flex items-center gap-2">
-                        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400"></span>
+                        <span class="w-1.5 h-1.5 rounded-full bg-[#00D47E]"></span>
                         ${h.label}
                     </div>
                     <p class="text-xs text-slate-400 leading-relaxed pl-3.5">${h.desc}</p>
@@ -778,23 +1144,23 @@
             `).join('');
 
             card.innerHTML = `
-                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-slate-800 pb-4">
+                <div class="flex flex-wrap items-center justify-between gap-3 border-b border-[#152342] pb-4">
                     <div>
-                        <span class="text-[11px] font-mono font-semibold uppercase tracking-wider text-emerald-400">${data.stack}</span>
-                        <h3 class="text-xl sm:text-2xl font-extrabold text-white mt-0.5">${data.title}</h3>
+                        <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-[#00D47E]">${data.stack}</span>
+                        <h3 class="text-xl sm:text-2xl font-black text-white mt-0.5">${data.title}</h3>
                     </div>
-                    <span class="px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-emerald-400 text-xs font-mono font-bold">
+                    <span class="px-3 py-1 rounded-full bg-[#00D47E]/10 border border-[#00D47E]/30 text-[#00D47E] text-xs font-mono font-bold">
                         ${data.badge}
                     </span>
                 </div>
 
-                <p class="text-sm text-slate-300 leading-relaxed">
+                <p class="text-sm text-slate-300 leading-relaxed font-normal">
                     ${data.summary}
                 </p>
 
                 <!-- Flow strip -->
-                <div class="p-3 rounded-xl bg-slate-950 border border-slate-800/80">
-                    <div class="text-[10px] uppercase font-mono text-slate-500 mb-2">Pipeline de Execução:</div>
+                <div class="p-3.5 rounded-xl bg-[#040711] border border-[#152342]">
+                    <div class="text-[10px] uppercase font-mono text-slate-500 mb-2">Pipeline Sequencial:</div>
                     <div class="flex flex-wrap items-center gap-2">
                         ${flowHtml}
                     </div>
@@ -823,19 +1189,19 @@
             { name: "Clearing & Reconciliação", cat: "payment", badge: "Batch", desc: "TC50, Payout e Intercâmbio" },
             
             // Backend & Languages
-            { name: "Java 21 / 17 / 11", cat: "backend", badge: "Expert", desc: "Virtual Threads, Streams, Concorrência" },
-            { name: "C++ Moderno", cat: "backend", badge: "Systems", desc: "Baixa latência, Sockets, OpenCV" },
+            { name: "Java 21 / 17 / 11", cat: "backend", badge: "Expert", desc: "Virtual Threads, Concorrência" },
+            { name: "C++ Moderno", cat: "backend", badge: "Low-Latency", desc: "Baixa latência, Sockets, OpenCV" },
             { name: "Spring Boot", cat: "backend", badge: "Framework", desc: "Web, Security, Data, AOP" },
             { name: "Spring Batch", cat: "backend", badge: "Batch", desc: "Processamento de arquivos massivos" },
             { name: "Apache Camel", cat: "backend", badge: "Integration", desc: "EIPs, Barramentos Bancários" },
             { name: "Keycloak & OAuth2", cat: "backend", badge: "Auth", desc: "Segurança de APIs e Tokens" },
 
             // Architecture
-            { name: "Sistemas Distribuídos", cat: "arch", badge: "Pattern", desc: "Alta disponibilidade e tolerância a falhas" },
+            { name: "Sistemas Distribuídos", cat: "arch", badge: "Pattern", desc: "Alta disponibilidade (99.999%)" },
             { name: "Transactional Outbox", cat: "arch", badge: "Consistência", desc: "Garantia Zero Data Loss" },
             { name: "Event-Driven (EDA)", cat: "arch", badge: "Pattern", desc: "Arquitetura orientada a eventos" },
-            { name: "Arquitetura Hexagonal", cat: "arch", badge: "Design", desc: "Ports & Adapters, Isolamento de Domínio" },
-            { name: "Domain-Driven Design", cat: "arch", badge: "Design", desc: "Bounded Contexts e Entidades Ricas" },
+            { name: "Arquitetura Hexagonal", cat: "arch", badge: "Design", desc: "Ports & Adapters, Domínio Puro" },
+            { name: "Domain-Driven Design", cat: "arch", badge: "Design", desc: "Bounded Contexts Financeiros" },
 
             // Infra & Data
             { name: "PostgreSQL", cat: "infra", badge: "Database", desc: "Transações ACID, Índices, Tunning" },
@@ -849,15 +1215,14 @@
 
         // Filter Skills Matrix
         function filterSkills(category) {
-            // Update button styles
             const buttons = document.querySelectorAll('#skill-filter-buttons .skill-btn');
             buttons.forEach(btn => {
                 if (btn.getAttribute('data-cat') === category) {
-                    btn.classList.add('bg-emerald-500', 'text-slate-950');
-                    btn.classList.remove('bg-slate-800', 'text-slate-300');
+                    btn.classList.add('bg-[#00D47E]', 'text-slate-950', 'font-bold', 'shadow-md');
+                    btn.classList.remove('bg-[#080E1E]', 'text-slate-300');
                 } else {
-                    btn.classList.remove('bg-emerald-500', 'text-slate-950');
-                    btn.classList.add('bg-slate-800', 'text-slate-300');
+                    btn.classList.remove('bg-[#00D47E]', 'text-slate-950', 'font-bold', 'shadow-md');
+                    btn.classList.add('bg-[#080E1E]', 'text-slate-300');
                 }
             });
 
@@ -867,11 +1232,11 @@
                 : skillList.filter(s => s.cat === category);
 
             grid.innerHTML = filtered.map(skill => `
-                <div class="p-3.5 rounded-xl border border-slate-800/90 bg-slate-900/60 hover:border-emerald-500/50 hover:bg-slate-900/90 transition-all flex flex-col justify-between group">
+                <div class="p-3.5 rounded-xl border border-[#152342] bg-[#080E1E]/80 hover:border-[#00D47E]/60 hover:bg-[#0D172F] transition-all flex flex-col justify-between group">
                     <div>
                         <div class="flex items-center justify-between mb-1.5">
-                            <span class="text-[9px] font-mono font-bold uppercase tracking-wider text-emerald-400 px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-900/50">${skill.badge}</span>
-                            <span class="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-emerald-400 transition-colors"></span>
+                            <span class="text-[9px] font-mono font-bold uppercase tracking-wider text-[#00D47E] px-1.5 py-0.5 rounded bg-emerald-950/80 border border-emerald-900/60">${skill.badge}</span>
+                            <span class="w-1.5 h-1.5 rounded-full bg-slate-600 group-hover:bg-[#00D47E] transition-colors"></span>
                         </div>
                         <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors">${skill.name}</h4>
                     </div>
@@ -881,10 +1246,91 @@
             lucide.createIcons();
         }
 
-        // Copy email to clipboard utility
+        // Live Transaction Simulation Logic
+        let isSimulating = false;
+        function runTransactionSimulation() {
+            if (isSimulating) return;
+            isSimulating = true;
+
+            const btn = document.getElementById('btn-run-simulation');
+            const latencyBadge = document.getElementById('sim-latency-badge');
+            const consoleOut = document.getElementById('sim-console-output');
+            const channel = document.getElementById('sim-channel').value;
+
+            btn.disabled = true;
+            btn.classList.add('opacity-50', 'cursor-not-allowed');
+
+            // Reset step highlights
+            for (let i = 1; i <= 5; i++) {
+                const el = document.getElementById(`sim-step-${i}`);
+                el.classList.remove('border-[#00D47E]', 'bg-[#00D47E]/10', 'shadow-lg');
+                el.querySelector('.step-status').classList.remove('bg-[#00D47E]', 'animate-ping');
+                el.querySelector('.step-status').classList.add('bg-slate-700');
+            }
+
+            consoleOut.innerHTML = `
+                <div class="text-slate-400">&gt; Iniciando handshake de conexão com o terminal (${channel.toUpperCase()})...</div>
+            `;
+            latencyBadge.textContent = "PROCESSANDO TRANSAÇÃO...";
+            latencyBadge.className = "text-cyan-400 font-bold animate-pulse";
+
+            const txHash = 'TX-' + Math.random().toString(36).substring(2, 9).toUpperCase();
+
+            // Pipeline Step Delays
+            setTimeout(() => {
+                activateSimStep(1, "Inbound recebido: MTI 0100 (R$ 250,00)");
+                consoleOut.innerHTML += `
+                    <div class="text-cyan-300">&gt; [18ms] Captura ${channel.toUpperCase()}: MTI 0100 - PAN ************4921 - PROC: 000000</div>
+                `;
+            }, 300);
+
+            setTimeout(() => {
+                activateSimStep(2, "PIN Block verificado via SoftHSM C++");
+                consoleOut.innerHTML += `
+                    <div class="text-amber-300">&gt; [64ms] SoftHSM Socket: TMK descriptografado -&gt; Re-criptografado ZPK com sucesso (KCV: A3F89C)</div>
+                `;
+            }, 800);
+
+            setTimeout(() => {
+                activateSimStep(3, "ShedLock adquirido & Antifraude OK");
+                consoleOut.innerHTML += `
+                    <div class="text-slate-200">&gt; [95ms] Switch Core: Lock distribuído [acc-4921] assegurado. Sem race conditions.</div>
+                `;
+            }, 1300);
+
+            setTimeout(() => {
+                activateSimStep(4, "VisaNet Base I: Aprovado Código 00");
+                consoleOut.innerHTML += `
+                    <div class="text-[#00D47E]">&gt; [142ms] VisaNet Emulator: Resposta ISO 8583 MTI 0110 - RC: 00 (APROVADA) - AUTH_CODE: 839210</div>
+                `;
+            }, 1800);
+
+            setTimeout(() => {
+                activateSimStep(5, "Transactional Outbox persistido em BD");
+                consoleOut.innerHTML += `
+                    <div class="text-[#00D47E] font-bold">&gt; [168ms] SUCESSO TOTAL: Evento ${txHash} gravado em PostgreSQL ACID e despachado ao RabbitMQ!</div>
+                `;
+                latencyBadge.textContent = "CICLO COMPLETO CONCLUÍDO (LATÊNCIA TOTAL: 168ms)";
+                latencyBadge.className = "text-[#00D47E] font-bold";
+
+                btn.disabled = false;
+                btn.classList.remove('opacity-50', 'cursor-not-allowed');
+                isSimulating = false;
+            }, 2300);
+        }
+
+        function activateSimStep(stepNumber, logText) {
+            const el = document.getElementById(`sim-step-${stepNumber}`);
+            if (!el) return;
+            el.classList.add('border-[#00D47E]', 'bg-[#00D47E]/10', 'shadow-lg');
+            const statusDot = el.querySelector('.step-status');
+            statusDot.classList.remove('bg-slate-700');
+            statusDot.classList.add('bg-[#00D47E]', 'animate-pulse');
+        }
+
+        // Copy email helper
         function copyEmail() {
             const email = "chicoaraujo1063@gmail.com";
-            // Clipboard API with fallback
             if (navigator.clipboard && navigator.clipboard.writeText) {
                 navigator.clipboard.writeText(email).then(() => showToast());
             } else {
@@ -895,9 +1341,7 @@
                 try {
                     document.execCommand('copy');
                     showToast();
-                } catch (err) {
-                    // Fallback visual
-                }
+                } catch (err) {}
                 document.body.removeChild(textarea);
             }
         }
