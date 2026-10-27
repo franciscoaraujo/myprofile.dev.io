@@ -220,6 +220,50 @@ a:focus-visible, button:focus-visible, select:focus-visible {
     outline-offset: 2px !important;
 }
 
+/* ========================================================
+   ORIONPAY DATADOG / ARCHITECTURAL PIPELINE ANIMATIONS
+   ======================================================== */
+.arch-node {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+}
+.arch-node.active-node {
+    transform: scale(1.05);
+    box-shadow: 0 0 25px currentColor;
+    z-index: 20;
+}
+.arch-badge-pulse {
+    animation: ping-slow 1.5s cubic-bezier(0, 0, 0.2, 1) infinite;
+}
+@keyframes ping-slow {
+    0% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(1.3); opacity: 0.7; }
+    100% { transform: scale(1); opacity: 1; }
+}
+
+/* Data Packet animation glow */
+.data-packet-token {
+    width: 14px;
+    height: 14px;
+    border-radius: 4px;
+    background: #00D47E;
+    box-shadow: 0 0 15px #00D47E, 0 0 30px #00D47E;
+    position: absolute;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+    z-index: 50;
+    transition: all 0.4s ease-in-out;
+}
+
+/* Connecting lines SVG */
+.arch-pipe-line {
+    stroke-dasharray: 6 4;
+    animation: pipeDash 20s linear infinite;
+}
+@keyframes pipeDash {
+    to { stroke-dashoffset: -100; }
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
         animation-duration: 0.001ms !important;
@@ -227,7 +271,7 @@ a:focus-visible, button:focus-visible, select:focus-visible {
         transition-duration: 0.001ms !important;
         scroll-behavior: auto !important;
     }
-    .animate-marquee {
+    .animate-marquee, .arch-pipe-line {
         animation: none !important;
     }
 }
