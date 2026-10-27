@@ -252,7 +252,7 @@ a:focus-visible, button:focus-visible, select:focus-visible {
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 50;
-    transition: all 0.4s ease-in-out;
+    transition: opacity 0.2s ease;
 }
 
 /* Connecting lines SVG */

@@ -1,7 +1,8 @@
 /**
  * OrionPay Datadog - Interactive Architectural Pipeline & Transactional Outbox Simulator
- * Complete with indicative directional arrows, dynamic recalculation on resize,
- * live packet animation traversal, and real-time telemetry.
+ * Real-time packet animation traversal strictly aligned with SVG arrows and nodes.
+ * The data packet moves through the center of each service box and traverses exactly
+ * along the connecting pipe lines.
  * 
  * Francisco Araújo | Senior Backend Engineer • Java & Payment Systems
  */
@@ -18,8 +19,8 @@ const ARCH_PIPES = [
     // Phase 1: Synchronous Authorization (Horizontal & Vertical HSM)
     { id: 'pipe-pos-merchant', from: 'node-softpos', to: 'node-merchant', dir: 'right', color: '#38BDF8', marker: 'arrow-cyan' },
     { id: 'pipe-merchant-switch', from: 'node-merchant', to: 'node-switch', dir: 'right', color: '#C084FC', marker: 'arrow-purple' },
-    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', marker: 'arrow-red', offset: -12 },
-    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', marker: 'arrow-blue', offset: 12 },
+    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', marker: 'arrow-red', offset: -14 },
+    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', marker: 'arrow-blue', offset: 14 },
     { id: 'pipe-switch-visa', from: 'node-switch', to: 'node-visagateway', dir: 'right', color: '#60A5FA', marker: 'arrow-blue' },
     { id: 'pipe-visa-visanet', from: 'node-visagateway', to: 'node-visanet', dir: 'right', color: '#3B82F6', marker: 'arrow-blue' },
 
@@ -79,10 +80,10 @@ function drawArchitectureArrows() {
         let x1, y1, x2, y2, d;
 
         if (pipe.dir === 'right') {
-            x1 = fRect.right - cRect.left;
-            y1 = fRect.top + fRect.height / 2 - cRect.top;
-            x2 = tRect.left - cRect.left - 5;
-            y2 = tRect.top + tRect.height / 2 - cRect.top;
+            x1 = (fRect.right - cRect.left) + container.scrollLeft;
+            y1 = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
+            x2 = (tRect.left - cRect.left - 6) + container.scrollLeft;
+            y2 = (tRect.top + tRect.height / 2 - cRect.top) + container.scrollTop;
 
             if (Math.abs(y1 - y2) < 4) {
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
@@ -92,23 +93,23 @@ function drawArchitectureArrows() {
             }
         } else if (pipe.dir === 'up') {
             const offsetX = pipe.offset || 0;
-            x1 = fRect.left + fRect.width / 2 - cRect.left + offsetX;
-            y1 = fRect.top - cRect.top;
-            x2 = tRect.left + tRect.width / 2 - cRect.left + offsetX;
-            y2 = tRect.bottom - cRect.top + 5;
+            x1 = (fRect.left + fRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
+            y1 = (fRect.top - cRect.top) + container.scrollTop;
+            x2 = (tRect.left + tRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
+            y2 = (tRect.bottom - cRect.top + 6) + container.scrollTop;
             d = `M ${x1} ${y1} L ${x2} ${y2}`;
         } else if (pipe.dir === 'down') {
             const offsetX = pipe.offset || 0;
-            x1 = fRect.left + fRect.width / 2 - cRect.left + offsetX;
-            y1 = fRect.bottom - cRect.top;
-            x2 = tRect.left + tRect.width / 2 - cRect.left + offsetX;
-            y2 = tRect.top - cRect.top - 5;
+            x1 = (fRect.left + fRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
+            y1 = (fRect.bottom - cRect.top) + container.scrollTop;
+            x2 = (tRect.left + tRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
+            y2 = (tRect.top - cRect.top - 6) + container.scrollTop;
             d = `M ${x1} ${y1} L ${x2} ${y2}`;
         } else if (pipe.dir === 'down-step') {
-            x1 = fRect.left + fRect.width / 2 - cRect.left;
-            y1 = fRect.bottom - cRect.top;
-            x2 = tRect.left + tRect.width / 2 - cRect.left;
-            y2 = tRect.top - cRect.top - 5;
+            x1 = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
+            y1 = (fRect.bottom - cRect.top) + container.scrollTop;
+            x2 = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
+            y2 = (tRect.top - cRect.top - 6) + container.scrollTop;
 
             if (Math.abs(x1 - x2) < 6) {
                 d = `M ${x1} ${y1} L ${x2} ${y2}`;
@@ -128,6 +129,98 @@ function drawArchitectureArrows() {
     });
 
     group.innerHTML = svgHtml;
+}
+
+/**
+ * Animate the data packet strictly along an SVG pipe line,
+ * smoothly leaving the center of fromNode, traversing the arrow line,
+ * and entering inside toNode's center.
+ */
+function traversePipe(pipeId, token, onComplete) {
+    const pipe = ARCH_PIPES.find(p => p.id === pipeId);
+    if (!pipe) {
+        if (onComplete) onComplete();
+        return;
+    }
+
+    const fromNode = document.getElementById(pipe.from);
+    const toNode = document.getElementById(pipe.to);
+    const pathEl = document.getElementById(pipe.id);
+    const container = document.getElementById('arch-mesh-area');
+
+    if (!fromNode || !toNode || !pathEl || !container || !token) {
+        if (onComplete) onComplete();
+        return;
+    }
+
+    const cRect = container.getBoundingClientRect();
+    const fRect = fromNode.getBoundingClientRect();
+    const tRect = toNode.getBoundingClientRect();
+
+    // Center coordinates inside nodes relative to container
+    const startX = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
+    const startY = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
+    const endX = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
+    const endY = (tRect.top + tRect.height / 2 - cRect.top) + container.scrollTop;
+
+    // Highlight source node and pipe
+    fromNode.classList.add('active-node');
+    pathEl.classList.add('active-pipe');
+
+    token.style.opacity = '1';
+    token.style.transition = 'none';
+    token.style.left = `${startX}px`;
+    token.style.top = `${startY}px`;
+
+    const totalLen = pathEl.getTotalLength();
+    const pStart = pathEl.getPointAtLength(0);
+    const pEnd = pathEl.getPointAtLength(totalLen);
+
+    const duration = 600; // ms
+    const startTime = performance.now();
+
+    function step(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+
+        if (progress < 0.20) {
+            // Segment 1: Traveling from center of fromNode to start of pipe
+            const sub = progress / 0.20;
+            const curX = startX + (pStart.x - startX) * sub;
+            const curY = startY + (pStart.y - startY) * sub;
+            token.style.left = `${curX}px`;
+            token.style.top = `${curY}px`;
+        } else if (progress < 0.80) {
+            // Segment 2: Traversing strictly along the SVG arrow path
+            const sub = (progress - 0.20) / 0.60;
+            const pt = pathEl.getPointAtLength(totalLen * sub);
+            token.style.left = `${pt.x}px`;
+            token.style.top = `${pt.y}px`;
+        } else {
+            // Segment 3: Entering inside toNode from pipe end to node center
+            const sub = (progress - 0.80) / 0.20;
+            const curX = pEnd.x + (endX - pEnd.x) * sub;
+            const curY = pEnd.y + (endY - pEnd.y) * sub;
+            token.style.left = `${curX}px`;
+            token.style.top = `${curY}px`;
+        }
+
+        if (progress < 1) {
+            requestAnimationFrame(step);
+        } else {
+            token.style.left = `${endX}px`;
+            token.style.top = `${endY}px`;
+            toNode.classList.add('active-node');
+
+            setTimeout(() => {
+                fromNode.classList.remove('active-node');
+                pathEl.classList.remove('active-pipe');
+                if (onComplete) onComplete();
+            }, 100);
+        }
+    }
+
+    requestAnimationFrame(step);
 }
 
 /**
@@ -178,118 +271,95 @@ function runAuthPipeline({ token, consoleOut, latencyBadge, timelineProgress, ti
 
     animateTimeline(16, timelineProgress, timelineTime);
 
-    // 1. SoftPOS -> Merchant Service
-    movePacketToNode('node-softpos', token, () => {
-        highlightNode('node-softpos', '#38BDF8');
-        highlightPipe('pipe-pos-merchant');
-        logConsole(consoleOut, `&gt; [00:00:02] SoftPOS: Generated EMV TLV ARQC cryptogram. Encapsulating payload.`);
+    // 1. SoftPOS -> Merchant Service along pipe
+    traversePipe('pipe-pos-merchant', token, () => {
+        logConsole(consoleOut, `&gt; [00:00:02] SoftPOS: Generated EMV TLV ARQC cryptogram. Forwarding to API.`);
+
+        // 2. Merchant -> Switch Adq
+        setTimeout(() => {
+            traversePipe('pipe-merchant-switch', token, () => {
+                logConsole(consoleOut, `&gt; [00:00:04] Merchant Service: Orchestrator validated Merchant ID &amp; API Auth. Parsing ISO 8583 MTI 0100.`);
+
+                // 3. Switch -> SoftHSM
+                setTimeout(() => {
+                    traversePipe('pipe-switch-softhsm', token, () => {
+                        logConsole(consoleOut, `&gt; [00:00:06] SoftHSM (C++ Socket): Decrypted TMK PIN block -&gt; Derived Scheme ZPK key via DUKPT.`);
+
+                        // 4. SoftHSM -> Switch
+                        setTimeout(() => {
+                            traversePipe('pipe-softhsm-switch', token, () => {
+
+                                // 5. Switch -> Gateway Visa
+                                setTimeout(() => {
+                                    traversePipe('pipe-switch-visa', token, () => {
+                                        logConsole(consoleOut, `&gt; [00:00:09] Gateway Visa: Formatted Base I 0100 packet. Forwarding across network.`);
+
+                                        // 6. Gateway Visa -> VisaNet
+                                        setTimeout(() => {
+                                            traversePipe('pipe-visa-visanet', token, () => {
+                                                logConsole(consoleOut, `&gt; [00:00:11] VisaNet External: Returned ISO 8583 MTI 0110 - Response Code: 00 (APPROVED) - Auth: ${Math.floor(100000 + Math.random() * 900000)}`);
+
+                                                // Split 1: Commit to DB & Outbox
+                                                pendingDbCount++;
+                                                updateStatsUI();
+                                                setNodeBadge('node-dboutbox', pendingDbCount, 'bg-red-500');
+                                                logConsole(consoleOut, `&gt; [00:00:12] DB &amp; Outbox: Committed ACID Transaction + Outbox Event (${txHash}).`);
+
+                                                // 7. Merchant -> DB Outbox
+                                                setTimeout(() => {
+                                                    traversePipe('pipe-merchant-db', token, () => {
+
+                                                        // 8. DB & Outbox -> Outbox Relay
+                                                        setTimeout(() => {
+                                                            traversePipe('pipe-db-relay', token, () => {
+                                                                logConsole(consoleOut, `&gt; [00:00:13] Outbox Relay (CDC/Debezium): Read WAL record. Publishing to RabbitMQ exchange.`);
+                                                                pendingDbCount = Math.max(0, pendingDbCount - 1);
+                                                                queueRmqCount++;
+                                                                updateStatsUI();
+                                                                setNodeBadge('node-dboutbox', pendingDbCount, 'bg-red-500');
+                                                                setNodeBadge('node-rabbitmq', queueRmqCount, 'bg-amber-500');
+
+                                                                // 9. Outbox Relay -> RabbitMQ
+                                                                setTimeout(() => {
+                                                                    traversePipe('pipe-relay-rmq', token, () => {
+                                                                        logConsole(consoleOut, `&gt; [00:00:14] RabbitMQ: Enqueued in routing queue: 'payments.auth.completed.v1' (Quorum).`);
+
+                                                                        // 10. RabbitMQ -> Settlement Listener
+                                                                        setTimeout(() => {
+                                                                            traversePipe('pipe-rmq-listener', token, () => {
+                                                                                queueRmqCount = Math.max(0, queueRmqCount - 1);
+                                                                                liveTxCount++;
+                                                                                liveVolume += parseFloat(txAmount);
+                                                                                updateStatsUI();
+                                                                                setNodeBadge('node-rabbitmq', queueRmqCount, 'bg-amber-500');
+
+                                                                                logConsole(consoleOut, `&gt; [00:00:16] Settlement Listener: Event acknowledged. Merchant balance pre-allocated. Flow COMPLETE!`);
+
+                                                                                if (latencyBadge) {
+                                                                                    latencyBadge.textContent = `COMPLETED • MTI 0100 &rarr; 0110 OK (~148ms Network Window)`;
+                                                                                    latencyBadge.className = "text-[#00D47E] font-bold";
+                                                                                }
+
+                                                                                finishSimulation(btnFire, btnSettle, token);
+                                                                            });
+                                                                        }, 200);
+                                                                    });
+                                                                }, 200);
+                                                            });
+                                                        }, 200);
+                                                    });
+                                                }, 200);
+                                            });
+                                        }, 200);
+                                    });
+                                }, 200);
+                            });
+                        }, 200);
+                    });
+                }, 200);
+            });
+        }, 200);
     });
-
-    setTimeout(() => {
-        movePacketToNode('node-merchant', token, () => {
-            highlightNode('node-merchant', '#C084FC');
-            highlightPipe('pipe-merchant-switch');
-            logConsole(consoleOut, `&gt; [00:00:04] Merchant Service: Orchestrator validated Merchant ID &amp; API Auth. Forwarding to Switch.`);
-        });
-    }, 700);
-
-    // 2. Merchant -> Switch Adq
-    setTimeout(() => {
-        movePacketToNode('node-switch', token, () => {
-            highlightNode('node-switch', '#60A5FA');
-            highlightPipe('pipe-switch-softhsm');
-            logConsole(consoleOut, `&gt; [00:00:06] Switch Adq (C++): Parsing binary ISO 8583 MTI 0100. Acquired ShedLock.`);
-        });
-    }, 1400);
-
-    // 3. Switch -> SoftHSM
-    setTimeout(() => {
-        movePacketToNode('node-softhsm', token, () => {
-            highlightNode('node-softhsm', '#F87171');
-            highlightPipe('pipe-softhsm-switch');
-            logConsole(consoleOut, `&gt; [00:00:08] SoftHSM (C++ Socket): Decrypted TMK PIN block -&gt; Derived Scheme ZPK key via DUKPT.`);
-        });
-    }, 2100);
-
-    // 4. SoftHSM -> Switch -> Gateway Visa
-    setTimeout(() => {
-        movePacketToNode('node-switch', token, () => {
-            highlightNode('node-switch', '#60A5FA');
-            highlightPipe('pipe-switch-visa');
-        });
-    }, 2700);
-
-    setTimeout(() => {
-        movePacketToNode('node-visagateway', token, () => {
-            highlightNode('node-visagateway', '#3B82F6');
-            highlightPipe('pipe-visa-visanet');
-            logConsole(consoleOut, `&gt; [00:00:10] Gateway Visa: Formatted Base I 0100 packet. Forwarding across network.`);
-        });
-    }, 3300);
-
-    // 5. Gateway Visa -> VisaNet (Scheme Response)
-    setTimeout(() => {
-        movePacketToNode('node-visanet', token, () => {
-            highlightNode('node-visanet', '#00D47E');
-            highlightPipe('pipe-merchant-db');
-            highlightPipe('pipe-switch-relay');
-            logConsole(consoleOut, `&gt; [00:00:12] VisaNet External: Returned ISO 8583 MTI 0110 - Response Code: 00 (APPROVED) - Auth: ${Math.floor(100000 + Math.random() * 900000)}`);
-            
-            pendingDbCount++;
-            updateStatsUI();
-            setNodeBadge('node-dboutbox', pendingDbCount, 'bg-red-500');
-            highlightNode('node-dboutbox', '#818CF8');
-            logConsole(consoleOut, `&gt; [00:00:13] DB &amp; Outbox: Committed ACID Transaction + Outbox Event payload (${txHash}).`);
-        });
-    }, 4000);
-
-    // 6. Phase 2: Outbox Relay CDC
-    setTimeout(() => {
-        highlightPipe('pipe-db-relay');
-        movePacketToNode('node-outboxrelay', token, () => {
-            highlightNode('node-outboxrelay', '#FB923C');
-            highlightPipe('pipe-relay-rmq');
-            logConsole(consoleOut, `&gt; [00:00:14] Outbox Relay (CDC/Debezium): Read WAL record. Publishing to RabbitMQ exchange.`);
-            
-            pendingDbCount = Math.max(0, pendingDbCount - 1);
-            queueRmqCount++;
-            updateStatsUI();
-            setNodeBadge('node-dboutbox', pendingDbCount, 'bg-red-500');
-            setNodeBadge('node-rabbitmq', queueRmqCount, 'bg-amber-500');
-        });
-    }, 4800);
-
-    // 7. Outbox Relay -> RabbitMQ
-    setTimeout(() => {
-        movePacketToNode('node-rabbitmq', token, () => {
-            highlightNode('node-rabbitmq', '#F59E0B');
-            highlightPipe('pipe-rmq-listener');
-            highlightPipe('pipe-visanet-listener');
-            logConsole(consoleOut, `&gt; [00:00:15] RabbitMQ: Enqueued in routing queue: 'payments.auth.completed.v1' (Durable, Quorum).`);
-        });
-    }, 5500);
-
-    // 8. RabbitMQ -> Settlement Listener
-    setTimeout(() => {
-        movePacketToNode('node-settlementlistener', token, () => {
-            highlightNode('node-settlementlistener', '#10B981');
-            
-            queueRmqCount = Math.max(0, queueRmqCount - 1);
-            liveTxCount++;
-            liveVolume += parseFloat(txAmount);
-            updateStatsUI();
-            setNodeBadge('node-rabbitmq', queueRmqCount, 'bg-amber-500');
-
-            logConsole(consoleOut, `&gt; [00:00:16] Settlement Listener: Event acknowledged. Merchant balance pre-allocated. Flow COMPLETE!`);
-            
-            if (latencyBadge) {
-                latencyBadge.textContent = `COMPLETED • MTI 0100 &rarr; 0110 OK (~148ms Network Window)`;
-                latencyBadge.className = "text-[#00D47E] font-bold";
-            }
-
-            finishSimulation(btnFire, btnSettle, token);
-        });
-    }, 6200);
 }
 
 /**
@@ -309,81 +379,31 @@ function runBatchPipeline({ token, consoleOut, latencyBadge, timelineProgress, t
 
     animateTimeline(10, timelineProgress, timelineTime);
 
-    // Step 1: Log de Rede TC57
-    highlightPipe('pipe-relay-tc57');
-    movePacketToNode('node-tc57log', token, () => {
-        highlightNode('node-tc57log', '#94A3B8');
-        highlightPipe('pipe-tc57-batch');
+    // Step 1: Outbox Relay -> Log de Rede TC57
+    traversePipe('pipe-relay-tc57', token, () => {
         logConsole(consoleOut, `&gt; [00:00:03] Log de Rede (TC57): Loaded positional clearing records from Base II interchange.`);
+
+        // Step 2: Log de Rede -> Spring Batch
+        setTimeout(() => {
+            traversePipe('pipe-tc57-batch', token, () => {
+                logConsole(consoleOut, `&gt; [00:00:06] Spring Batch: Chunk processing (commit-interval: 500) &amp; fee calculation. ShedLock active.`);
+
+                // Step 3: Spring Batch -> Payout & Ledger
+                setTimeout(() => {
+                    traversePipe('pipe-batch-payout', token, () => {
+                        logConsole(consoleOut, `&gt; [00:00:09] Payout &amp; Ledger: Double-entry ledger booked. Net settlement transferred to merchant accounts.`);
+
+                        if (latencyBadge) {
+                            latencyBadge.textContent = "BATCH SETTLEMENT COMPLETED • LEDGER BALANCED";
+                            latencyBadge.className = "text-[#00D47E] font-bold";
+                        }
+
+                        finishSimulation(btnFire, btnSettle, token);
+                    });
+                }, 250);
+            });
+        }, 250);
     });
-
-    // Step 2: Spring Batch
-    setTimeout(() => {
-        movePacketToNode('node-springbatch', token, () => {
-            highlightNode('node-springbatch', '#FBBF24');
-            highlightPipe('pipe-batch-payout');
-            logConsole(consoleOut, `&gt; [00:00:06] Spring Batch: Chunk processing (commit-interval: 500) &amp; fee calculation. ShedLock active.`);
-        });
-    }, 1500);
-
-    // Step 3: Payout & Ledger
-    setTimeout(() => {
-        movePacketToNode('node-payout', token, () => {
-            highlightNode('node-payout', '#00D47E');
-            logConsole(consoleOut, `&gt; [00:00:09] Payout &amp; Ledger: Double-entry ledger booked. Net settlement transferred to merchant accounts.`);
-
-            if (latencyBadge) {
-                latencyBadge.textContent = "BATCH SETTLEMENT COMPLETED • LEDGER BALANCED";
-                latencyBadge.className = "text-[#00D47E] font-bold";
-            }
-
-            finishSimulation(btnFire, btnSettle, token);
-        });
-    }, 3000);
-}
-
-function movePacketToNode(nodeId, token, onComplete) {
-    const node = document.getElementById(nodeId);
-    const canvas = document.getElementById('arch-mesh-area') || document.getElementById('arch-canvas-container');
-    if (!node || !canvas || !token) {
-        if (onComplete) onComplete();
-        return;
-    }
-
-    const canvasRect = canvas.getBoundingClientRect();
-    const nodeRect = node.getBoundingClientRect();
-
-    const targetX = (nodeRect.left + nodeRect.width / 2) - canvasRect.left;
-    const targetY = (nodeRect.top + nodeRect.height / 2) - canvasRect.top;
-
-    token.style.opacity = '1';
-    token.style.left = `${targetX}px`;
-    token.style.top = `${targetY}px`;
-
-    setTimeout(() => {
-        if (onComplete) onComplete();
-    }, 400);
-}
-
-function highlightNode(nodeId, colorHex) {
-    const node = document.getElementById(nodeId);
-    if (!node) return;
-    node.classList.add('active-node');
-    node.style.borderColor = colorHex;
-    node.style.boxShadow = `0 0 20px ${colorHex}80`;
-
-    setTimeout(() => {
-        node.classList.remove('active-node');
-    }, 800);
-}
-
-function highlightPipe(pipeId) {
-    const pipe = document.getElementById(pipeId);
-    if (!pipe) return;
-    pipe.classList.add('active-pipe');
-    setTimeout(() => {
-        pipe.classList.remove('active-pipe');
-    }, 900);
 }
 
 function clearPipeHighlights() {
@@ -459,8 +479,10 @@ function finishSimulation(btnFire, btnSettle, token) {
         if (btnFire) btnFire.classList.remove('opacity-50', 'cursor-not-allowed');
         if (btnSettle) btnSettle.classList.remove('opacity-50', 'cursor-not-allowed');
         if (token) token.style.opacity = '0';
+        clearNodeHighlights();
+        clearPipeHighlights();
         isSimulating = false;
-    }, 1000);
+    }, 1200);
 }
 
 function resetSimulationStats() {
@@ -472,6 +494,9 @@ function resetSimulationStats() {
     setNodeBadge('node-dboutbox', 0);
     setNodeBadge('node-rabbitmq', 0);
     clearPipeHighlights();
+    clearNodeHighlights();
+    const token = document.getElementById('data-packet-token');
+    if (token) token.style.opacity = '0';
     const consoleOut = document.getElementById('sim-console-output');
     if (consoleOut) {
         consoleOut.innerHTML = `<div>&gt; Pipeline telemetry reset to clean state. Ready for trigger...</div>`;
