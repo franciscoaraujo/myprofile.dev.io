@@ -684,10 +684,42 @@
                 <div id="data-packet-token" class="data-packet-token opacity-0"></div>
 
                 <!-- Architectural Mesh Map Canvas (3 Phases) -->
-                <div class="p-6 lg:p-10 space-y-10 relative overflow-x-auto min-w-[780px]">
+                <div id="arch-mesh-area" class="p-6 lg:p-10 space-y-10 relative overflow-x-auto min-w-[780px]">
+                    
+                    <!-- SVG Overlay for Indicative Directional Connecting Arrows -->
+                    <svg id="arch-connections-svg" class="absolute inset-0 w-full h-full pointer-events-none" style="z-index: 2;">
+                        <defs>
+                            <marker id="arrow-cyan" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#38BDF8" />
+                            </marker>
+                            <marker id="arrow-purple" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#C084FC" />
+                            </marker>
+                            <marker id="arrow-blue" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#60A5FA" />
+                            </marker>
+                            <marker id="arrow-red" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#F87171" />
+                            </marker>
+                            <marker id="arrow-orange" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#FB923C" />
+                            </marker>
+                            <marker id="arrow-amber" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#F59E0B" />
+                            </marker>
+                            <marker id="arrow-green" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#00D47E" />
+                            </marker>
+                            <marker id="arrow-slate" viewBox="0 0 10 10" refX="7" refY="5" markerWidth="6" markerHeight="6" orient="auto">
+                                <path d="M 0 1.5 L 8 5 L 0 8.5 z" fill="#64748B" />
+                            </marker>
+                        </defs>
+                        <!-- Dynamic connecting arrow paths populated by simulator.js -->
+                        <g id="arch-connections-group"></g>
+                    </svg>
                     
                     <!-- FASE 1: AUTORIZAÇÃO (SÍNCRONA) -->
-                    <div class="relative pt-2">
+                    <div class="relative pt-16">
                         <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-6">
                             <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
                             <span class="font-bold text-slate-300">Fase 1: Autorização (Síncrona)</span>
@@ -712,11 +744,11 @@
                             </div>
 
                             <!-- Node 3: Switch Adq (C++) + SoftHSM -->
-                            <div class="relative flex flex-col items-center">
-                                <!-- Top SoftHSM -->
-                                <div id="node-softhsm" class="arch-node mb-4 p-2.5 px-4 rounded-xl border-2 border-red-500/70 bg-[#240A10] text-center shadow-lg shadow-red-950/40">
-                                    <i data-lucide="shield" class="w-4 h-4 mx-auto text-red-400 mb-1"></i>
-                                    <div class="text-[11px] font-bold text-white">SoftHSM</div>
+                            <div class="relative flex items-center justify-center">
+                                <!-- Top SoftHSM floating cleanly above Switch Adq -->
+                                <div id="node-softhsm" class="arch-node absolute -top-[4.8rem] p-2 px-3.5 rounded-xl border-2 border-red-500/70 bg-[#240A10] text-center shadow-lg shadow-red-950/40 z-20 whitespace-nowrap">
+                                    <i data-lucide="shield" class="w-4 h-4 mx-auto text-red-400 mb-0.5"></i>
+                                    <div class="text-[10px] font-bold text-white">SoftHSM</div>
                                     <div class="text-[8px] font-mono text-red-300">Cofre Criptográfico</div>
                                 </div>
                                 <!-- Switch Node -->
