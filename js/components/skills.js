@@ -1,5 +1,6 @@
 /**
  * Skills & Technical Specializations Matrix Component
+ * Francisco Araújo | Senior Backend Engineer
  */
 
 function filterSkills(category) {

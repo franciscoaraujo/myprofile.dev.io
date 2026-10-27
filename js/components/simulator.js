@@ -1,6 +1,7 @@
 /**
- * Live Financial Switch Simulator Component
- * Simulates end-to-end authorization cycle across cryptographic and message layers
+ * Interactive ISO 8583 Protocol & Outbox Pipeline Demonstration
+ * Provides an interactive step-by-step walkthrough of the payment authorization lifecycle.
+ * Francisco Araújo | Senior Backend Engineer
  */
 
 let isSimulating = false;
@@ -35,12 +36,12 @@ function runTransactionSimulation() {
 
     if (consoleOut) {
         consoleOut.innerHTML = `
-            <div class="text-slate-400">&gt; Iniciando handshake de conexão com o terminal (${channel.toUpperCase()})...</div>
+            <div class="text-slate-400">&gt; Establishing simulated TLS socket connection with inbound terminal (${channel.toUpperCase()})...</div>
         `;
     }
 
     if (latencyBadge) {
-        latencyBadge.textContent = "PROCESSANDO TRANSAÇÃO...";
+        latencyBadge.textContent = "SIMULATION RUNNING (ISO 8583 PIPELINE)...";
         latencyBadge.className = "text-cyan-400 font-bold animate-pulse";
     }
 
@@ -51,7 +52,7 @@ function runTransactionSimulation() {
         activateSimStep(1);
         if (consoleOut) {
             consoleOut.innerHTML += `
-                <div class="text-cyan-300">&gt; [18ms] Captura ${channel.toUpperCase()}: MTI 0100 - PAN ************4921 - PROC: 000000</div>
+                <div class="text-cyan-300">&gt; [Step 1: 18ms] Terminal Inbound: Received MTI 0100 (Auth Request) - Processing Code: 000000 (Purchase)</div>
             `;
         }
     }, 300);
@@ -61,7 +62,7 @@ function runTransactionSimulation() {
         activateSimStep(2);
         if (consoleOut) {
             consoleOut.innerHTML += `
-                <div class="text-amber-300">&gt; [64ms] SoftHSM Socket: TMK descriptografado -&gt; Re-criptografado ZPK com sucesso (KCV: A3F89C)</div>
+                <div class="text-amber-300">&gt; [Step 2: 64ms] SoftHSM C++ Socket: Ingested TMK PIN Block -&gt; Translated to Scheme ZPK (KCV validated: A3F89C)</div>
             `;
         }
     }, 800);
@@ -71,7 +72,7 @@ function runTransactionSimulation() {
         activateSimStep(3);
         if (consoleOut) {
             consoleOut.innerHTML += `
-                <div class="text-slate-200">&gt; [95ms] Switch Core: Lock distribuído [acc-4921] via ShedLock assegurado. Sem race conditions.</div>
+                <div class="text-slate-200">&gt; [Step 3: 95ms] Switch Core: Acquired distributed ShedLock [lock_key: tx-terminal-seq]. Enforcing idempotency.</div>
             `;
         }
     }, 1300);
@@ -81,7 +82,7 @@ function runTransactionSimulation() {
         activateSimStep(4);
         if (consoleOut) {
             consoleOut.innerHTML += `
-                <div class="text-[#00D47E]">&gt; [142ms] VisaNet Emulator: Resposta ISO 8583 MTI 0110 - RC: 00 (APROVADA) - AUTH_CODE: 839210</div>
+                <div class="text-[#00D47E]">&gt; [Step 4: 142ms] VisaNet Emulator: Returned ISO 8583 MTI 0110 - RC: 00 (Approved) - Auth Code: 839210</div>
             `;
         }
     }, 1800);
@@ -91,12 +92,12 @@ function runTransactionSimulation() {
         activateSimStep(5);
         if (consoleOut) {
             consoleOut.innerHTML += `
-                <div class="text-[#00D47E] font-bold">&gt; [168ms] SUCESSO TOTAL: Evento ${txHash} gravado em PostgreSQL ACID e despachado ao RabbitMQ!</div>
+                <div class="text-[#00D47E] font-bold">&gt; [Step 5: 168ms] Outbox Event Persisted: ${txHash} committed to PostgreSQL ACID table and queued for RabbitMQ CDC relay!</div>
             `;
         }
 
         if (latencyBadge) {
-            latencyBadge.textContent = "CICLO COMPLETO CONCLUÍDO (LATÊNCIA TOTAL: 168ms)";
+            latencyBadge.textContent = "SIMULATED CYCLE COMPLETED (~168ms in test harness)";
             latencyBadge.className = "text-[#00D47E] font-bold";
         }
 

@@ -1,5 +1,6 @@
 /**
  * OrionPay Interactive Architecture Showcase Component
+ * Renders technical case studies with problem statements, architectural decisions, and explicit limitations.
  */
 
 function switchOrionTab(tabKey) {
@@ -27,13 +28,13 @@ function switchOrionTab(tabKey) {
         </div>
     `).join('<span class="text-slate-600 font-mono text-xs">→</span>');
 
-    const highlightsHtml = data.highlights.map(h => `
+    const decisionsHtml = data.decisions.map(d => `
         <div class="p-3.5 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
             <div class="text-xs font-bold text-white flex items-center gap-2">
                 <span class="w-1.5 h-1.5 rounded-full bg-[#00D47E]"></span>
-                ${h.label}
+                ${d.topic}
             </div>
-            <p class="text-xs text-slate-400 leading-relaxed pl-3.5">${h.desc}</p>
+            <p class="text-xs text-slate-300 leading-relaxed pl-3.5">${d.detail}</p>
         </div>
     `).join('');
 
@@ -43,29 +44,46 @@ function switchOrionTab(tabKey) {
                 <span class="text-[11px] font-mono font-bold uppercase tracking-wider text-[#00D47E]">${data.stack}</span>
                 <h3 class="text-xl sm:text-2xl font-black text-white mt-0.5">${data.title}</h3>
             </div>
-            <span class="px-3 py-1 rounded-full bg-[#00D47E]/10 border border-[#00D47E]/30 text-[#00D47E] text-xs font-mono font-bold">
-                ${data.badge}
+            <span class="px-3 py-1 rounded-full bg-blue-950/80 border border-blue-500/40 text-blue-300 text-xs font-mono font-semibold">
+                ${data.status}
             </span>
         </div>
 
+        <!-- Problem Statement -->
+        <div class="p-3.5 rounded-xl bg-[#0B132B]/40 border border-blue-900/40 space-y-1">
+            <div class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> The Engineering Problem
+            </div>
+            <p class="text-xs text-slate-300 leading-relaxed">${data.problem}</p>
+        </div>
+
+        <!-- Summary -->
         <p class="text-sm text-slate-300 leading-relaxed font-normal">
             ${data.summary}
         </p>
 
-        <!-- Flow strip -->
+        <!-- Sequential Pipeline -->
         <div class="p-3.5 rounded-xl bg-[#040711] border border-[#152342]">
-            <div class="text-[10px] uppercase font-mono text-slate-500 mb-2">Pipeline Sequencial:</div>
+            <div class="text-[10px] uppercase font-mono text-slate-500 mb-2 font-semibold">Execution Pipeline:</div>
             <div class="flex flex-wrap items-center gap-2">
                 ${flowHtml}
             </div>
         </div>
 
-        <!-- Deep highlights -->
+        <!-- Architectural Decisions -->
         <div class="space-y-2.5 pt-1">
-            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">Destaques de Implementação:</div>
+            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">Key Architectural Decisions &amp; Failure Recovery:</div>
             <div class="space-y-2">
-                ${highlightsHtml}
+                ${decisionsHtml}
             </div>
+        </div>
+
+        <!-- Known Limitations & Scope -->
+        <div class="p-3 rounded-xl bg-[#060B17] border border-amber-900/30 text-xs space-y-1">
+            <div class="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Test Scope &amp; Engineering Constraints
+            </div>
+            <p class="text-[11px] text-slate-400 leading-relaxed">${data.limitations}</p>
         </div>
     `;
 
