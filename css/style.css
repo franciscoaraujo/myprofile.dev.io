@@ -278,6 +278,14 @@ a:focus-visible, button:focus-visible, select:focus-visible {
     filter: drop-shadow(0 0 6px #00D47E);
 }
 
+.arch-arrow-head {
+    transition: fill 0.3s ease, filter 0.3s ease;
+}
+.arch-arrow-head.active-pipe {
+    fill: #00D47E !important;
+    filter: drop-shadow(0 0 8px #00D47E);
+}
+
 .arch-node {
     z-index: 10;
 }

@@ -1,8 +1,8 @@
 /**
  * OrionPay Datadog - Interactive Architectural Pipeline & Transactional Outbox Simulator
- * Real-time packet animation traversal strictly aligned with SVG arrows and nodes.
- * The data packet moves through the center of each service box and traverses exactly
- * along the connecting pipe lines.
+ * Directional arrows positioned in the middle between cards (not at the end of cards),
+ * with the glowing data packet traveling strictly on top of the connecting lines & arrows,
+ * traversing through the center of each service card.
  * 
  * Francisco Araújo | Senior Backend Engineer • Java & Payment Systems
  */
@@ -17,29 +17,29 @@ let timelineTimer = null;
 // Directional connection pipes configuration
 const ARCH_PIPES = [
     // Phase 1: Synchronous Authorization (Horizontal & Vertical HSM)
-    { id: 'pipe-pos-merchant', from: 'node-softpos', to: 'node-merchant', dir: 'right', color: '#38BDF8', marker: 'arrow-cyan' },
-    { id: 'pipe-merchant-switch', from: 'node-merchant', to: 'node-switch', dir: 'right', color: '#C084FC', marker: 'arrow-purple' },
-    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', marker: 'arrow-red', offset: -14 },
-    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', marker: 'arrow-blue', offset: 14 },
-    { id: 'pipe-switch-visa', from: 'node-switch', to: 'node-visagateway', dir: 'right', color: '#60A5FA', marker: 'arrow-blue' },
-    { id: 'pipe-visa-visanet', from: 'node-visagateway', to: 'node-visanet', dir: 'right', color: '#3B82F6', marker: 'arrow-blue' },
+    { id: 'pipe-pos-merchant', from: 'node-softpos', to: 'node-merchant', dir: 'right', color: '#38BDF8' },
+    { id: 'pipe-merchant-switch', from: 'node-merchant', to: 'node-switch', dir: 'right', color: '#C084FC' },
+    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', offset: -14 },
+    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', offset: 14 },
+    { id: 'pipe-switch-visa', from: 'node-switch', to: 'node-visagateway', dir: 'right', color: '#60A5FA' },
+    { id: 'pipe-visa-visanet', from: 'node-visagateway', to: 'node-visanet', dir: 'right', color: '#3B82F6' },
 
     // Inter-Phase 1 -> 2: Orchestration & Commit
-    { id: 'pipe-merchant-db', from: 'node-merchant', to: 'node-dboutbox', dir: 'down-step', color: '#A855F7', marker: 'arrow-purple' },
-    { id: 'pipe-switch-relay', from: 'node-switch', to: 'node-outboxrelay', dir: 'down-step', color: '#FB923C', marker: 'arrow-orange' },
+    { id: 'pipe-merchant-db', from: 'node-merchant', to: 'node-dboutbox', dir: 'down-step', color: '#A855F7' },
+    { id: 'pipe-switch-relay', from: 'node-switch', to: 'node-outboxrelay', dir: 'down-step', color: '#FB923C' },
 
     // Phase 2: Asynchronous Messaging (Transactional Outbox & CDC)
-    { id: 'pipe-db-relay', from: 'node-dboutbox', to: 'node-outboxrelay', dir: 'right', color: '#818CF8', marker: 'arrow-purple' },
-    { id: 'pipe-relay-rmq', from: 'node-outboxrelay', to: 'node-rabbitmq', dir: 'right', color: '#FB923C', marker: 'arrow-orange' },
-    { id: 'pipe-rmq-listener', from: 'node-rabbitmq', to: 'node-settlementlistener', dir: 'right', color: '#F59E0B', marker: 'arrow-amber' },
+    { id: 'pipe-db-relay', from: 'node-dboutbox', to: 'node-outboxrelay', dir: 'right', color: '#818CF8' },
+    { id: 'pipe-relay-rmq', from: 'node-outboxrelay', to: 'node-rabbitmq', dir: 'right', color: '#FB923C' },
+    { id: 'pipe-rmq-listener', from: 'node-rabbitmq', to: 'node-settlementlistener', dir: 'right', color: '#F59E0B' },
 
     // Inter-Phase: Scheme Confirmation -> Settlement Listener
-    { id: 'pipe-visanet-listener', from: 'node-visanet', to: 'node-settlementlistener', dir: 'down-step', color: '#00D47E', marker: 'arrow-green' },
+    { id: 'pipe-visanet-listener', from: 'node-visanet', to: 'node-settlementlistener', dir: 'down-step', color: '#00D47E' },
 
     // Phase 3: Batch Settlement & Reconciliation (Batch / Pull)
-    { id: 'pipe-relay-tc57', from: 'node-outboxrelay', to: 'node-tc57log', dir: 'down-step', color: '#64748B', marker: 'arrow-slate' },
-    { id: 'pipe-tc57-batch', from: 'node-tc57log', to: 'node-springbatch', dir: 'down-step', color: '#FBBF24', marker: 'arrow-amber' },
-    { id: 'pipe-batch-payout', from: 'node-springbatch', to: 'node-payout', dir: 'right', color: '#00D47E', marker: 'arrow-green' }
+    { id: 'pipe-relay-tc57', from: 'node-outboxrelay', to: 'node-tc57log', dir: 'down-step', color: '#64748B' },
+    { id: 'pipe-tc57-batch', from: 'node-tc57log', to: 'node-springbatch', dir: 'down-step', color: '#FBBF24' },
+    { id: 'pipe-batch-payout', from: 'node-springbatch', to: 'node-payout', dir: 'right', color: '#00D47E' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         drawArchitectureArrows();
     }, 300);
 
-    // Redraw on window resize or orientation change
+    // Redraw on window resize
     window.addEventListener('resize', () => {
         drawArchitectureArrows();
     });
@@ -59,7 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
 });
 
 /**
- * Draw all connecting paths and directional arrowheads dynamically
+ * Draw all connecting paths and place directional arrows in the exact middle of the gap between cards
  */
 function drawArchitectureArrows() {
     const container = document.getElementById('arch-mesh-area');
@@ -77,54 +77,92 @@ function drawArchitectureArrows() {
         const fRect = fromEl.getBoundingClientRect();
         const tRect = toEl.getBoundingClientRect();
 
-        let x1, y1, x2, y2, d;
+        // Node center coordinates
+        const fromCenterX = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
+        const fromCenterY = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
+        const toCenterX = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
+        const toCenterY = (tRect.top + tRect.height / 2 - cRect.top) + container.scrollTop;
+
+        let d = '';
+        let arrowX = 0;
+        let arrowY = 0;
+        let arrowAngle = 0;
 
         if (pipe.dir === 'right') {
-            x1 = (fRect.right - cRect.left) + container.scrollLeft;
-            y1 = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
-            x2 = (tRect.left - cRect.left - 6) + container.scrollLeft;
-            y2 = (tRect.top + tRect.height / 2 - cRect.top) + container.scrollTop;
+            const x1 = (fRect.right - cRect.left) + container.scrollLeft;
+            const y1 = fromCenterY;
+            const x2 = (tRect.left - cRect.left) + container.scrollLeft;
+            const y2 = toCenterY;
+
+            // Arrow placed right in the middle between the two cards
+            arrowX = (x1 + x2) / 2;
+            arrowY = (y1 + y2) / 2;
+            arrowAngle = 0;
 
             if (Math.abs(y1 - y2) < 4) {
-                d = `M ${x1} ${y1} L ${x2} ${y2}`;
+                // Continuous path from center of card A to center of card B
+                d = `M ${fromCenterX} ${fromCenterY} L ${toCenterX} ${toCenterY}`;
             } else {
-                const midX = (x1 + x2) / 2;
-                d = `M ${x1} ${y1} L ${midX} ${y1} L ${midX} ${y2} L ${x2} ${y2}`;
+                d = `M ${fromCenterX} ${fromCenterY} L ${arrowX} ${fromCenterY} L ${arrowX} ${toCenterY} L ${toCenterX} ${toCenterY}`;
             }
         } else if (pipe.dir === 'up') {
             const offsetX = pipe.offset || 0;
-            x1 = (fRect.left + fRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
-            y1 = (fRect.top - cRect.top) + container.scrollTop;
-            x2 = (tRect.left + tRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
-            y2 = (tRect.bottom - cRect.top + 6) + container.scrollTop;
-            d = `M ${x1} ${y1} L ${x2} ${y2}`;
+            const x1 = fromCenterX + offsetX;
+            const y1 = (fRect.top - cRect.top) + container.scrollTop;
+            const x2 = toCenterX + offsetX;
+            const y2 = (tRect.bottom - cRect.top) + container.scrollTop;
+
+            arrowX = (x1 + x2) / 2;
+            arrowY = (y1 + y2) / 2;
+            arrowAngle = -90;
+
+            d = `M ${fromCenterX + offsetX} ${fromCenterY} L ${toCenterX + offsetX} ${toCenterY}`;
         } else if (pipe.dir === 'down') {
             const offsetX = pipe.offset || 0;
-            x1 = (fRect.left + fRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
-            y1 = (fRect.bottom - cRect.top) + container.scrollTop;
-            x2 = (tRect.left + tRect.width / 2 - cRect.left + offsetX) + container.scrollLeft;
-            y2 = (tRect.top - cRect.top - 6) + container.scrollTop;
-            d = `M ${x1} ${y1} L ${x2} ${y2}`;
-        } else if (pipe.dir === 'down-step') {
-            x1 = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
-            y1 = (fRect.bottom - cRect.top) + container.scrollTop;
-            x2 = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
-            y2 = (tRect.top - cRect.top - 6) + container.scrollTop;
+            const x1 = fromCenterX + offsetX;
+            const y1 = (fRect.bottom - cRect.top) + container.scrollTop;
+            const x2 = toCenterX + offsetX;
+            const y2 = (tRect.top - cRect.top) + container.scrollTop;
 
-            if (Math.abs(x1 - x2) < 6) {
-                d = `M ${x1} ${y1} L ${x2} ${y2}`;
+            arrowX = (x1 + x2) / 2;
+            arrowY = (y1 + y2) / 2;
+            arrowAngle = 90;
+
+            d = `M ${fromCenterX + offsetX} ${fromCenterY} L ${toCenterX + offsetX} ${toCenterY}`;
+        } else if (pipe.dir === 'down-step') {
+            const y1 = (fRect.bottom - cRect.top) + container.scrollTop;
+            const y2 = (tRect.top - cRect.top) + container.scrollTop;
+            const midY = (y1 + y2) / 2;
+
+            if (Math.abs(fromCenterX - toCenterX) < 6) {
+                arrowX = fromCenterX;
+                arrowY = midY;
+                arrowAngle = 90;
+                d = `M ${fromCenterX} ${fromCenterY} L ${toCenterX} ${toCenterY}`;
             } else {
-                const midY = (y1 + y2) / 2;
-                d = `M ${x1} ${y1} L ${x1} ${midY} L ${x2} ${midY} L ${x2} ${y2}`;
+                // Step path
+                arrowX = fromCenterX;
+                arrowY = midY;
+                arrowAngle = 90;
+                d = `M ${fromCenterX} ${fromCenterY} L ${fromCenterX} ${midY} L ${toCenterX} ${midY} L ${toCenterX} ${toCenterY}`;
             }
         }
+
+        // Arrowhead polygon centered at (arrowX, arrowY)
+        const arrowSvg = `
+            <polygon class="arch-arrow-head" 
+                     id="arrow-${pipe.id}"
+                     points="-5,-5 6,0 -5,5" 
+                     fill="${pipe.color}" 
+                     transform="translate(${arrowX}, ${arrowY}) rotate(${arrowAngle})" />
+        `;
 
         svgHtml += `
             <path id="${pipe.id}" 
                   class="arch-connector-line" 
                   d="${d}" 
-                  stroke="${pipe.color}" 
-                  marker-end="url(#${pipe.marker})" />
+                  stroke="${pipe.color}" />
+            ${arrowSvg}
         `;
     });
 
@@ -133,8 +171,8 @@ function drawArchitectureArrows() {
 
 /**
  * Animate the data packet strictly along an SVG pipe line,
- * smoothly leaving the center of fromNode, traversing the arrow line,
- * and entering inside toNode's center.
+ * starting inside the center of fromNode, passing right on top of the middle arrow,
+ * and entering into the center of toNode.
  */
 function traversePipe(pipeId, token, onComplete) {
     const pipe = ARCH_PIPES.find(p => p.id === pipeId);
@@ -146,77 +184,49 @@ function traversePipe(pipeId, token, onComplete) {
     const fromNode = document.getElementById(pipe.from);
     const toNode = document.getElementById(pipe.to);
     const pathEl = document.getElementById(pipe.id);
-    const container = document.getElementById('arch-mesh-area');
+    const arrowEl = document.getElementById(`arrow-${pipe.id}`);
 
-    if (!fromNode || !toNode || !pathEl || !container || !token) {
+    if (!fromNode || !toNode || !pathEl || !token) {
         if (onComplete) onComplete();
         return;
     }
 
-    const cRect = container.getBoundingClientRect();
-    const fRect = fromNode.getBoundingClientRect();
-    const tRect = toNode.getBoundingClientRect();
-
-    // Center coordinates inside nodes relative to container
-    const startX = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
-    const startY = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
-    const endX = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
-    const endY = (tRect.top + tRect.height / 2 - cRect.top) + container.scrollTop;
-
-    // Highlight source node and pipe
+    // Highlight source node, connecting line, and middle arrowhead
     fromNode.classList.add('active-node');
     pathEl.classList.add('active-pipe');
+    if (arrowEl) arrowEl.classList.add('active-pipe');
 
     token.style.opacity = '1';
-    token.style.transition = 'none';
-    token.style.left = `${startX}px`;
-    token.style.top = `${startY}px`;
 
     const totalLen = pathEl.getTotalLength();
     const pStart = pathEl.getPointAtLength(0);
-    const pEnd = pathEl.getPointAtLength(totalLen);
+    token.style.left = `${pStart.x}px`;
+    token.style.top = `${pStart.y}px`;
 
-    const duration = 600; // ms
+    const duration = 550; // ms
     const startTime = performance.now();
 
     function step(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        if (progress < 0.20) {
-            // Segment 1: Traveling from center of fromNode to start of pipe
-            const sub = progress / 0.20;
-            const curX = startX + (pStart.x - startX) * sub;
-            const curY = startY + (pStart.y - startY) * sub;
-            token.style.left = `${curX}px`;
-            token.style.top = `${curY}px`;
-        } else if (progress < 0.80) {
-            // Segment 2: Traversing strictly along the SVG arrow path
-            const sub = (progress - 0.20) / 0.60;
-            const pt = pathEl.getPointAtLength(totalLen * sub);
-            token.style.left = `${pt.x}px`;
-            token.style.top = `${pt.y}px`;
-        } else {
-            // Segment 3: Entering inside toNode from pipe end to node center
-            const sub = (progress - 0.80) / 0.20;
-            const curX = pEnd.x + (endX - pEnd.x) * sub;
-            const curY = pEnd.y + (endY - pEnd.y) * sub;
-            token.style.left = `${curX}px`;
-            token.style.top = `${curY}px`;
-        }
+        // Move strictly along the exact geometry of the SVG path
+        const pt = pathEl.getPointAtLength(totalLen * progress);
+        token.style.left = `${pt.x}px`;
+        token.style.top = `${pt.y}px`;
 
         if (progress < 1) {
             requestAnimationFrame(step);
         } else {
-            token.style.left = `${endX}px`;
-            token.style.top = `${endY}px`;
+            // Reached inside target card
             toNode.classList.add('active-node');
 
             setTimeout(() => {
                 fromNode.classList.remove('active-node');
                 pathEl.classList.remove('active-pipe');
+                if (arrowEl) arrowEl.classList.remove('active-pipe');
                 if (onComplete) onComplete();
-            }, 100);
+            }, 80);
         }
     }
 
@@ -271,7 +281,7 @@ function runAuthPipeline({ token, consoleOut, latencyBadge, timelineProgress, ti
 
     animateTimeline(16, timelineProgress, timelineTime);
 
-    // 1. SoftPOS -> Merchant Service along pipe
+    // 1. SoftPOS -> Merchant Service
     traversePipe('pipe-pos-merchant', token, () => {
         logConsole(consoleOut, `&gt; [00:00:02] SoftPOS: Generated EMV TLV ARQC cryptogram. Forwarding to API.`);
 
@@ -299,7 +309,7 @@ function runAuthPipeline({ token, consoleOut, latencyBadge, timelineProgress, ti
                                             traversePipe('pipe-visa-visanet', token, () => {
                                                 logConsole(consoleOut, `&gt; [00:00:11] VisaNet External: Returned ISO 8583 MTI 0110 - Response Code: 00 (APPROVED) - Auth: ${Math.floor(100000 + Math.random() * 900000)}`);
 
-                                                // Split 1: Commit to DB & Outbox
+                                                // Commit in DB & Outbox
                                                 pendingDbCount++;
                                                 updateStatsUI();
                                                 setNodeBadge('node-dboutbox', pendingDbCount, 'bg-red-500');
@@ -342,23 +352,23 @@ function runAuthPipeline({ token, consoleOut, latencyBadge, timelineProgress, ti
 
                                                                                 finishSimulation(btnFire, btnSettle, token);
                                                                             });
-                                                                        }, 200);
+                                                                        }, 150);
                                                                     });
-                                                                }, 200);
+                                                                }, 150);
                                                             });
-                                                        }, 200);
+                                                        }, 150);
                                                     });
-                                                }, 200);
+                                                }, 150);
                                             });
-                                        }, 200);
+                                        }, 150);
                                     });
-                                }, 200);
+                                }, 150);
                             });
-                        }, 200);
+                        }, 150);
                     });
-                }, 200);
+                }, 150);
             });
-        }, 200);
+        }, 150);
     });
 }
 
@@ -400,15 +410,18 @@ function runBatchPipeline({ token, consoleOut, latencyBadge, timelineProgress, t
 
                         finishSimulation(btnFire, btnSettle, token);
                     });
-                }, 250);
+                }, 200);
             });
-        }, 250);
+        }, 200);
     });
 }
 
 function clearPipeHighlights() {
     document.querySelectorAll('.arch-connector-line').forEach(p => {
         p.classList.remove('active-pipe');
+    });
+    document.querySelectorAll('.arch-arrow-head').forEach(a => {
+        a.classList.remove('active-pipe');
     });
 }
 
