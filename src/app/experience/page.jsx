@@ -138,8 +138,8 @@ export default function ExperiencePage() {
           </h3>
           <p className="text-xs text-slate-400 mt-0.5">
             {isPt
-              ? 'Veja todas as competências filtradas por domínio (Pagamentos, Sistemas Distribuídos, Backend & C++, Bancos de Dados e Cloud).'
-              : 'Browse all verified competencies filtered by domain (Payments, Distributed Systems, Backend & C++, Databases, and Cloud).'}
+              ? 'Veja as competências técnicas centrais organizadas por domínio com evidências verificáveis de produção corporativa e projetos autorais.'
+              : 'Browse core technical competencies structured by domain with verifiable evidence across corporate production and authorial projects.'}
           </p>
         </div>
         <Link

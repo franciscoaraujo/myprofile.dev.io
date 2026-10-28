@@ -89,7 +89,7 @@ export default function SwitchSimulator() {
   }, [addLog, isPt]);
 
   // --- SVG Drawing ---
-  const drawLine = useCallback((id1, id2, dashed = false, arrow = true, twoWay = false, label = '', labelOffsetY = 0) => {
+  const drawLine = useCallback((id1, id2, dashed = false, arrow = true, twoWay = false, label = '', labelOffsetY = 0, labelOffsetX = 0) => {
     const el1 = document.getElementById(id1);
     const el2 = document.getElementById(id2);
     const container = canvasRef.current;
@@ -138,7 +138,7 @@ export default function SwitchSimulator() {
 
     let labelSvg = '';
     if (label) {
-      const midX = (x1 + x2) / 2;
+      const midX = (x1 + x2) / 2 + labelOffsetX;
       const midY = (y1 + y2) / 2 + labelOffsetY;
       const boxW = Math.max(label.length * 6.5 + 22, 124);
       labelSvg = `
@@ -254,7 +254,7 @@ export default function SwitchSimulator() {
       ${drawLine('node-rmq', 'node-listener', false, true)}
       ${drawElbowLine('node-listener', 'node-db', true, 44, 34)}
       
-      ${drawLine('node-db', 'node-batch', true, true, false, partitionLabel, 18)}
+      ${drawLine('node-db', 'node-batch', true, true, false, partitionLabel, 36, 60)}
       ${drawLine('node-batch', 'node-payout', false, true, false, doubleEntryLabel)}
       ${drawBottomElbowLine('node-batch', 'node-visanet', tc50Label)}
     `;
@@ -1090,9 +1090,15 @@ export default function SwitchSimulator() {
             ref={canvasRef}
             className="relative min-w-[980px] min-h-[720px] w-full h-full pr-12"
           >
-            {/* Phase 1 Header Badge (Positioned cleanly above SoftPOS in Column 1, never overlapping any node) */}
-            <div className="absolute left-8 top-[140px] z-10 pointer-events-none">
-              <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A2130]/90 border border-[#384152] text-[11px] font-bold text-slate-300 uppercase tracking-wider shadow-sm">
+            {/* Phase 1 Header Badge (Positioned cleanly at the top-left in open space above SoftPOS, never overlapping any node) */}
+            <div className="absolute left-8 top-5 z-10 pointer-events-none">
+              <div
+                className={`inline-flex items-center gap-2 px-3 py-1 rounded-full ${
+                  isLight
+                    ? 'bg-white/95 border border-slate-300 text-slate-700 shadow-sm'
+                    : 'bg-[#1A2130]/90 border border-[#384152] text-slate-300 shadow-sm'
+                } text-[11px] font-bold uppercase tracking-wider`}
+              >
                 <i className="fa-solid fa-bolt text-cyan-400"></i>
                 <span>
                   {isPt ? 'Fase 1: Autorização (Síncrona)' : 'Phase 1: Authorization (Synchronous)'}
@@ -1101,8 +1107,18 @@ export default function SwitchSimulator() {
             </div>
 
             {/* Phase Divider 1: Between Fase 1 (Row 2) and Fase 2 (Row 3) */}
-            <div className="absolute inset-x-0 top-[324px] border-b-2 border-dashed border-[#384152] w-full z-0 pointer-events-none">
-              <div className="absolute left-8 top-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A2130]/90 border border-[#384152] text-[11px] font-bold text-slate-300 uppercase tracking-wider shadow-sm">
+            <div
+              className={`absolute inset-x-0 top-[324px] border-b-2 border-dashed ${
+                isLight ? 'border-slate-300' : 'border-[#384152]'
+              } w-full z-0 pointer-events-none`}
+            >
+              <div
+                className={`absolute left-8 top-3 inline-flex items-center gap-2 px-3 py-1 rounded-full ${
+                  isLight
+                    ? 'bg-white/95 border border-slate-300 text-slate-700 shadow-sm'
+                    : 'bg-[#1A2130]/90 border border-[#384152] text-slate-300 shadow-sm'
+                } text-[11px] font-bold uppercase tracking-wider`}
+              >
                 <i className="fa-solid fa-network-wired text-purple-400"></i>
                 <span>
                   {isPt ? 'Fase 2: Mensageria (Assíncrona)' : 'Phase 2: Messaging (Asynchronous)'}
@@ -1111,8 +1127,18 @@ export default function SwitchSimulator() {
             </div>
 
             {/* Phase Divider 2: Between Fase 2 (Row 3) and Fase 3 (Row 4) */}
-            <div className="absolute inset-x-0 top-[520px] border-b-2 border-dashed border-[#384152] w-full z-0 pointer-events-none">
-              <div className="absolute left-8 top-3 inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#1A2130]/90 border border-[#384152] text-[11px] font-bold text-slate-300 uppercase tracking-wider shadow-sm">
+            <div
+              className={`absolute inset-x-0 top-[520px] border-b-2 border-dashed ${
+                isLight ? 'border-slate-300' : 'border-[#384152]'
+              } w-full z-0 pointer-events-none`}
+            >
+              <div
+                className={`absolute left-8 top-3 inline-flex items-center gap-2 px-3 py-1 rounded-full ${
+                  isLight
+                    ? 'bg-white/95 border border-slate-300 text-slate-700 shadow-sm'
+                    : 'bg-[#1A2130]/90 border border-[#384152] text-slate-300 shadow-sm'
+                } text-[11px] font-bold uppercase tracking-wider`}
+              >
                 <i className="fa-solid fa-clock text-blue-400"></i>
                 <span>
                   {isPt ? 'Fase 3: Liquidação (Cold Path)' : 'Phase 3: Settlement (Cold Path)'}

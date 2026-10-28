@@ -81,14 +81,14 @@ export default function OverviewPage() {
     {
       href: '/skills',
       icon: Cpu,
-      badgeEn: '26 VERIFIED COMPETENCIES',
-      badgePt: '26 COMPETÊNCIAS VERIFICADAS',
+      badgeEn: 'CORE ENGINEERING SKILLS',
+      badgePt: 'COMPETÊNCIAS TÉCNICAS CENTRAIS',
       titleEn: 'Technical Skills Matrix',
       titlePt: 'Matriz de Habilidades Técnicas',
       descEn:
-        'Filterable domain matrix spanning Backend & C++, Payment Protocols, Distributed Messaging, Databases, Cloud/DevOps, and Cryptographic Security.',
+        'Structured domain matrix with verifiable technical evidence spanning Backend & C++, Payment Protocols, Distributed Systems, Persistence, Cloud, and Cryptographic Security.',
       descPt:
-        'Matriz filtrável por domínio cobrindo Backend & C++, Protocolos de Pagamento, Mensageria Distribuída, Bancos de Dados, Cloud/DevOps e Criptografia.',
+        'Matriz estruturada por domínio com evidências técnicas verificáveis cobrindo Backend & C++, Meios de Pagamento, Sistemas Distribuídos, Persistência, Cloud e Segurança Criptográfica.',
       color: 'text-amber-400',
       border: 'hover:border-amber-400/60',
     },
@@ -306,7 +306,7 @@ export default function OverviewPage() {
             <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-cyan-400/40 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
-                  {isPt ? 'Janela de Autorização' : 'Authorization Window'}
+                  {isPt ? 'Alvo de Latência' : 'Latency Target'}
                 </span>
                 <Gauge className="w-4 h-4 text-cyan-400" />
               </div>
@@ -315,8 +315,8 @@ export default function OverviewPage() {
               </div>
               <p className="text-xs text-slate-400">
                 {isPt
-                  ? 'Meta de arquitetura ponta a ponta cobrindo captura no terminal, tradução criptográfica e roteamento no switch.'
-                  : 'End-to-end design target spanning terminal capture, crypto translation, and switch routing.'}
+                  ? 'Meta de projeto arquitetural (design target; não é SLA de produção) cobrindo captura, tradução e roteamento no switch.'
+                  : 'Architectural design target (not a measured production SLA) spanning terminal capture, crypto translation, and switch routing.'}
               </p>
             </div>
 
@@ -332,25 +332,25 @@ export default function OverviewPage() {
               </div>
               <p className="text-xs text-slate-400">
                 {isPt
-                  ? 'Eliminação de dual-write com commits atômicos no banco de dados e Change Data Capture (CDC).'
-                  : 'Dual-write elimination with atomic database commits and Change Data Capture (CDC).'}
+                  ? 'Eliminação de dual-write com commits locais ACID no PostgreSQL e repasse desacoplado ao broker.'
+                  : 'Dual-write elimination with local ACID PostgreSQL commits and decoupled broker relay.'}
               </p>
             </div>
 
             <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-amber-400/40 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
-                  {isPt ? 'Escopo de Segurança' : 'Security Scope'}
+                  {isPt ? 'Segurança Criptográfica' : 'Cryptographic Security'}
                 </span>
                 <Shield className="w-4 h-4 text-amber-400" />
               </div>
               <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                HSM <span className="text-amber-400 text-lg font-sans">{isPt ? 'Conceitos' : 'Concepts'}</span>
+                SoftHSM <span className="text-amber-400 text-lg font-sans">{isPt ? 'Simulator' : 'Simulator'}</span>
               </div>
               <p className="text-xs text-slate-400">
                 {isPt
-                  ? 'Gerenciamento de chaves 3DES/AES, recriptografia de PIN block TMK-para-ZPK e verificação matemática de KCV.'
-                  : '3DES, AES key management, TMK-to-ZPK PIN block re-encryption, and KCV math checks.'}
+                  ? 'Simulador em software (C++ / OpenSSL) de chaves 3DES/AES, recriptografia de PIN block TMK-para-ZPK e validação KCV.'
+                  : 'Software simulation (C++ / OpenSSL) of 3DES/AES keys, TMK-to-ZPK PIN block re-encryption, and KCV validation.'}
               </p>
             </div>
           </div>
@@ -443,24 +443,24 @@ export default function OverviewPage() {
                   <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
-                      ? 'Consistência transacional entre autorização online síncrona e clearing em lote via padrão Outbox'
-                      : 'Transactional consistency between synchronous online authorization and batch clearing via Outbox pattern'}
+                      ? 'Consistência transacional entre autorização síncrona e fila de liquidação via padrão Outbox'
+                      : 'Transactional consistency between synchronous authorization and settlement queues via Outbox pattern'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
-                      ? 'Emuladores de bandeira para testes de carga e pré-certificação com excelente custo-benefício'
-                      : 'Scheme emulator harnesses for cost-effective pre-certification load tests'}
+                      ? 'Bancadas de teste de protocolo para validação de fluxos e testes de carga antes de homologações formais'
+                      : 'Protocol testbed harnesses for preliminary integration and load testing prior to formal scheme compliance'}
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
                   <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
-                      ? 'Diagnóstico de deadlocks distribuídos e otimização fina de pools de conexão no PostgreSQL'
-                      : 'Troubleshooting distributed deadlocks and tuning PostgreSQL connection pools'}
+                      ? 'Diagnóstico de concorrência distribuída e otimização fina de pools de conexão no PostgreSQL'
+                      : 'Troubleshooting distributed concurrency and tuning PostgreSQL connection pools'}
                   </span>
                 </div>
               </div>
@@ -495,8 +495,8 @@ export default function OverviewPage() {
                 <h3 className="text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isPt
-                    ? 'Prevenção de falhas de dual-write com persistência relacional Outbox, streaming CDC e travas distribuídas para idempotência estrita em requisições duplicadas de gateway.'
-                    : 'Preventing dual-write failures with relational outbox persistence, CDC streaming, and distributed locks for strict idempotency on duplicate gateway requests.'}
+                    ? 'Prevenção de inconsistências de dual-write com persistência local ACID no Outbox, relay assíncrono para o broker e travas de idempotência para retentativas de rede.'
+                    : 'Preventing dual-write inconsistencies with local ACID Outbox persistence, asynchronous broker relay, and distributed locks for idempotency on network retries.'}
                 </p>
               </div>
 
@@ -505,12 +505,12 @@ export default function OverviewPage() {
                   <Lock className="w-3.5 h-3.5" /> {isPt ? 'Criptografia' : 'Cryptography'}
                 </div>
                 <h3 className="text-white font-bold text-sm">
-                  {isPt ? 'Simulação de Hardware Security Module (HSM)' : 'Hardware Security Module (HSM) Simulation'}
+                  {isPt ? 'Simulador C++ SoftHSM (Educacional & Testes)' : 'C++ SoftHSM Simulator (Testbed)'}
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isPt
-                    ? 'Gerenciamento de chaves simétricas com hierarquias TMK, ZPK e LMK. Tradução de PIN blocks em memória volátil segura sem nunca persistir o PIN do portador.'
-                    : 'Symmetric key management with TMK, ZPK, and LMK hierarchies. Translating PIN blocks in secure volatile memory without persisting cardholder PIN data.'}
+                    ? 'Simulação em software (C++17 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
+                    : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++17 and OpenSSL without persisting plaintext PINs.'}
                 </p>
               </div>
 
@@ -523,8 +523,8 @@ export default function OverviewPage() {
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isPt
-                    ? 'Pipelines Spring Batch projetados para processar transações em layouts posicionais padronizados (Visa Base II TC50) com batimento automatizado de taxas.'
-                    : 'Spring Batch pipelines capable of streaming transactions into standardized positional layouts (Visa Base II TC50) with automated fee balancing.'}
+                    ? 'Pipelines Spring Batch projetados para processar transações em layouts posicionais padronizados (Visa Base II TC50) com conciliação contábil em partidas dobradas (Débito = Crédito Lojista + Receita MDR).'
+                    : 'Spring Batch pipelines designed to process transactions into standardized positional layouts (Visa Base II TC50) with balanced double-entry accounting (Debit = Credit + MDR fee revenue).'}
                 </p>
               </div>
 
