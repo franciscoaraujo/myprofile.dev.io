@@ -509,6 +509,12 @@ const PT_TEXT_DICTIONARY = {
     'Scheme emulator harnesses for cost-effective pre-certification load tests': 'Emuladores de bandeira para testes de carga e pré-certificação com excelente custo-benefício',
     'Troubleshooting distributed deadlocks and tuning PostgreSQL connection pools': 'Diagnóstico de deadlocks distribuídos e otimização fina de pools de conexão no PostgreSQL',
     'Language Proficiency:': 'Proficiência em Idiomas:',
+    'Portuguese:': 'Português:',
+    'Native': 'Nativo',
+    'English:': 'Inglês:',
+    'Technical / Professional Working (B1-B2)': 'Técnico / Profissional (B1-B2)',
+    'French:': 'Francês:',
+    'Intermediate': 'Intermediário',
     'Location: Barueri, SP, Brazil (UTC-3 / BRT) • Open to Remote Worldwide & Relocation': 'Localização: Barueri, SP, Brasil (UTC-3 / BRT) • Aberto a Remoto Global & Realocação',
     'Resilience': 'Resiliência',
     'Transactional Outbox & ShedLock': 'Transactional Outbox & ShedLock',
@@ -577,18 +583,6 @@ const PT_HTML_FRAGMENTS = [
     {
         enMatch: 'Deep familiarity with payment standards',
         ptHtml: 'Profunda familiaridade com padrões de meios de pagamento (<span class="font-mono text-cyan-300">ISO 8583, EMV, SPB Banco Central</span>), rotinas criptográficas de baixo nível em C++ e arquitetura de microsserviços moderna em Java 21 me permitem resolver casos extremos antes que se tornem divergências de conciliação ou deadlocks de concorrência.'
-    },
-    {
-        enMatch: '<strong>Portuguese:</strong> Native',
-        ptHtml: '<i data-lucide="languages" class="w-3.5 h-3.5 text-[#00D47E]"></i><strong>Português:</strong> Nativo'
-    },
-    {
-        enMatch: '<strong>English:</strong> Technical / Professional Working (B1-B2)',
-        ptHtml: '<i data-lucide="languages" class="w-3.5 h-3.5 text-cyan-400"></i><strong>Inglês:</strong> Técnico / Profissional (B1-B2)'
-    },
-    {
-        enMatch: '<strong>French:</strong> Intermediate',
-        ptHtml: '<i data-lucide="languages" class="w-3.5 h-3.5 text-indigo-400"></i><strong>Francês:</strong> Intermediário'
     }
 ];
 
@@ -603,12 +597,13 @@ function ensureDomSnapshot() {
     if (domSnapshotInitialized || !document.body) return;
     domSnapshotInitialized = true;
 
-    // 1. Track rich HTML paragraphs/spans first
-    const candidateBlocks = document.querySelectorAll('p, div, span');
-    candidateBlocks.forEach(el => {
+    // 1. Track ONLY leaf <p> elements (never <div> or <span> containers)
+    const candidateParagraphs = document.querySelectorAll('p');
+    candidateParagraphs.forEach(el => {
         const html = (el.innerHTML || '').trim();
         for (const frag of PT_HTML_FRAGMENTS) {
-            if (html.includes(frag.enMatch) && el.children.length <= 6) {
+            if (html.includes(frag.enMatch)) {
+                el.setAttribute('data-i18n-rich', 'true');
                 trackedHtmlElements.push({
                     el,
                     enHtml: el.innerHTML,
@@ -619,7 +614,7 @@ function ensureDomSnapshot() {
         }
     });
 
-    // 2. Walk all text nodes in document.body
+    // 2. Walk all text nodes in document.body (skipping rich HTML blocks already tracked above)
     const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, null);
     let node;
     while ((node = walker.nextNode())) {
@@ -627,6 +622,7 @@ function ensureDomSnapshot() {
         if (!parent) continue;
         const tag = parent.tagName;
         if (tag === 'SCRIPT' || tag === 'STYLE' || tag === 'CODE') continue;
+        if (parent.closest && parent.closest('[data-i18n-rich="true"]')) continue;
 
         const raw = node.nodeValue;
         const normalized = raw.replace(/\s+/g, ' ').trim();
@@ -727,6 +723,10 @@ function setLanguage(lang) {
         summaryEl.textContent = (targetLang === 'pt' && window.SIM_PT_SUMMARIES && window.SIM_PT_SUMMARIES[activeScenarioId])
             ? window.SIM_PT_SUMMARIES[activeScenarioId]
             : SIM_SCENARIOS[activeScenarioId].summaryBanner;
+    }
+
+    if (typeof drawArchitectureArrows === 'function') {
+        drawArchitectureArrows();
     }
 
     if (window.lucide && typeof window.lucide.createIcons === 'function') {
