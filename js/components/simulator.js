@@ -19,36 +19,36 @@ const ARCH_PIPES = [
     // Phase 1: Synchronous Authorization (Horizontal & Vertical HSM)
     { id: 'pipe-pos-merchant', from: 'node-softpos', to: 'node-merchant', dir: 'right', color: '#38BDF8' },
     { id: 'pipe-merchant-switch', from: 'node-merchant', to: 'node-switch', dir: 'right', color: '#C084FC' },
-    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', offset: -14 },
-    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', offset: 14 },
+    { id: 'pipe-switch-softhsm', from: 'node-switch', to: 'node-softhsm', dir: 'up', color: '#F87171', offset: -12 },
+    { id: 'pipe-softhsm-switch', from: 'node-softhsm', to: 'node-switch', dir: 'down', color: '#60A5FA', offset: 12 },
     { id: 'pipe-switch-visa', from: 'node-switch', to: 'node-visagateway', dir: 'right', color: '#60A5FA' },
     { id: 'pipe-visa-visanet', from: 'node-visagateway', to: 'node-visanet', dir: 'right', color: '#3B82F6' },
 
-    // Inter-Phase 1 -> 2: Orchestration & Commit
-    { id: 'pipe-merchant-db', from: 'node-merchant', to: 'node-dboutbox', dir: 'down-step', color: '#A855F7' },
-    { id: 'pipe-switch-relay', from: 'node-switch', to: 'node-outboxrelay', dir: 'down-step', color: '#FB923C' },
+    // Inter-Phase 1 -> 2: Direct vertical descent from Merchant to DB & Outbox (both Column 2)
+    { id: 'pipe-merchant-db', from: 'node-merchant', to: 'node-dboutbox', dir: 'down', color: '#A855F7' },
 
     // Phase 2: Asynchronous Messaging (Transactional Outbox & CDC)
     { id: 'pipe-db-relay', from: 'node-dboutbox', to: 'node-outboxrelay', dir: 'right', color: '#818CF8' },
     { id: 'pipe-relay-rmq', from: 'node-outboxrelay', to: 'node-rabbitmq', dir: 'right', color: '#FB923C' },
     { id: 'pipe-rmq-listener', from: 'node-rabbitmq', to: 'node-settlementlistener', dir: 'right', color: '#F59E0B' },
 
-    // Inter-Phase: Scheme Confirmation -> Settlement Listener
-    { id: 'pipe-visanet-listener', from: 'node-visanet', to: 'node-settlementlistener', dir: 'down-step', color: '#00D47E' },
+    // Phase 2 Feedback Loop: Lower dashed return line with arrow pointing UP to DB & Outbox (as in reference image)
+    { id: 'pipe-feedback-db', from: 'node-outboxrelay', to: 'node-dboutbox', dir: 'feedback-up', color: '#64748B' },
 
     // Phase 3: Batch Settlement & Reconciliation (Batch / Pull)
-    { id: 'pipe-relay-tc57', from: 'node-outboxrelay', to: 'node-tc57log', dir: 'down-step', color: '#64748B' },
-    { id: 'pipe-tc57-batch', from: 'node-tc57log', to: 'node-springbatch', dir: 'down-step', color: '#FBBF24' },
-    { id: 'pipe-batch-payout', from: 'node-springbatch', to: 'node-payout', dir: 'right', color: '#00D47E' }
+    { id: 'pipe-relay-tc57', from: 'node-outboxrelay', to: 'node-tc57log', dir: 'down', color: '#64748B' },
+    { id: 'pipe-tc57-batch', from: 'node-tc57log', to: 'node-springbatch', dir: 'down', color: '#FBBF24' },
+    { id: 'pipe-batch-payout', from: 'node-springbatch', to: 'node-payout', dir: 'right', color: '#00D47E' },
+
+    // Settlement Listener down to Payout & Ledger (Long vertical connection)
+    { id: 'pipe-listener-payout', from: 'node-settlementlistener', to: 'node-payout', dir: 'listener-to-payout', color: '#00D47E' }
 ];
 
 document.addEventListener('DOMContentLoaded', () => {
-    // Initial draw of directional arrows after layout settles
     setTimeout(() => {
         drawArchitectureArrows();
     }, 300);
 
-    // Redraw on window resize
     window.addEventListener('resize', () => {
         drawArchitectureArrows();
     });
@@ -77,7 +77,7 @@ function drawArchitectureArrows() {
         const fRect = fromEl.getBoundingClientRect();
         const tRect = toEl.getBoundingClientRect();
 
-        // Node center coordinates
+        // Center coordinates inside container
         const fromCenterX = (fRect.left + fRect.width / 2 - cRect.left) + container.scrollLeft;
         const fromCenterY = (fRect.top + fRect.height / 2 - cRect.top) + container.scrollTop;
         const toCenterX = (tRect.left + tRect.width / 2 - cRect.left) + container.scrollLeft;
@@ -100,7 +100,6 @@ function drawArchitectureArrows() {
             arrowAngle = 0;
 
             if (Math.abs(y1 - y2) < 4) {
-                // Continuous path from center of card A to center of card B
                 d = `M ${fromCenterX} ${fromCenterY} L ${toCenterX} ${toCenterY}`;
             } else {
                 d = `M ${fromCenterX} ${fromCenterY} L ${arrowX} ${fromCenterY} L ${arrowX} ${toCenterY} L ${toCenterX} ${toCenterY}`;
@@ -129,30 +128,36 @@ function drawArchitectureArrows() {
             arrowAngle = 90;
 
             d = `M ${fromCenterX + offsetX} ${fromCenterY} L ${toCenterX + offsetX} ${toCenterY}`;
-        } else if (pipe.dir === 'down-step') {
-            const y1 = (fRect.bottom - cRect.top) + container.scrollTop;
-            const y2 = (tRect.top - cRect.top) + container.scrollTop;
-            const midY = (y1 + y2) / 2;
+        } else if (pipe.dir === 'feedback-up') {
+            // Horizontal dashed line below Outbox Relay returning to DB & Outbox, then turning UP into DB & Outbox
+            const bottomY = (fRect.bottom - cRect.top) + container.scrollTop + 22;
+            const targetBottomY = (tRect.bottom - cRect.top) + container.scrollTop;
 
-            if (Math.abs(fromCenterX - toCenterX) < 6) {
-                arrowX = fromCenterX;
-                arrowY = midY;
-                arrowAngle = 90;
-                d = `M ${fromCenterX} ${fromCenterY} L ${toCenterX} ${toCenterY}`;
-            } else {
-                // Step path
-                arrowX = fromCenterX;
-                arrowY = midY;
-                arrowAngle = 90;
-                d = `M ${fromCenterX} ${fromCenterY} L ${fromCenterX} ${midY} L ${toCenterX} ${midY} L ${toCenterX} ${toCenterY}`;
-            }
+            arrowX = toCenterX;
+            arrowY = (bottomY + targetBottomY) / 2;
+            arrowAngle = -90; // pointing UP into DB & Outbox
+
+            d = `M ${fromCenterX} ${fromCenterY} L ${fromCenterX} ${bottomY} L ${toCenterX} ${bottomY} L ${toCenterX} ${toCenterY}`;
+        } else if (pipe.dir === 'listener-to-payout') {
+            // Line descending from Settlement Listener, bending right into Payout & Ledger
+            const startX = fromCenterX;
+            const startY = fromCenterY;
+            const endX = toCenterX;
+            const endY = toCenterY;
+            const midY = (startY + endY) / 2;
+
+            arrowX = startX;
+            arrowY = midY;
+            arrowAngle = 90;
+
+            d = `M ${startX} ${startY} L ${startX} ${endY} L ${endX} ${endY}`;
         }
 
         // Arrowhead polygon centered at (arrowX, arrowY)
         const arrowSvg = `
             <polygon class="arch-arrow-head" 
                      id="arrow-${pipe.id}"
-                     points="-5,-5 6,0 -5,5" 
+                     points="-6,-4.5 5,0 -6,4.5" 
                      fill="${pipe.color}" 
                      transform="translate(${arrowX}, ${arrowY}) rotate(${arrowAngle})" />
         `;
@@ -199,21 +204,24 @@ function traversePipe(pipeId, token, onComplete) {
     token.style.opacity = '1';
 
     const totalLen = pathEl.getTotalLength();
-    const pStart = pathEl.getPointAtLength(0);
-    token.style.left = `${pStart.x}px`;
-    token.style.top = `${pStart.y}px`;
-
-    const duration = 550; // ms
+    const duration = 520; // ms
     const startTime = performance.now();
 
     function step(currentTime) {
         const elapsed = currentTime - startTime;
         const progress = Math.min(elapsed / duration, 1);
 
-        // Move strictly along the exact geometry of the SVG path
+        // Position strictly on top of the SVG path
         const pt = pathEl.getPointAtLength(totalLen * progress);
+        
+        // Calculate tangent angle to dynamically rotate the packet rectangle
+        const ptAhead = pathEl.getPointAtLength(Math.min(totalLen, totalLen * progress + 2));
+        const ptBehind = pathEl.getPointAtLength(Math.max(0, totalLen * progress - 2));
+        const angle = Math.atan2(ptAhead.y - ptBehind.y, ptAhead.x - ptBehind.x) * 180 / Math.PI;
+
         token.style.left = `${pt.x}px`;
         token.style.top = `${pt.y}px`;
+        token.style.transform = `translate(-50%, -50%) rotate(${angle}deg)`;
 
         if (progress < 1) {
             requestAnimationFrame(step);
@@ -226,7 +234,7 @@ function traversePipe(pipeId, token, onComplete) {
                 pathEl.classList.remove('active-pipe');
                 if (arrowEl) arrowEl.classList.remove('active-pipe');
                 if (onComplete) onComplete();
-            }, 80);
+            }, 90);
         }
     }
 

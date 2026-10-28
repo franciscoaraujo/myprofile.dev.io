@@ -784,31 +784,43 @@
                             <div class="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
                         </div>
 
-                        <div class="grid grid-cols-4 gap-6 sm:gap-8 items-center relative max-w-4xl mx-auto">
+                        <!-- 5-Column Grid: perfectly aligned with Phase 1 nodes -->
+                        <div class="grid grid-cols-5 gap-6 sm:gap-8 items-center relative">
                             
-                            <!-- Node: DB & Outbox -->
+                            <!-- Col 1: Empty slot below SoftPOS -->
+                            <div class="hidden sm:block"></div>
+
+                            <!-- Col 2: DB & Outbox (aligned directly below Merchant Service) -->
                             <div id="node-dboutbox" class="arch-node p-3.5 rounded-xl border-2 border-indigo-500/70 bg-[#0D1230] text-center shadow-lg relative">
                                 <i data-lucide="database" class="w-5 h-5 mx-auto text-indigo-400 mb-1.5"></i>
                                 <div class="text-xs font-bold text-white">DB &amp; Outbox</div>
                                 <div class="text-[9px] font-mono text-indigo-300 mt-0.5">PostgreSQL Core</div>
                             </div>
 
-                            <!-- Node: Outbox Relay -->
-                            <div id="node-outboxrelay" class="arch-node p-3.5 rounded-xl border-2 border-orange-500/70 bg-[#261208] text-center shadow-lg">
+                            <!-- Col 3: Outbox Relay (aligned directly below Switch Adq) -->
+                            <div id="node-outboxrelay" class="arch-node p-3.5 rounded-xl border-2 border-orange-500/70 bg-[#261208] text-center shadow-lg relative">
                                 <i data-lucide="truck" class="w-5 h-5 mx-auto text-orange-400 mb-1.5"></i>
                                 <div class="text-xs font-bold text-white">Outbox Relay</div>
                                 <div class="text-[9px] font-mono text-orange-300 mt-0.5">Debezium / Worker</div>
                             </div>
 
-                            <!-- Node: RabbitMQ -->
+                            <!-- Col 4: RabbitMQ (aligned directly below Gateway Visa) -->
                             <div id="node-rabbitmq" class="arch-node p-3.5 rounded-xl border-2 border-amber-500/70 bg-[#261807] text-center shadow-lg relative">
+                                <!-- Top-right curve badge matching reference image -->
+                                <div class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-amber-500/80 text-white flex items-center justify-center">
+                                    <i data-lucide="corner-down-right" class="w-2.5 h-2.5"></i>
+                                </div>
                                 <i data-lucide="inbox" class="w-5 h-5 mx-auto text-amber-400 mb-1.5"></i>
                                 <div class="text-xs font-bold text-white">RabbitMQ</div>
                                 <div class="text-[9px] font-mono text-amber-300 mt-0.5">Fila de Eventos</div>
+                                <!-- Bottom-right queue counter badge matching reference image -->
+                                <div id="badge-rmq-count" class="absolute -bottom-2 -right-2 w-5 h-5 rounded-full bg-amber-500 text-white font-mono text-[10px] font-bold flex items-center justify-center shadow-md">0</div>
                             </div>
 
-                            <!-- Node: Settlement Listener -->
+                            <!-- Col 5: Settlement Listener (aligned directly below VisaNet) -->
                             <div id="node-settlementlistener" class="arch-node p-3.5 rounded-xl border-2 border-emerald-500/70 bg-[#072417] text-center shadow-lg relative">
+                                <!-- Top-right gear icon matching reference image -->
+                                <i data-lucide="settings" class="w-3.5 h-3.5 text-slate-400 absolute top-2 right-2"></i>
                                 <i data-lucide="headphones" class="w-5 h-5 mx-auto text-emerald-400 mb-1.5"></i>
                                 <div class="text-xs font-bold text-white">Settlement Listener</div>
                                 <div class="text-[9px] font-mono text-emerald-300 mt-0.5">Cálculo Real-Time</div>
@@ -825,28 +837,48 @@
                             <div class="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
                         </div>
 
-                        <div class="grid grid-cols-3 gap-6 sm:gap-8 items-center relative max-w-2xl mx-auto">
+                        <!-- 5-Column Grid aligned with previous phases -->
+                        <div class="grid grid-cols-5 gap-6 sm:gap-8 items-start relative">
                             
-                            <!-- Node: Log de Rede -->
-                            <div id="node-tc57log" class="arch-node p-3.5 rounded-xl border-2 border-slate-500/60 bg-[#0E1524] text-center shadow-lg">
-                                <i data-lucide="file-text" class="w-5 h-5 mx-auto text-slate-300 mb-1.5"></i>
-                                <div class="text-xs font-bold text-white">Log de Rede (TC57)</div>
-                                <div class="text-[9px] font-mono text-slate-400 mt-0.5">Registro Transacional</div>
+                            <!-- Col 1: Empty slot -->
+                            <div class="hidden sm:block"></div>
+
+                            <!-- Col 2: Empty slot -->
+                            <div class="hidden sm:block"></div>
+
+                            <!-- Col 3: Vertical stack (Log de Rede TC57 above, Spring Batch below) -->
+                            <div class="space-y-6">
+                                <!-- Node: Log de Rede (TC57) -->
+                                <div id="node-tc57log" class="arch-node p-3.5 rounded-xl border-2 border-slate-500/60 bg-[#0E1524] text-center shadow-lg relative">
+                                    <!-- Badge 2 in top right matching reference image -->
+                                    <span class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-slate-600 text-white font-mono text-[9px] flex items-center justify-center font-bold">2</span>
+                                    <i data-lucide="file-text" class="w-5 h-5 mx-auto text-slate-300 mb-1.5"></i>
+                                    <div class="text-xs font-bold text-white">Log de Rede (TC57)</div>
+                                    <div class="text-[9px] font-mono text-slate-400 mt-0.5">Registro Transacional</div>
+                                </div>
+
+                                <!-- Node: Spring Batch -->
+                                <div id="node-springbatch" class="arch-node p-3.5 rounded-xl border-2 border-amber-400/70 bg-[#292008] text-center shadow-lg relative">
+                                    <!-- Clock icon in top right matching reference image -->
+                                    <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400 absolute top-2 right-2"></i>
+                                    <i data-lucide="layers" class="w-5 h-5 mx-auto text-amber-400 mb-1.5"></i>
+                                    <div class="text-xs font-bold text-white">Spring Batch</div>
+                                    <div class="text-[9px] font-mono text-amber-300 mt-0.5">Job Noturno (Recon)</div>
+                                </div>
                             </div>
 
-                            <!-- Node: Spring Batch -->
-                            <div id="node-springbatch" class="arch-node p-3.5 rounded-xl border-2 border-amber-400/70 bg-[#292008] text-center shadow-lg">
-                                <i data-lucide="layers" class="w-5 h-5 mx-auto text-amber-400 mb-1.5"></i>
-                                <div class="text-xs font-bold text-white">Spring Batch</div>
-                                <div class="text-[9px] font-mono text-amber-300 mt-0.5">Job Noturno (Recon)</div>
+                            <!-- Col 4: Payout & Ledger (aligned next to Spring Batch) -->
+                            <div class="pt-[4.5rem]">
+                                <div id="node-payout" class="arch-node p-3.5 rounded-xl border-2 border-emerald-500/70 bg-[#06261A] text-center shadow-lg">
+                                    <i data-lucide="landmark" class="w-5 h-5 mx-auto text-emerald-400 mb-1.5"></i>
+                                    <div class="text-xs font-bold text-white">Payout &amp; Ledger</div>
+                                    <div class="text-[9px] font-mono text-emerald-300 mt-0.5">Liquidação Financeira</div>
+                                </div>
+                                <div class="text-[10px] font-mono text-slate-500 text-center mt-1.5">Envio TC50</div>
                             </div>
 
-                            <!-- Node: Payout & Ledger -->
-                            <div id="node-payout" class="arch-node p-3.5 rounded-xl border-2 border-emerald-500/70 bg-[#06261A] text-center shadow-lg">
-                                <i data-lucide="landmark" class="w-5 h-5 mx-auto text-emerald-400 mb-1.5"></i>
-                                <div class="text-xs font-bold text-white">Payout &amp; Ledger</div>
-                                <div class="text-[9px] font-mono text-emerald-300 mt-0.5">Liquidação Financeira</div>
-                            </div>
+                            <!-- Col 5: Space for vertical descent line from Settlement Listener -->
+                            <div class="hidden sm:block"></div>
 
                         </div>
                     </div>

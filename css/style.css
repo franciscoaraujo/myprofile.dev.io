@@ -241,18 +241,22 @@ a:focus-visible, button:focus-visible, select:focus-visible {
     100% { transform: scale(1); opacity: 1; }
 }
 
-/* Data Packet animation glow */
+/* Data Packet animation glow - Matching reference image neon green pill */
 .data-packet-token {
-    width: 14px;
+    width: 22px;
     height: 14px;
-    border-radius: 4px;
-    background: #00D47E;
-    box-shadow: 0 0 15px #00D47E, 0 0 30px #00D47E;
+    border-radius: 3px;
+    background: #00E676;
+    box-shadow: 0 0 12px #00E676, 0 0 24px rgba(0, 230, 118, 0.8), inset 0 0 4px #FFFFFF;
     position: absolute;
     transform: translate(-50%, -50%);
     pointer-events: none;
     z-index: 50;
     transition: opacity 0.2s ease;
+}
+.data-packet-token.vertical-packet {
+    width: 14px;
+    height: 22px;
 }
 
 /* Connecting lines SVG */
@@ -266,24 +270,25 @@ a:focus-visible, button:focus-visible, select:focus-visible {
 
 .arch-connector-line {
     stroke: #334155;
-    stroke-width: 2;
+    stroke-width: 1.8;
     stroke-dasharray: 5 4;
     fill: none;
     transition: stroke 0.3s ease, stroke-width 0.3s ease;
 }
 .arch-connector-line.active-pipe {
-    stroke: #00D47E !important;
+    stroke: #00E676 !important;
     stroke-width: 2.5 !important;
     stroke-dasharray: none !important;
-    filter: drop-shadow(0 0 6px #00D47E);
+    filter: drop-shadow(0 0 8px #00E676);
 }
 
 .arch-arrow-head {
+    fill: #475569;
     transition: fill 0.3s ease, filter 0.3s ease;
 }
 .arch-arrow-head.active-pipe {
-    fill: #00D47E !important;
-    filter: drop-shadow(0 0 8px #00D47E);
+    fill: #00E676 !important;
+    filter: drop-shadow(0 0 10px #00E676);
 }
 
 .arch-node {
