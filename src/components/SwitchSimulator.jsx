@@ -100,19 +100,17 @@ export default function SwitchSimulator() {
           <Info className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span>
             {isPt
-              ? 'SIMULAÇÃO INTERATIVA · DADOS SINTÉTICOS · NÃO É UM SISTEMA DE PAGAMENTOS EM PRODUÇÃO'
-              : 'INTERACTIVE SIMULATION · SYNTHETIC DATA · NOT A PRODUCTION PAYMENT SYSTEM'}
+              ? 'SIMULAÇÃO · DADOS SINTÉTICOS · SEM REDES DE PAGAMENTO REAIS'
+              : 'SIMULATION · SYNTHETIC DATA · NO LIVE PAYMENT NETWORKS'}
           </span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          {isPt
-            ? 'Laboratório Interativo ISO 8583 & Transactional Outbox'
-            : 'Interactive ISO 8583 & Distributed Outbox Laboratory'}
+          Payment Systems Lab
         </h1>
         <p className="text-slate-300 text-sm sm:text-base">
           {isPt
-            ? 'Explore como um switch de pagamentos gerencia autorização síncrona, idempotência transacional em retentativas duplicadas, persistência Outbox durante quedas do broker e conciliação batch de clearing.'
-            : 'Explore how a payment switch handles synchronous authorization, transactional idempotency on duplicate retries, Outbox persistence during broker outages, and batch clearing reconciliation.'}
+            ? 'Explore autorização de pagamentos, idempotência transacional, o padrão Transactional Outbox, recuperação de mensageria e clearing em lote por meio de simulações determinísticas.'
+            : 'Explore payment authorization, transaction idempotency, the Transactional Outbox pattern, message recovery, and batch clearing through deterministic simulations.'}
         </p>
         <p className="text-xs font-mono text-slate-400 bg-[#080E1E]/90 border border-[#152342] p-3 rounded-xl max-w-2xl mx-auto leading-relaxed">
           <strong className="text-slate-200">

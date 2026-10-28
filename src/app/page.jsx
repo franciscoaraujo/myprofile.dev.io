@@ -55,8 +55,8 @@ export default function OverviewPage() {
       icon: Terminal,
       badgeEn: '4 INTERACTIVE SCENARIOS',
       badgePt: '4 CENÁRIOS INTERATIVOS',
-      titleEn: 'Switch Demo (ISO 8583 & Outbox Lab)',
-      titlePt: 'Demo do Switch (Lab ISO 8583 & Outbox)',
+      titleEn: 'Payment Systems Lab (ISO 8583 & Outbox)',
+      titlePt: 'Payment Systems Lab (ISO 8583 & Outbox)',
       descEn:
         'Step-by-step state machine simulating Approved Authorization, Duplicate Request Idempotency, RabbitMQ Outage Recovery, and Batch Settlement.',
       descPt:

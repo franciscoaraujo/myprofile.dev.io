@@ -323,7 +323,7 @@ const PT_TEXT_DICTIONARY = {
     'Senior Backend Engineer': 'Engenheiro Backend Sênior',
     'Overview': 'Visão Geral',
     'Projects (Case Studies)': 'Projetos (Estudos de Caso)',
-    'Switch Demo': 'Demo do Switch',
+    'Payment Systems Lab': 'Payment Systems Lab',
     'Experience': 'Experiência',
     'Skills Matrix': 'Matriz de Habilidades',
     'Resume (PDF)': 'Currículo (PDF)',
@@ -385,7 +385,9 @@ const PT_TEXT_DICTIONARY = {
     'Android NFC • EMV L2 Kernel • APDU Commands': 'Android NFC • Kernel EMV L2 • Comandos APDU',
 
     // Simulator Section
+    'SIMULATION · SYNTHETIC DATA · NO LIVE PAYMENT NETWORKS': 'SIMULAÇÃO · DADOS SINTÉTICOS · SEM REDES DE PAGAMENTO REAIS',
     'INTERACTIVE SIMULATION · SYNTHETIC DATA · NOT A PRODUCTION PAYMENT SYSTEM': 'SIMULAÇÃO INTERATIVA · DADOS SINTÉTICOS · NÃO É UM SISTEMA DE PAGAMENTOS EM PRODUÇÃO',
+    'Explore payment authorization, transaction idempotency, the Transactional Outbox pattern, message recovery, and batch clearing through deterministic simulations.': 'Explore autorização de pagamentos, idempotência transacional, o padrão Transactional Outbox, recuperação de mensageria e clearing em lote por meio de simulações determinísticas.',
     'Interactive ISO 8583 & Distributed Outbox Laboratory': 'Laboratório Interativo ISO 8583 & Transactional Outbox',
     'Explore how a payment switch handles synchronous authorization, transactional idempotency on duplicate retries, Outbox persistence during broker outages, and batch clearing reconciliation.': 'Explore como um switch de pagamentos gerencia autorização síncrona, idempotência transacional em retentativas duplicadas, persistência Outbox durante quedas do broker e conciliação batch de clearing.',
     'Simulation Scope:': 'Escopo da Simulação:',

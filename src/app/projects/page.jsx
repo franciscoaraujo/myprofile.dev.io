@@ -123,7 +123,7 @@ export default function ProjectsPage() {
               href="/simulator"
               className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#00D47E] hover:underline"
             >
-              <span>{isPt ? 'Ir para Demo do Switch' : 'Go to Switch Demo'}</span>
+              <span>{isPt ? 'Ir para Payment Systems Lab' : 'Go to Payment Systems Lab'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
             </Link>
           </div>

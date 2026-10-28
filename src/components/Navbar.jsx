@@ -14,7 +14,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', labelEn: 'Overview', labelPt: 'Visão Geral' },
     { href: '/projects', labelEn: 'Projects (Case Studies)', labelPt: 'Projetos (Estudos de Caso)' },
-    { href: '/simulator', labelEn: 'Switch Demo', labelPt: 'Demo do Switch', isHighlight: true },
+    { href: '/simulator', labelEn: 'Payment Systems Lab', labelPt: 'Payment Systems Lab', isHighlight: true },
     { href: '/experience', labelEn: 'Experience', labelPt: 'Experiência' },
     { href: '/skills', labelEn: 'Skills Matrix', labelPt: 'Matriz de Habilidades' },
   ];

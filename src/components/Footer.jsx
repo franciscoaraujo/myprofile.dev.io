@@ -26,7 +26,7 @@ export default function Footer() {
             {isPt ? 'Projetos' : 'Projects'}
           </Link>
           <Link href="/simulator" className="hover:text-cyan-400 transition-colors">
-            {isPt ? 'Demo do Switch' : 'Switch Demo'}
+            Payment Systems Lab
           </Link>
           <Link href="/experience" className="hover:text-[#00D47E] transition-colors">
             {isPt ? 'Experiência' : 'Experience'}
