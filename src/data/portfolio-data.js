@@ -628,13 +628,13 @@ export const SKILLS_DATA = [
 
 export const PROFILE_BIO = {
   headlinePt: 'Engenheiro de Software Especialista | Backend Java & C++ | Sistemas Críticos & Meios de Pagamento',
-  headlineEn: 'Staff / Specialist Software Engineer | Backend Java & C++ | Mission-Critical Systems & Payment Processing',
+  headlineEn: 'Specialist Software Engineer | Backend Java & C++ | Mission-Critical Systems & Payment Processing',
   taglinePt: 'Engenharia Backend para Sistemas Críticos & Meios de Pagamento',
   taglineEn: 'Backend Engineering for Critical Systems & Payment Processing',
   shortBioPt:
     'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
   shortBioEn:
-    'Staff / Senior Software Engineer with 13 years of experience in high-performance backend and mission-critical distributed systems, combining deep mastery of Java and C++.',
+    'Senior Software Engineer with 13 years of experience in high-performance backend and mission-critical distributed systems, combining deep mastery of Java and C++.',
   paragraphsPt: [
     'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
     'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',

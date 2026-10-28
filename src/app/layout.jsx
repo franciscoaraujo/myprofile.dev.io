@@ -15,7 +15,7 @@ export const metadata = {
   keywords: [
     'Engenheiro de Software Especialista',
     'Senior Backend Engineer',
-    'Staff Software Engineer',
+    'Specialist Software Engineer',
     'Java 21 C++',
     'Payment Systems Engineer',
     'Distributed Systems Engineer',
@@ -38,7 +38,7 @@ export const metadata = {
     url: 'https://franciscoaraujoprofile.vercel.app',
     title: 'Francisco Araújo | Specialist Software Engineer | Backend Java & C++',
     description:
-      'Staff / Specialist Backend Engineer with 13 years building high-performance backend systems (Java & C++), enterprise banking integrations (Rabobank, B3, Serasa Experian), and mission-critical payment switches.',
+      'Specialist Backend Engineer with 13 years building high-performance backend systems (Java & C++), enterprise banking integrations (Rabobank, B3, Serasa Experian), and mission-critical payment switches.',
     siteName: 'Francisco Araújo Portfolio',
     images: [
       {

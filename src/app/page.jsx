@@ -132,7 +132,7 @@ export default function OverviewPage() {
                   <span>
                     {isPt
                       ? 'Engenheiro de Software Especialista | Backend Java & C++'
-                      : 'Staff / Specialist Software Engineer | Backend Java & C++'}
+                      : 'Specialist Software Engineer | Backend Java & C++'}
                   </span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
@@ -156,7 +156,7 @@ export default function OverviewPage() {
             {/* Main Heading & Tagline */}
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-                {isPt ? 'Engenheiro de Software Especialista' : 'Staff / Specialist Software Engineer'}
+                {isPt ? 'Engenheiro de Software Especialista' : 'Specialist Software Engineer'}
                 <br />
                 <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400 text-2xl sm:text-3xl lg:text-4xl">
                   {isPt
