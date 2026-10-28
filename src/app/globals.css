@@ -307,6 +307,175 @@ a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focu
     filter: drop-shadow(0 0 10px #EF4444);
 }
 
+/* ========================================================
+   ORIONPAY DATADOG LIVE APM & PARTICLE SIMULATION STYLES
+   ======================================================== */
+#orionpay-datadog-wrapper .node {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 140px;
+    height: 90px;
+    background-color: #111827 !important;
+    border: 2px solid;
+    border-radius: 12px;
+    position: relative;
+    z-index: 10;
+    transition: all 0.3s ease;
+}
+
+#orionpay-datadog-wrapper .node-icon {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+#orionpay-datadog-wrapper .node-title {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-align: center;
+    line-height: 1.1;
+}
+
+#orionpay-datadog-wrapper .node-subtitle {
+    font-size: 0.6rem;
+    color: #9ca3af !important;
+    margin-top: 2px;
+    text-align: center;
+    padding: 0 4px;
+}
+
+#orionpay-datadog-wrapper .glow-cyan { border-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); color: #cffafe !important; }
+#orionpay-datadog-wrapper .glow-purple { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.3); color: #f3e8ff !important; }
+#orionpay-datadog-wrapper .glow-blue { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); color: #dbeafe !important; }
+#orionpay-datadog-wrapper .glow-indigo { border-color: #6366f1; box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); color: #e0e7ff !important; }
+#orionpay-datadog-wrapper .glow-orange { border-color: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); color: #ffedd5 !important; }
+#orionpay-datadog-wrapper .glow-green { border-color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); color: #dcfce7 !important; }
+#orionpay-datadog-wrapper .glow-yellow { border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.3); color: #fef9c3 !important; }
+#orionpay-datadog-wrapper .glow-emerald { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); color: #d1fae5 !important; }
+#orionpay-datadog-wrapper .glow-red { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); color: #fee2e2 !important; }
+#orionpay-datadog-wrapper .glow-gray { border-color: #6b7280; box-shadow: 0 0 15px rgba(107, 114, 128, 0.3); color: #f3f4f6 !important; }
+
+.particle {
+    position: absolute;
+    z-index: 50;
+    transform: translate(-50%, -50%);
+    filter: drop-shadow(0 0 6px currentColor);
+    pointer-events: none;
+    font-size: 1.4rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+}
+
+.terminal-scroll::-webkit-scrollbar { width: 6px; }
+.terminal-scroll::-webkit-scrollbar-thumb { background: #374151; border-radius: 4px; }
+
+.scanner-line {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background-color: #3b82f6;
+    box-shadow: 0 0 10px #3b82f6;
+    opacity: 0;
+    z-index: 20;
+}
+
+@keyframes scan {
+    0% { top: 0; opacity: 1; }
+    50% { top: 100%; opacity: 1; }
+    100% { top: 0; opacity: 0; }
+}
+
+.scanning .scanner-line {
+    animation: scan 0.6s linear;
+}
+
+/* Animação do Motor de MDR (Giro rápido e brilho verde) */
+.spin-calculating {
+    display: inline-block !important;
+    animation: spin-glow 0.8s ease-in-out infinite;
+    color: #4ade80 !important;
+    filter: drop-shadow(0 0 8px #4ade80);
+}
+
+@keyframes spin-glow {
+    0% { transform: rotate(0deg) scale(1); }
+    50% { transform: rotate(180deg) scale(1.2); }
+    100% { transform: rotate(360deg) scale(1); }
+}
+
+.node-active-engine {
+    border-color: #facc15 !important;
+    box-shadow: 0 0 40px rgba(250, 204, 21, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-relay {
+    border-color: #f97316 !important;
+    box-shadow: 0 0 40px rgba(249, 115, 22, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.spin-waiting {
+    color: #f97316 !important;
+    filter: drop-shadow(0 0 8px #f97316);
+    opacity: 1 !important;
+}
+
+.node-active-batch {
+    border-color: #eab308 !important;
+    box-shadow: 0 0 40px rgba(234, 179, 8, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-db {
+    border-color: #6366f1 !important;
+    box-shadow: 0 0 40px rgba(99, 102, 241, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-cyan {
+    border-color: #06b6d4 !important;
+    box-shadow: 0 0 40px rgba(6, 182, 212, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-purple {
+    border-color: #a855f7 !important;
+    box-shadow: 0 0 40px rgba(168, 85, 247, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-blue {
+    border-color: #3b82f6 !important;
+    box-shadow: 0 0 40px rgba(59, 130, 246, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-red {
+    border-color: #ef4444 !important;
+    box-shadow: 0 0 40px rgba(239, 68, 68, 0.8) !important;
+    transform: scale(1.06);
+}
+
+.node-active-gray {
+    border-color: #9ca3af !important;
+    box-shadow: 0 0 40px rgba(156, 163, 175, 0.8) !important;
+    transform: scale(1.06);
+}
+
+html:not(.dark) #orionpay-datadog-wrapper {
+    background-color: #030712 !important;
+    color: #ffffff !important;
+}
+html:not(.dark) #orionpay-datadog-wrapper .text-white {
+    color: #ffffff !important;
+}
+
 @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
         animation-duration: 0.001ms !important;

@@ -1,102 +1,821 @@
 'use client';
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useState, useRef, useCallback } from 'react';
 import Link from 'next/link';
-import {
-  Info,
-  Sliders,
-  CheckCircle2,
-  CopyCheck,
-  RefreshCw,
-  Layers,
-  Boxes,
-  Play,
-  StepForward,
-  RotateCcw,
-  Terminal,
-  Zap,
-  Smartphone,
-  Cpu,
-  Shield,
-  Server,
-  Globe,
-  GitMerge,
-  Database,
-  Truck,
-  CornerDownRight,
-  Inbox,
-  Settings,
-  Headphones,
-  Clock,
-  FileText,
-  Landmark,
-  ListOrdered,
-  FileCheck2,
-} from 'lucide-react';
+import { Info, FileCheck2 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
+
+import SoftPOS from './nodes/SoftPOS';
+import MerchantService from './nodes/MerchantService';
+import GatewayVisa from './nodes/GatewayVisa';
+import SwitchAdq from './nodes/SwitchAdq';
+import SoftHSM from './nodes/SoftHSM';
+import VisaNet from './nodes/VisaNet';
+import NetworkLog from './nodes/NetworkLog';
+import PostgreSQL from './nodes/PostgreSQL';
+import OutboxRelay from './nodes/OutboxRelay';
+import RabbitMQ from './nodes/RabbitMQ';
+import Settlement from './nodes/Settlement';
+import Reconciliation from './nodes/Reconciliation';
+import Payout from './nodes/Payout';
+import SettingsModal from './modals/SettingsModal';
+import SimulatorTerminal from './SimulatorTerminal';
+
+const sleep = (ms) => new Promise((r) => setTimeout(r, ms));
 
 export default function SwitchSimulator() {
   const { lang } = useApp();
   const isPt = lang === 'pt';
-  const initializedRef = useRef(false);
 
-  // Sync window.currentLang and trigger existing deterministic state machine UI updates
+  const [wsConnected, setWsConnected] = useState(false);
+  const [logs, setLogs] = useState([]);
+
+  const metricsRef = useRef({
+    pdvCount: 0,
+    dbQueue: 0,
+    rmqQueue: 0,
+    logQueue: 0,
+    totalVolume: 0,
+    lastEvent: '',
+  });
+  const [uiMetrics, setUiMetrics] = useState(metricsRef.current);
+
+  const chaosRef = useRef({ gw: true, db: true, relay: true, rmq: true });
+  const [uiChaos, setUiChaos] = useState(chaosRef.current);
+
+  const processedTxIdsRef = useRef(new Set());
+
+  const canvasRef = useRef(null);
+  const svgRef = useRef(null);
+  const particlesContainerRef = useRef(null);
+
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [isTerminalOpen, setIsTerminalOpen] = useState(true);
+
+  const addLog = useCallback((msg, type = 'info') => {
+    setLogs((prev) => [
+      ...prev,
+      {
+        id: Date.now() + Math.random(),
+        time: new Date().toLocaleTimeString('pt-BR', {
+          hour12: false,
+          fractionalSecondDigits: 3,
+        }),
+        msg,
+        type,
+      },
+    ]);
+  }, []);
+
+  const updateMetrics = useCallback(() => {
+    setUiMetrics({ ...metricsRef.current });
+  }, []);
+
   useEffect(() => {
-    if (typeof window !== 'undefined') {
-      window.currentLang = lang;
-      if (typeof window.renderStepCardsList === 'function') window.renderStepCardsList();
-      if (typeof window.renderStepInspector === 'function') {
-        const idx = typeof window.currentStepIndex === 'number' && window.currentStepIndex >= 0 ? window.currentStepIndex : 0;
-        window.renderStepInspector(idx, false);
-      }
-      if (typeof window.renderSimulatedStorageTables === 'function') window.renderSimulatedStorageTables();
-      if (typeof window.updateControlButtonsUI === 'function') window.updateControlButtonsUI();
-      if (typeof window.drawArchitectureArrows === 'function') {
-        setTimeout(() => window.drawArchitectureArrows(), 120);
-      }
-    }
-  }, [lang]);
+    addLog(
+      isPt
+        ? '[SYSTEM] OrionPay Switch Lab inicializado em modo Simulação Determinística Local.'
+        : '[SYSTEM] OrionPay Switch Lab initialized in Local Deterministic Simulation mode.',
+      'info'
+    );
+    addLog(
+      isPt
+        ? '[INFO] Clique no botão 🚀 (Simular Transação Local) para disparar o fluxo ISO 8583 + Outbox ou em 💼 (Batch) para liquidar o TC57/TC50.'
+        : '[INFO] Click the 🚀 button (Simulate Local Transaction) to fire the ISO 8583 + Outbox flow or 💼 (Batch) to settle TC57/TC50.',
+      'info'
+    );
+  }, [addLog, isPt]);
 
-  // Initialize simulator when mounting the /simulator route
-  useEffect(() => {
-    if (typeof window === 'undefined') return;
-    window.currentLang = lang;
+  // --- SVG Drawing (Exact port from orionpay-datadog) ---
+  const drawLine = useCallback((id1, id2, dashed = false, arrow = true, twoWay = false) => {
+    const el1 = document.getElementById(id1);
+    const el2 = document.getElementById(id2);
+    const container = canvasRef.current;
+    if (!el1 || !el2 || !container) return '';
 
-    const boot = () => {
-      if (typeof window.initSimulatorLab === 'function') {
-        window.initSimulatorLab();
-        setTimeout(() => {
-          if (typeof window.drawArchitectureArrows === 'function') {
-            window.drawArchitectureArrows();
-          }
-        }, 200);
+    const r1 = el1.getBoundingClientRect();
+    const r2 = el2.getBoundingClientRect();
+    const cRect = container.getBoundingClientRect();
+
+    const cx1 = r1.left - cRect.left + container.scrollLeft + r1.width / 2;
+    const cy1 = r1.top - cRect.top + container.scrollTop + r1.height / 2;
+    const cx2 = r2.left - cRect.left + container.scrollLeft + r2.width / 2;
+    const cy2 = r2.top - cRect.top + container.scrollTop + r2.height / 2;
+
+    const dx = cx2 - cx1;
+    const dy = cy2 - cy1;
+    const angle = Math.atan2(dy, dx);
+
+    const getIntersection = (w, h, ang) => {
+      const absCos = Math.abs(Math.cos(ang));
+      const absSin = Math.abs(Math.sin(ang));
+      if ((w / 2) * absSin <= (h / 2) * absCos) {
+        return w / 2 / (absCos === 0 ? 1 : absCos);
+      } else {
+        return h / 2 / (absSin === 0 ? 1 : absSin);
       }
     };
 
-    if (!initializedRef.current) {
-      initializedRef.current = true;
-      setTimeout(boot, 80);
+    const dist1 = getIntersection(r1.width, r1.height, angle) + 5;
+    const dist2 = getIntersection(r2.width, r2.height, angle) + 5;
+
+    const x1 = cx1 + Math.cos(angle) * dist1;
+    const y1 = cy1 + Math.sin(angle) * dist1;
+
+    const x2 = cx2 - Math.cos(angle) * dist2;
+    const y2 = cy2 - Math.sin(angle) * dist2;
+
+    const dash = dashed ? 'stroke-dasharray="6 6"' : '';
+    const markerEnd = arrow ? 'marker-end="url(#arrowhead)"' : '';
+    const markerStart = twoWay ? 'marker-start="url(#arrowhead-start)"' : '';
+    return `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#374151" stroke-width="2" ${dash} ${markerEnd} ${markerStart} />`;
+  }, []);
+
+  const drawElbowLine = useCallback((id1, id2, dashed = false, offsetY = 70, label = '') => {
+    const el1 = document.getElementById(id1);
+    const el2 = document.getElementById(id2);
+    const container = canvasRef.current;
+    if (!el1 || !el2 || !container) return '';
+
+    const r1 = el1.getBoundingClientRect();
+    const r2 = el2.getBoundingClientRect();
+    const cRect = container.getBoundingClientRect();
+
+    const cx1 = r1.left - cRect.left + container.scrollLeft + r1.width / 2;
+    const cy1 = r1.top - cRect.top + container.scrollTop + r1.height / 2;
+    const cx2 = r2.left - cRect.left + container.scrollLeft + r2.width / 2;
+    const cy2 = r2.top - cRect.top + container.scrollTop + r2.height / 2;
+
+    const x1 = cx1;
+    const y1 = cy1 + r1.height / 2 + 5;
+    const x2 = cx2;
+    const y2 = cy2 + r2.height / 2 + 5;
+    const yMid = cy1 + offsetY;
+
+    const dash = dashed ? 'stroke-dasharray="6 6"' : '';
+    const d = `M ${x1} ${y1} L ${x1} ${yMid} L ${x2} ${yMid} L ${x2} ${y2}`;
+
+    let labelSvg = '';
+    if (label) {
+      const midX = (x1 + x2) / 2;
+      labelSvg = `
+        <rect x="${midX - 45}" y="${yMid - 10}" width="90" height="20" fill="#111827" />
+        <text x="${midX}" y="${yMid + 4}" fill="#9CA3AF" font-size="12" text-anchor="middle" font-weight="bold">${label}</text>`;
     }
 
-    const handleResize = () => {
-      if (typeof window.drawArchitectureArrows === 'function') {
-        window.drawArchitectureArrows();
-      }
-    };
-    window.addEventListener('resize', handleResize);
+    return `<path d="${d}" stroke="#374151" stroke-width="2" fill="none" ${dash} marker-end="url(#arrowhead)" />${labelSvg}`;
+  }, []);
+
+  const drawBottomElbowLine = useCallback((id1, id2, label = '') => {
+    const el1 = document.getElementById(id1);
+    const el2 = document.getElementById(id2);
+    const container = canvasRef.current;
+    if (!el1 || !el2 || !container) return '';
+
+    const r1 = el1.getBoundingClientRect();
+    const r2 = el2.getBoundingClientRect();
+    const cRect = container.getBoundingClientRect();
+
+    const cx1 = r1.left - cRect.left + container.scrollLeft + r1.width / 2;
+    const cy1 = r1.top - cRect.top + container.scrollTop + r1.height / 2;
+    const cx2 = r2.left - cRect.left + container.scrollLeft + r2.width / 2;
+    const cy2 = r2.top - cRect.top + container.scrollTop + r2.height / 2;
+
+    const x1 = cx1;
+    const y1 = cy1 + r1.height / 2 + 5;
+    const x2 = cx2;
+    const y2 = cy2 + r2.height / 2 + 5;
+
+    const yMid = cy1 + 70;
+    const d = `M ${x1} ${y1} L ${x1} ${yMid} L ${x2} ${yMid} L ${x2} ${y2}`;
+
+    let labelSvg = '';
+    if (label) {
+      const midX = (x1 + x2) / 2;
+      labelSvg = `
+        <rect x="${midX - 45}" y="${yMid - 10}" width="90" height="20" fill="#111827" />
+        <text x="${midX}" y="${yMid + 4}" fill="#9CA3AF" font-size="12" text-anchor="middle" font-weight="bold">${label}</text>`;
+    }
+
+    return `<path d="${d}" stroke="#374151" stroke-width="2" fill="none" marker-end="url(#arrowhead)" />${labelSvg}`;
+  }, []);
+
+  const renderLines = useCallback(() => {
+    if (!svgRef.current) return;
+    svgRef.current.innerHTML = `
+      <defs>
+        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+        </marker>
+        <marker id="arrowhead-start" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto-start-reverse">
+          <polygon points="0 0, 10 3.5, 0 7" fill="#374151" />
+        </marker>
+      </defs>
+      ${drawLine('node-softpos', 'node-merchant', false, true)}
+      ${drawLine('node-merchant', 'node-switch', false, true)}
+      ${drawLine('node-switch', 'node-softhsm', false, true, true)}
+      ${drawLine('node-switch', 'node-gateway-visa', false, true)}
+      ${drawLine('node-gateway-visa', 'node-visanet', false, true)}
+      
+      ${drawLine('node-merchant', 'node-db', false, true)}
+      ${drawLine('node-db', 'node-relay', false, true)}
+      ${drawLine('node-relay', 'node-rmq', false, true)}
+      ${drawLine('node-rmq', 'node-listener', false, true)}
+      ${drawElbowLine('node-listener', 'node-db', true, 70)}
+      
+      ${drawLine('node-switch', 'node-network-log', false, true)}
+      ${drawLine('node-network-log', 'node-batch', false, true)}
+      ${drawLine('node-batch', 'node-payout', false, true)}
+      ${drawBottomElbowLine('node-batch', 'node-visanet', isPt ? 'Envio TC50' : 'TC50 Send')}
+    `;
+  }, [drawLine, drawElbowLine, drawBottomElbowLine, isPt]);
+
+  useEffect(() => {
+    renderLines();
+    const timer1 = setTimeout(renderLines, 200);
+    const timer2 = setTimeout(renderLines, 600);
+    window.addEventListener('resize', renderLines);
+
+    const container = canvasRef.current;
+    if (container) {
+      container.addEventListener('scroll', renderLines);
+    }
+
     return () => {
-      window.removeEventListener('resize', handleResize);
-      if (typeof window.cancelAllActiveTimers === 'function') {
-        window.cancelAllActiveTimers();
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+      window.removeEventListener('resize', renderLines);
+      if (container) {
+        container.removeEventListener('scroll', renderLines);
       }
+    };
+  }, [renderLines, isTerminalOpen]);
+
+  // --- Particle Engine (Exact port from orionpay-datadog) ---
+  const createParticle = useCallback((startNodeId, colorClass) => {
+    const el = document.createElement('i');
+    el.className = `particle fa-solid fa-file-invoice-dollar ${colorClass}`;
+    if (particlesContainerRef.current) {
+      particlesContainerRef.current.appendChild(el);
+    }
+
+    const node = document.getElementById(startNodeId);
+    const c = canvasRef.current;
+    if (node && c) {
+      const r = node.getBoundingClientRect();
+      const cRect = c.getBoundingClientRect();
+      el.style.left = `${r.left - cRect.left + c.scrollLeft + r.width / 2}px`;
+      el.style.top = `${r.top - cRect.top + c.scrollTop + r.height / 2}px`;
+    }
+
+    return {
+      el,
+      async moveTo(nodeId, duration = 500) {
+        return new Promise((resolve) => {
+          void el.offsetWidth;
+          const targetNode = document.getElementById(nodeId);
+          const canvas = canvasRef.current;
+          if (targetNode && canvas) {
+            const r = targetNode.getBoundingClientRect();
+            const cRect = canvas.getBoundingClientRect();
+
+            el.style.transition = `left ${duration}ms linear, top ${duration}ms linear`;
+            el.style.left = `${r.left - cRect.left + canvas.scrollLeft + r.width / 2}px`;
+            el.style.top = `${r.top - cRect.top + canvas.scrollTop + r.height / 2}px`;
+          }
+          setTimeout(resolve, duration);
+        });
+      },
+      async moveBottomElbowTo(nodeId, duration = 1000) {
+        const targetNode = document.getElementById(nodeId);
+        const canvas = canvasRef.current;
+        if (!targetNode || !canvas) return;
+
+        const startX = parseFloat(el.style.left || '0');
+        const startY = parseFloat(el.style.top || '0');
+
+        const r = targetNode.getBoundingClientRect();
+        const cRect = canvas.getBoundingClientRect();
+        const targetX = r.left - cRect.left + canvas.scrollLeft + r.width / 2;
+        const targetY = r.top - cRect.top + canvas.scrollTop + r.height / 2;
+
+        const yMid = startY + 70;
+
+        void el.offsetWidth;
+
+        // Segment 1: Down to elbow
+        const dur1 = duration * 0.25;
+        el.style.transition = `left ${dur1}ms linear, top ${dur1}ms linear`;
+        el.style.top = `${yMid}px`;
+        await sleep(dur1);
+
+        // Segment 2: Horizontal across
+        const dur2 = duration * 0.5;
+        el.style.transition = `left ${dur2}ms linear, top ${dur2}ms linear`;
+        el.style.left = `${targetX}px`;
+        await sleep(dur2);
+
+        // Segment 3: Up to target node
+        const dur3 = duration * 0.25;
+        el.style.transition = `left ${dur3}ms linear, top ${dur3}ms linear`;
+        el.style.top = `${targetY}px`;
+        await sleep(dur3);
+      },
+      setType(newColorClass) {
+        el.className = `particle fa-solid fa-file-invoice-dollar ${newColorClass}`;
+      },
+      destroy() {
+        el.remove();
+      },
     };
   }, []);
 
+  // --- Animations (Exact port from orionpay-datadog) ---
+  const simulateAuthFlowAnimation = useCallback(async () => {
+    const softposBox = document.getElementById('node-softpos');
+    const merchantBox = document.getElementById('node-merchant');
+    const switchBox = document.getElementById('node-switch');
+    const softhsmBox = document.getElementById('node-softhsm');
+    const gatewayVisaBox = document.getElementById('node-gateway-visa');
+    const visaNetBox = document.getElementById('node-visanet');
+    const dbBox = document.getElementById('node-db');
+    const networkLogBox = document.getElementById('node-network-log');
+
+    // 0. Disparo inicial do PDV
+    if (softposBox) softposBox.classList.add('node-active-cyan');
+    const p = createParticle('node-softpos', 'bg-cyan-400 text-cyan-400');
+    await sleep(300);
+    if (softposBox) softposBox.classList.remove('node-active-cyan');
+
+    // 1. Chegada no Orquestrador
+    await p.moveTo('node-merchant', 400);
+    if (merchantBox) merchantBox.classList.add('node-active-purple');
+
+    // FORK DB (Mensageria Assíncrona Fire-and-Forget)
+    const forkDb = async () => {
+      const pDb = createParticle('node-merchant', 'bg-cyan-400 text-cyan-400');
+      await pDb.moveTo('node-db', 600);
+      if (dbBox) dbBox.classList.add('node-active-db');
+
+      if (!chaosRef.current.db) {
+        addLog('[ERROR] DB Core Offline! Falha no Insert.', 'error');
+        pDb.setType('bg-red-500 text-red-500');
+        await sleep(500);
+        if (dbBox) dbBox.classList.remove('node-active-db');
+        pDb.destroy();
+        return;
+      }
+
+      metricsRef.current.dbQueue++;
+      updateMetrics();
+
+      await sleep(500);
+      if (dbBox) dbBox.classList.remove('node-active-db');
+      pDb.destroy();
+    };
+    forkDb();
+
+    await sleep(300);
+    if (merchantBox) merchantBox.classList.remove('node-active-purple');
+
+    // 2. Encaminhamento para o Switch Adq
+    await p.moveTo('node-switch', 400);
+    if (switchBox) switchBox.classList.add('node-active-blue');
+
+    if (!chaosRef.current.gw) {
+      addLog('[ERROR] Switch Adq (C++) Offline. Autorização negada.', 'error');
+      p.setType('bg-red-500 text-red-500');
+      await sleep(500);
+      if (switchBox) switchBox.classList.remove('node-active-blue');
+      await p.moveTo('node-merchant', 400);
+      await p.moveTo('node-softpos', 400);
+      p.destroy();
+      return;
+    }
+
+    // FORK TC57 (Log de Rede Fire-and-Forget) - Desacoplado do Batch
+    const forkLog = async () => {
+      const pLog = createParticle('node-switch', 'bg-gray-400 text-gray-400');
+      await pLog.moveTo('node-network-log', 500);
+      if (networkLogBox) networkLogBox.classList.add('node-active-gray');
+      await sleep(300);
+      if (networkLogBox) networkLogBox.classList.remove('node-active-gray');
+      pLog.destroy();
+
+      metricsRef.current.logQueue++;
+      updateMetrics();
+    };
+    forkLog();
+
+    await sleep(300);
+
+    // 2.1 Tradução de PIN Block no SoftHSM (Desvio síncrono)
+    const hsmParticle = createParticle('node-switch', 'bg-red-400 text-red-400');
+    await hsmParticle.moveTo('node-softhsm', 300);
+    if (softhsmBox) softhsmBox.classList.add('node-active-red');
+    await sleep(200);
+    if (softhsmBox) softhsmBox.classList.remove('node-active-red');
+    await hsmParticle.moveTo('node-switch', 300);
+    hsmParticle.destroy();
+
+    // 2.2 Encaminhamento para o Gateway Visa
+    await p.moveTo('node-gateway-visa', 400);
+    if (gatewayVisaBox) gatewayVisaBox.classList.add('node-active-blue');
+    await sleep(300);
+    if (gatewayVisaBox) gatewayVisaBox.classList.remove('node-active-blue');
+
+    // 2.3 Chegada na VisaNet
+    await p.moveTo('node-visanet', 400);
+    if (visaNetBox) visaNetBox.classList.add('node-active-blue');
+    await sleep(500);
+    if (visaNetBox) visaNetBox.classList.remove('node-active-blue');
+
+    // 3. CAMINHO DE RETORNO (Autorização Síncrona)
+    p.setType('bg-green-400 text-green-400');
+
+    // Retorno: VisaNet -> Gateway
+    await p.moveTo('node-gateway-visa', 300);
+    if (gatewayVisaBox) gatewayVisaBox.classList.add('node-active-blue');
+    await sleep(200);
+    if (gatewayVisaBox) gatewayVisaBox.classList.remove('node-active-blue');
+
+    // Retorno: Gateway -> Switch
+    await p.moveTo('node-switch', 300);
+    if (switchBox) switchBox.classList.remove('node-active-blue');
+
+    // Retorno: Switch -> Merchant
+    await p.moveTo('node-merchant', 400);
+    if (merchantBox) merchantBox.classList.add('node-active-purple');
+    await sleep(300);
+    if (merchantBox) merchantBox.classList.remove('node-active-purple');
+
+    // Retorno: Merchant -> SoftPOS
+    await p.moveTo('node-softpos', 400);
+    if (softposBox) softposBox.classList.add('node-active-cyan');
+
+    metricsRef.current.pdvCount++;
+    updateMetrics();
+
+    await sleep(600);
+    if (softposBox) softposBox.classList.remove('node-active-cyan');
+
+    p.destroy();
+  }, [addLog, createParticle, updateMetrics]);
+
+  const simulateRelayAnimation = useCallback(async () => {
+    if (metricsRef.current.dbQueue <= 0) return;
+
+    if (!chaosRef.current.relay) {
+      addLog('[WARN] Outbox Relay Offline: Eventos permanecem retidos com segurança no PostgreSQL (Outbox).', 'warn');
+      return;
+    }
+
+    metricsRef.current.dbQueue--;
+    updateMetrics();
+
+    const p = createParticle('node-db', 'bg-indigo-400 text-indigo-400');
+    await p.moveTo('node-relay', 700);
+
+    const relayBox = document.getElementById('node-relay');
+    if (relayBox) {
+      relayBox.classList.add('node-active-relay');
+    }
+
+    await sleep(600);
+
+    if (relayBox) {
+      relayBox.classList.remove('node-active-relay');
+    }
+
+    // Verificação de destino (RabbitMQ)
+    if (!chaosRef.current.rmq) {
+      addLog('[ERROR] Outbox Relay: RabbitMQ indisponível. Revertendo para o banco.', 'error');
+      p.setType('bg-red-500 text-red-500');
+      await p.moveTo('node-db', 700);
+
+      metricsRef.current.dbQueue++;
+      updateMetrics();
+
+      p.destroy();
+      return;
+    }
+
+    // Entrega com sucesso no RMQ
+    await p.moveTo('node-rmq', 700);
+    p.setType('bg-orange-400 text-orange-400');
+
+    const rmqBox = document.getElementById('node-rmq');
+    if (rmqBox) {
+      rmqBox.classList.add('node-active-relay');
+    }
+
+    metricsRef.current.rmqQueue++;
+    updateMetrics();
+
+    const rmqClock = document.getElementById('rmq-clock-icon');
+    if (rmqClock) {
+      rmqClock.classList.add('spin-waiting', 'fa-spin');
+    }
+
+    await sleep(800);
+
+    if (rmqBox) {
+      rmqBox.classList.remove('node-active-relay');
+    }
+
+    p.destroy();
+  }, [addLog, createParticle, updateMetrics]);
+
+  const simulateListenerAnimation = useCallback(async () => {
+    if (metricsRef.current.rmqQueue <= 0) return;
+
+    if (!chaosRef.current.rmq) {
+      addLog('[ERROR] Falha de Consumo: RabbitMQ fora do ar.', 'error');
+      return;
+    }
+
+    if (metricsRef.current.rmqQueue > 0) {
+      metricsRef.current.rmqQueue--;
+      updateMetrics();
+    }
+
+    if (metricsRef.current.rmqQueue === 0) {
+      const rmqClock = document.getElementById('rmq-clock-icon');
+      if (rmqClock) {
+        rmqClock.classList.remove('spin-waiting', 'fa-spin');
+      }
+    }
+
+    const p = createParticle('node-rmq', 'bg-orange-400 text-orange-400');
+
+    await p.moveTo('node-listener', 700);
+
+    const mdrIcon = document.getElementById('mdr-engine-icon');
+    const listenerBox = document.getElementById('node-listener');
+
+    if (mdrIcon) {
+      mdrIcon.classList.add('spin-calculating', 'fa-spin');
+    }
+    if (listenerBox) {
+      listenerBox.classList.add('node-active-engine');
+    }
+
+    p.setType('bg-yellow-400 text-yellow-400 shadow-yellow-500');
+    await sleep(1200);
+
+    if (mdrIcon) {
+      mdrIcon.classList.remove('spin-calculating', 'fa-spin');
+    }
+    if (listenerBox) {
+      listenerBox.classList.remove('node-active-engine');
+    }
+
+    p.setType('bg-green-400 text-green-400');
+
+    const dbNode = document.getElementById('node-db');
+    const listenerNode = document.getElementById('node-listener');
+    const c = canvasRef.current;
+
+    if (dbNode && listenerNode && c) {
+      const rDb = dbNode.getBoundingClientRect();
+      const rList = listenerNode.getBoundingClientRect();
+      const cRect = c.getBoundingClientRect();
+
+      const dbX = rDb.left - cRect.left + c.scrollLeft + rDb.width / 2;
+      const listY = rList.top - cRect.top + c.scrollTop + rList.height / 2;
+
+      p.el.style.transition = 'top 300ms linear';
+      p.el.style.top = `${listY + 70}px`;
+      await sleep(300);
+
+      p.el.style.transition = 'left 600ms linear';
+      p.el.style.left = `${dbX}px`;
+      await sleep(600);
+
+      await p.moveTo('node-db', 300);
+    } else {
+      await p.moveTo('node-db', 900);
+    }
+
+    const dbBox = document.getElementById('node-db');
+    if (dbBox) dbBox.classList.add('node-active-db');
+
+    await sleep(500);
+    if (dbBox) dbBox.classList.remove('node-active-db');
+
+    p.destroy();
+  }, [addLog, createParticle, updateMetrics]);
+
+  const simulateBatchAnimation = useCallback(
+    async () => {
+      if (metricsRef.current.logQueue > 0) {
+        metricsRef.current.logQueue--;
+        updateMetrics();
+      }
+
+      const p = createParticle(
+        'node-network-log',
+        'bg-yellow-400 text-yellow-400 shadow-[0_0_15px_#facc15]'
+      );
+
+      const logBox = document.getElementById('node-network-log');
+      if (logBox) logBox.classList.add('node-active-gray');
+      await sleep(300);
+      if (logBox) logBox.classList.remove('node-active-gray');
+
+      await p.moveTo('node-batch', 600);
+
+      const batchBox = document.getElementById('node-batch');
+      if (batchBox) batchBox.classList.add('node-active-batch');
+
+      p.setType('bg-green-400 text-green-400');
+      await sleep(400);
+
+      if (batchBox) batchBox.classList.remove('node-active-batch');
+
+      // Fork: One goes to Payout, one goes to VisaNet (Envio TC50)
+      const tc50Particle = createParticle('node-batch', 'bg-blue-400 text-blue-400');
+      tc50Particle.moveBottomElbowTo('node-visanet', 1000).then(async () => {
+        const visaNetBox = document.getElementById('node-visanet');
+        if (visaNetBox) visaNetBox.classList.add('node-active-blue');
+        await sleep(400);
+        if (visaNetBox) visaNetBox.classList.remove('node-active-blue');
+        tc50Particle.destroy();
+      });
+
+      await p.moveTo('node-payout', 600);
+
+      p.setType('bg-emerald-400 text-emerald-400');
+      await sleep(500);
+      p.destroy();
+    },
+    [createParticle, updateMetrics]
+  );
+
+  const runBatch = useCallback(() => {
+    const count = metricsRef.current.logQueue;
+
+    if (count === 0) {
+      addLog('[INFO] Settlement: O Log de Rede (TC57) está vazio. Nenhuma liquidação a processar.');
+      return;
+    } else {
+      addLog(`[INFO] Spring Batch: Extraindo ${count} registros do Log de Rede para liquidação...`);
+    }
+
+    const clockIcon = document.getElementById('batch-clock-icon');
+    if (clockIcon) {
+      clockIcon.classList.remove('text-gray-600');
+      clockIcon.classList.add('text-yellow-400', 'fa-spin');
+    }
+
+    for (let i = 0; i < count; i++) {
+      setTimeout(() => {
+        simulateBatchAnimation();
+      }, i * 700);
+    }
+
+    const totalDuration = (count - 1) * 700 + 2700;
+
+    setTimeout(() => {
+      if (clockIcon) {
+        clockIcon.classList.remove('text-yellow-400', 'fa-spin');
+        clockIcon.classList.add('text-gray-600');
+      }
+      addLog(
+        `[INFO] Spring Batch: Lote TC50 enviado à VisaNet e ${count} liquidação(ões) registradas no Payout & Ledger.`,
+        'live'
+      );
+    }, totalDuration);
+  }, [addLog, simulateBatchAnimation]);
+
+  const routeTelemetryEvent = useCallback(
+    (event) => {
+      let transactionId = 'N/A';
+      let amount = 0;
+      let stepName = '';
+      let isRealBackendEvent = false;
+
+      if (event.transactionId && event.amount) {
+        transactionId = String(event.transactionId).substring(0, 8);
+        amount = parseFloat(event.amount);
+        stepName = event.step || event.status || 'EVENT';
+        isRealBackendEvent = true;
+      } else if (event.serviceName && event.payload) {
+        transactionId = event.payload.transactionId || 'N/A';
+        amount = parseFloat(event.payload.amount || 0);
+        stepName = event.action || 'EVENT';
+      } else {
+        addLog('[DEBUG] Evento descartado: Formato desconhecido.', 'error');
+        return;
+      }
+
+      const logPrefix = isRealBackendEvent ? '[REAL-BACKEND]' : `[${event.serviceName || 'SIM'}]`;
+      addLog(`${logPrefix} ${stepName} - TX: ${transactionId} (R$ ${amount.toFixed(2)})`, 'live');
+
+      if (transactionId === 'TX-RELAY') {
+        return;
+      }
+
+      metricsRef.current.lastEvent = transactionId;
+      metricsRef.current.totalVolume += amount;
+      updateMetrics();
+
+      if (processedTxIdsRef.current.has(transactionId)) {
+        return;
+      }
+
+      processedTxIdsRef.current.add(transactionId);
+
+      simulateAuthFlowAnimation();
+      setTimeout(() => simulateRelayAnimation(), 3200);
+      setTimeout(() => simulateListenerAnimation(), 6400);
+    },
+    [addLog, simulateAuthFlowAnimation, simulateListenerAnimation, simulateRelayAnimation, updateMetrics]
+  );
+
+  const simulateLocalTest = useCallback(() => {
+    const amount = (Math.random() * 500 + 10).toFixed(2);
+    const txId = 'TX-' + Math.floor(Math.random() * 900000 + 100000);
+
+    routeTelemetryEvent({
+      serviceName: 'orionpay-merchant-service',
+      action: 'TRANSACTION_AUTHORIZED',
+      payload: { transactionId: txId, amount },
+    });
+
+    setTimeout(() => {
+      routeTelemetryEvent({
+        serviceName: 'OUTBOX-RELAY',
+        action: 'EVENT_PUBLISHED',
+        payload: { transactionId: 'TX-RELAY', amount },
+      });
+    }, 3500);
+  }, [routeTelemetryEvent]);
+
+  const toggleChaos = useCallback(
+    (key) => {
+      const nextState = !chaosRef.current[key];
+      chaosRef.current[key] = nextState;
+      setUiChaos({ ...chaosRef.current });
+
+      if (nextState) {
+        addLog(`[SYSTEM] Serviço ${key.toUpperCase()} restaurado.`, 'info');
+        // Se o Relay e o RabbitMQ estão ativos e existem mensagens presas no DB, drena automaticamente!
+        if ((key === 'rmq' || key === 'relay') && chaosRef.current.relay && chaosRef.current.rmq) {
+          const stuck = metricsRef.current.dbQueue;
+          if (stuck > 0) {
+            addLog(
+              `[SYSTEM] Outbox Recovery: Drenando ${stuck} evento(s) retido(s) no PostgreSQL para o RabbitMQ...`,
+              'live'
+            );
+            for (let i = 0; i < stuck; i++) {
+              setTimeout(() => {
+                simulateRelayAnimation();
+                setTimeout(() => simulateListenerAnimation(), 3200);
+              }, i * 950);
+            }
+          }
+        }
+      } else {
+        addLog(`[SYSTEM] CHAOS: Serviço ${key.toUpperCase()} derrubado!`, 'error');
+      }
+    },
+    [addLog, simulateListenerAnimation, simulateRelayAnimation]
+  );
+
+  const resetAllMetrics = useCallback(() => {
+    metricsRef.current = {
+      pdvCount: 0,
+      dbQueue: 0,
+      rmqQueue: 0,
+      logQueue: 0,
+      totalVolume: 0,
+      lastEvent: '',
+    };
+    chaosRef.current = { gw: true, db: true, relay: true, rmq: true };
+    processedTxIdsRef.current.clear();
+    setUiMetrics({ ...metricsRef.current });
+    setUiChaos({ ...chaosRef.current });
+    if (particlesContainerRef.current) {
+      particlesContainerRef.current.innerHTML = '';
+    }
+    const rmqClock = document.getElementById('rmq-clock-icon');
+    if (rmqClock) rmqClock.classList.remove('spin-waiting', 'fa-spin');
+    const mdrIcon = document.getElementById('mdr-engine-icon');
+    if (mdrIcon) mdrIcon.classList.remove('spin-calculating', 'fa-spin');
+    const batchClock = document.getElementById('batch-clock-icon');
+    if (batchClock) {
+      batchClock.classList.remove('text-yellow-400', 'fa-spin');
+      batchClock.classList.add('text-gray-600');
+    }
+    addLog('[SYSTEM] Simulador resetado. Contadores zerados e todos os serviços ONLINE.', 'info');
+  }, [addLog]);
+
   return (
-    <section id="simulator" className="py-12 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="text-center max-w-3xl mx-auto space-y-3 mb-8">
-        {/* Required Transparency & Simulation Scope Banner */}
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-[11px] font-bold tracking-wide shadow-sm">
+    <section id="simulator" className="py-8 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
+      {/* Portfolio Header & Simulation Disclaimer */}
+      <div className="text-center max-w-3xl mx-auto space-y-2.5 mb-6">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-[11px] font-bold tracking-wide shadow-sm">
           <Info className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span>
             {isPt
@@ -104,684 +823,340 @@ export default function SwitchSimulator() {
               : 'SIMULATION · SYNTHETIC DATA · NO LIVE PAYMENT NETWORKS'}
           </span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
+        <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           Payment Systems Lab
         </h1>
-        <p className="text-slate-300 text-sm sm:text-base">
+        <p className="text-slate-300 text-xs sm:text-sm">
           {isPt
             ? 'Explore autorização de pagamentos, idempotência transacional, o padrão Transactional Outbox, recuperação de mensageria e clearing em lote por meio de simulações determinísticas.'
             : 'Explore payment authorization, transaction idempotency, the Transactional Outbox pattern, message recovery, and batch clearing through deterministic simulations.'}
         </p>
-        <p className="text-xs font-mono text-slate-400 bg-[#080E1E]/90 border border-[#152342] p-3 rounded-xl max-w-2xl mx-auto leading-relaxed">
-          <strong className="text-slate-200">
-            {isPt ? 'Escopo da Simulação:' : 'Simulation Scope:'}
-          </strong>{' '}
-          {isPt ? (
-            <>
-              Todos os cenários são executados localmente em uma máquina de estados determinística no navegador (
-              <code className="text-cyan-300">simulator.js</code>) utilizando payloads sintéticos. Nenhum servidor
-              externo, rede de bandeira real ou transação financeira de produção está envolvido.
-            </>
-          ) : (
-            <>
-              All scenarios execute locally in a deterministic client-side browser state machine (
-              <code className="text-cyan-300">simulator.js</code>) using synthetic payloads. No external servers, live
-              card networks, or real financial transactions are involved.
-            </>
-          )}
-        </p>
       </div>
 
-      {/* SCENARIO SELECTOR TABS */}
-      <div className="mb-6 space-y-3">
-        <div className="flex items-center justify-between flex-wrap gap-2">
-          <span className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold flex items-center gap-1.5">
-            <Sliders className="w-3.5 h-3.5 text-[#00D47E]" />
-            <span>
-              {isPt
-                ? 'Selecione o Cenário de Engenharia (Clique em um cenário e depois em Executar ou Avançar Etapa):'
-                : 'Select Engineering Scenario (Click a scenario, then Run or Step Forward):'}
-            </span>
-          </span>
-          <span className="text-[11px] font-mono text-slate-400">
-            {isPt
-              ? 'Dica: Clique em qualquer nó da arquitetura ou card de etapa para inspecionar sua justificativa técnica'
-              : 'Tip: Click any architecture node or stage card to inspect its technical rationale'}
-          </span>
-        </div>
-
-        <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-3" role="tablist" aria-label="Simulation Scenarios">
-          <button
-            type="button"
-            role="tab"
-            aria-selected="true"
-            data-scenario="scenario-a"
-            onClick={() => typeof window.selectScenario === 'function' && window.selectScenario('scenario-a', false)}
-            className="sim-scenario-btn text-left p-3.5 rounded-xl border border-[#00D47E] bg-[#081229] text-white shadow-lg transition-all space-y-1"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-emerald-950 text-[#00D47E] border border-[#00D47E]/40">
-                {isPt ? 'Cenário A' : 'Scenario A'}
-              </span>
-              <CheckCircle2 className="w-4 h-4 text-[#00D47E]" />
-            </div>
-            <div className="text-xs font-bold pt-1">
-              {isPt ? 'Autorização Aprovada' : 'Approved Authorization'}
-            </div>
-            <p className="text-[11px] text-slate-400 leading-snug">
-              {isPt
-                ? 'ISO 8583 0100→0110, commit atômico BD + Outbox e consumidor assíncrono.'
-                : 'ISO 8583 0100→0110, atomic DB + Outbox commit & async consumer.'}
-            </p>
-          </button>
-
-          <button
-            type="button"
-            role="tab"
-            aria-selected="false"
-            data-scenario="scenario-b"
-            onClick={() => typeof window.selectScenario === 'function' && window.selectScenario('scenario-b', false)}
-            className="sim-scenario-btn text-left p-3.5 rounded-xl border border-[#152342] bg-[#040816]/80 text-slate-300 hover:border-amber-400/50 transition-all space-y-1"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-amber-950 text-amber-300 border border-amber-500/40">
-                {isPt ? 'Cenário B' : 'Scenario B'}
-              </span>
-              <CopyCheck className="w-4 h-4 text-amber-400" />
-            </div>
-            <div className="text-xs font-bold pt-1">
-              {isPt ? 'Requisição Duplicada (Idempotência)' : 'Duplicate Request (Idempotency)'}
-            </div>
-            <p className="text-[11px] text-slate-400 leading-snug">
-              {isPt
-                ? 'Retentativa do cliente com mesma Idempotency-Key e reuso da resposta salva.'
-                : 'Client retry with same Idempotency-Key & cached response replay.'}
-            </p>
-          </button>
-
-          <button
-            type="button"
-            role="tab"
-            aria-selected="false"
-            data-scenario="scenario-c"
-            onClick={() => typeof window.selectScenario === 'function' && window.selectScenario('scenario-c', false)}
-            className="sim-scenario-btn text-left p-3.5 rounded-xl border border-[#152342] bg-[#040816]/80 text-slate-300 hover:border-red-400/50 transition-all space-y-1"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-red-950 text-red-300 border border-red-500/40">
-                {isPt ? 'Cenário C' : 'Scenario C'}
-              </span>
-              <RefreshCw className="w-4 h-4 text-red-400" />
-            </div>
-            <div className="text-xs font-bold pt-1">
-              {isPt ? 'Falha e Recuperação da Mensageria' : 'Broker Failure & Recovery'}
-            </div>
-            <p className="text-[11px] text-slate-400 leading-snug">
-              {isPt
-                ? 'Queda do RabbitMQ, Outbox PENDING_RETRY, backoff e deduplicação no consumidor.'
-                : 'RabbitMQ outage, Outbox PENDING_RETRY, backoff & consumer dedup.'}
-            </p>
-          </button>
-
-          <button
-            type="button"
-            role="tab"
-            aria-selected="false"
-            data-scenario="scenario-d"
-            onClick={() => typeof window.selectScenario === 'function' && window.selectScenario('scenario-d', false)}
-            className="sim-scenario-btn text-left p-3.5 rounded-xl border border-[#152342] bg-[#040816]/80 text-slate-300 hover:border-cyan-400/50 transition-all space-y-1"
-          >
-            <div className="flex items-center justify-between">
-              <span className="text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded bg-blue-950 text-cyan-300 border border-cyan-500/40">
-                {isPt ? 'Cenário D' : 'Scenario D'}
-              </span>
-              <Layers className="w-4 h-4 text-cyan-400" />
-            </div>
-            <div className="text-xs font-bold pt-1">
-              {isPt ? 'Clearing em Lote (Base II / TC50)' : 'Batch Clearing (Base II / TC50)'}
-            </div>
-            <p className="text-[11px] text-slate-400 leading-snug">
-              {isPt
-                ? 'Cut-off diário, chunks no Spring Batch e livro-razão de partidas dobradas.'
-                : 'End-of-day cut-off, Spring Batch chunks & double-entry ledger.'}
-            </p>
-          </button>
-        </div>
-      </div>
-
-      {/* ORIONPAY SWITCH LAB / ARCHITECTURAL PIPELINE SIMULATOR */}
+      {/* ORIONPAY DATADOG LIVE APM & TRANSACTIONAL OUTBOX SIMULATOR (Ported from http://localhost:3002/) */}
       <div
-        id="arch-canvas-container"
-        className="relative rounded-2xl border border-[#152342] bg-[#040816] shadow-2xl overflow-hidden glass-metal"
+        id="orionpay-datadog-wrapper"
+        className="rounded-2xl border border-gray-800 bg-[#030712] text-white shadow-2xl overflow-hidden flex flex-col"
       >
-        {/* Top Control Bar */}
-        <div className="px-4 py-2.5 bg-[#060B1C] border-b border-[#152342] flex flex-wrap items-center justify-between gap-3">
-          <div className="flex items-center gap-2.5">
-            <div className="w-8 h-8 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center shadow-lg shadow-purple-900/30">
-              <Boxes className="w-4 h-4" />
-            </div>
-            <div>
-              <div className="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-2">
-                OrionPay Switch Lab
-                <span className="px-1.5 py-0.5 rounded text-[9px] font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30 uppercase">
-                  {isPt ? 'Máquina de Estados Determinística' : 'Deterministic State Machine'}
-                </span>
+        {/* OrionPay Datadog Header */}
+        <header className="bg-gray-900 border-b border-gray-800 p-4 shrink-0 shadow-lg z-20 relative">
+          <div className="max-w-screen-2xl mx-auto flex flex-wrap justify-between items-center gap-4">
+            <div className="flex items-center space-x-3">
+              <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-indigo-600 to-purple-600 shadow-[0_0_20px_rgba(99,102,241,0.5)] flex items-center justify-center">
+                <i className="fa-solid fa-network-wired text-white"></i>
               </div>
-              <div className="text-[10px] font-mono text-slate-400 flex flex-wrap items-center gap-1.5">
-                <span>{isPt ? 'Execução Local no Navegador' : 'Local Browser Runtime'}</span>
-                <span>•</span>
-                <span className="inline-flex items-center gap-1 text-amber-300">
-                  <span className="w-1.5 h-1.5 rounded-full bg-amber-400"></span>{' '}
-                  {isPt ? 'PAYLOADS SINTÉTICOS (SEM REDE EXTERNA)' : 'SYNTHETIC PAYLOADS (NO LIVE NETWORK)'}
-                </span>
-              </div>
-            </div>
-          </div>
-
-          {/* Session State Counters */}
-          <div className="flex flex-wrap items-center gap-2 text-xs font-mono">
-            <div className="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]">
-              <div className="text-[8px] text-slate-400 uppercase tracking-wider">
-                {isPt ? 'Tx Aprovadas (Sim)' : 'Sim Approved Tx'}
-              </div>
-              <div id="stat-live-tx" className="text-xs font-bold text-cyan-400">
-                0
-              </div>
-            </div>
-            <div className="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[86px]">
-              <div className="text-[8px] text-slate-400 uppercase tracking-wider">
-                {isPt ? 'Volume Sintético (BRL)' : 'Synthetic (BRL)'}
-              </div>
-              <div id="stat-volume" className="text-xs font-bold text-[#00D47E]">
-                0.00
-              </div>
-            </div>
-            <div className="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]">
-              <div className="text-[8px] text-slate-400 uppercase tracking-wider">
-                {isPt ? 'Outbox Pendente' : 'Outbox Pending'}
-              </div>
-              <div id="stat-db-stuck" className="text-xs font-bold text-red-400">
-                0
-              </div>
-            </div>
-            <div className="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]">
-              <div className="text-[8px] text-slate-400 uppercase tracking-wider">
-                {isPt ? 'Fila do Broker' : 'Broker Queue'}
-              </div>
-              <div id="stat-rmq-queue" className="text-xs font-bold text-amber-400">
-                0
-              </div>
-            </div>
-          </div>
-
-          {/* Action Control Buttons */}
-          <div className="flex flex-wrap items-center gap-1.5">
-            <button
-              type="button"
-              id="btn-fire-tx"
-              onClick={() => typeof window.runSelectedScenario === 'function' && window.runSelectedScenario()}
-              className="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold"
-            >
-              <Play className="w-3.5 h-3.5" />
-              <span>{isPt ? 'Executar Cenário' : 'Run Scenario'}</span>
-            </button>
-            <button
-              type="button"
-              id="btn-step-tx"
-              onClick={() => typeof window.stepScenarioForward === 'function' && window.stepScenarioForward()}
-              className="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold"
-            >
-              <StepForward className="w-3.5 h-3.5" />
-              <span className="step-btn-label">{isPt ? 'Avançar Etapa' : 'Step Forward'}</span>
-            </button>
-            <button
-              type="button"
-              id="btn-reset-tx"
-              onClick={() => typeof window.resetSimulationStats === 'function' && window.resetSimulationStats()}
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono"
-            >
-              <RotateCcw className="w-3.5 h-3.5" />
-              <span>{isPt ? 'Resetar' : 'Reset'}</span>
-            </button>
-            <button
-              type="button"
-              onClick={() => typeof window.toggleTerminalView === 'function' && window.toggleTerminalView()}
-              className="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono"
-            >
-              <Terminal className="w-3.5 h-3.5" />
-              <span className="hidden sm:inline">Logs</span>
-            </button>
-          </div>
-        </div>
-
-        {/* Scenario Summary & Visual Legend Bar */}
-        <div className="px-4 py-1.5 bg-[#030610] border-b border-[#152342] flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono">
-          <div id="sim-scenario-summary" className="text-slate-300 truncate max-w-3xl">
-            {isPt
-              ? 'Demonstra o caminho padrão (happy path): a autorização síncrona conclui na Fase 1 e realiza commit atômico junto ao evento Outbox.'
-              : 'Demonstrates the standard happy path: synchronous authorization completes in Phase 1 and commits atomically with an Outbox event.'}
-          </div>
-          <div className="flex flex-wrap items-center gap-3 text-[10px] text-slate-400">
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-4 h-0.5 bg-cyan-400 inline-block"></span> {isPt ? 'Chamada Síncrona' : 'Sync Call'}
-            </span>
-            <span className="inline-flex items-center gap-1.5">
-              <span className="w-4 h-0.5 border-t-2 border-dashed border-amber-400 inline-block"></span>{' '}
-              {isPt ? 'Assíncrono / Outbox / Batch' : 'Async / Outbox / Batch'}
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span> OK
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-amber-400"></span> Retry / Dedup
-            </span>
-            <span className="inline-flex items-center gap-1">
-              <span className="w-2 h-2 rounded-full bg-red-500"></span> {isPt ? 'Falha' : 'Fault'}
-            </span>
-          </div>
-        </div>
-
-        {/* Mobile Toggle for Full SVG Architecture Map */}
-        <div className="lg:hidden px-4 py-2 bg-[#050A18] border-b border-[#152342] flex items-center justify-between">
-          <span className="text-[11px] font-mono text-slate-300">
-            {isPt
-              ? 'Visão Mobile: Cards verticais de etapas ativos abaixo'
-              : 'Mobile View: Vertical step cards active below'}
-          </span>
-          <button
-            type="button"
-            onClick={() => typeof window.toggleMobileDiagramView === 'function' && window.toggleMobileDiagramView()}
-            className="px-2.5 py-1 rounded-lg bg-[#081229] border border-cyan-500/40 text-cyan-300 text-[11px] font-mono font-semibold"
-          >
-            <span id="btn-mobile-diagram-text">
-              {isPt
-                ? 'Mostrar Diagrama Completo da Arquitetura (Rolável)'
-                : 'Show Full Architecture Diagram (Scrollable)'}
-            </span>
-          </button>
-        </div>
-
-        {/* Architectural Mesh Map Canvas (3 Phases) */}
-        <div id="arch-desktop-diagram-wrapper" className="hidden lg:block overflow-x-auto">
-          <div id="arch-mesh-area" className="px-5 pt-2 pb-3 space-y-3.5 relative min-w-[780px]">
-            <div id="data-packet-token" className="data-packet-token opacity-0" aria-hidden="true"></div>
-            <svg
-              id="arch-connections-svg"
-              className="absolute inset-0 w-full h-full pointer-events-none"
-              style={{ zIndex: 2 }}
-              aria-hidden="true"
-            >
-              <g id="arch-connections-group"></g>
-            </svg>
-
-            {/* PHASE 1: SYNCHRONOUS AUTHORIZATION */}
-            <div className="relative pt-5">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-3">
-                <Zap className="w-3.5 h-3.5 text-cyan-400" />
-                <span className="font-bold text-slate-200">
-                  {isPt
-                    ? 'Fase 1: Autorização Síncrona (Requisição / Resposta Bloqueante)'
-                    : 'Phase 1: Synchronous Authorization (Blocking Request / Response)'}
-                </span>
-                <div className="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
-              </div>
-
-              <div className="grid grid-cols-5 gap-5 sm:gap-6 items-center relative">
-                <div
-                  id="node-softpos"
-                  className="arch-node p-2.5 rounded-xl border-2 border-cyan-500/70 bg-[#061124] text-center shadow-lg shadow-cyan-950/40"
-                >
-                  <Smartphone className="w-4 h-4 mx-auto text-cyan-400 mb-1" />
-                  <div className="text-xs font-bold text-white">SoftPOS</div>
-                  <div className="text-[9px] font-mono text-cyan-300">
-                    {isPt ? 'Captura Lojista' : 'Merchant Capture'}
-                  </div>
-                </div>
-
-                <div
-                  id="node-merchant"
-                  className="arch-node p-2.5 rounded-xl border-2 border-purple-500/70 bg-[#120B24] text-center shadow-lg shadow-purple-950/40"
-                >
-                  <Cpu className="w-4 h-4 mx-auto text-purple-400 mb-1" />
-                  <div className="text-xs font-bold text-white">Merchant Service</div>
-                  <div className="text-[9px] font-mono text-purple-300">
-                    {isPt ? 'Orquestrador & Idem' : 'Orchestrator & Idem'}
-                  </div>
-                </div>
-
-                <div className="relative flex items-center justify-center">
-                  <div
-                    id="node-softhsm"
-                    className="arch-node absolute -top-[3.6rem] py-1 px-3 rounded-xl border-2 border-red-500/70 bg-[#240A10] text-center shadow-lg shadow-red-950/40 z-20 whitespace-nowrap"
-                  >
-                    <Shield className="w-3.5 h-3.5 mx-auto text-red-400" />
-                    <div className="text-[10px] font-bold text-white leading-tight">SoftHSM (C++ Sim)</div>
-                    <div className="text-[8px] font-mono text-red-300 leading-tight">
-                      {isPt ? 'Tradução PIN TMK → ZPK' : 'TMK → ZPK PIN Trans'}
-                    </div>
-                  </div>
-                  <div
-                    id="node-switch"
-                    className="arch-node w-full p-2.5 rounded-xl border-2 border-blue-500/80 bg-[#091530] text-center shadow-lg shadow-blue-950/40"
-                  >
-                    <Server className="w-4 h-4 mx-auto text-blue-400 mb-1" />
-                    <div className="text-xs font-bold text-white">Acquiring Switch</div>
-                    <div className="text-[9px] font-mono text-blue-300">
-                      {isPt ? 'Core ISO 8583' : 'ISO 8583 Core'}
-                    </div>
-                  </div>
-                </div>
-
-                <div
-                  id="node-visagateway"
-                  className="arch-node p-2.5 rounded-xl border-2 border-blue-600/70 bg-[#07132B] text-center shadow-lg shadow-blue-950/40"
-                >
-                  <div className="w-6 h-3.5 mx-auto bg-blue-600 rounded text-[8px] font-black text-white flex items-center justify-center mb-1">
-                    VISA
-                  </div>
-                  <div className="text-xs font-bold text-white">Visa Gateway</div>
-                  <div className="text-[9px] font-mono text-blue-300">
-                    {isPt ? 'Conector Bandeira' : 'Scheme Connector'}
-                  </div>
-                </div>
-
-                <div
-                  id="node-visanet"
-                  className="arch-node p-2.5 rounded-xl border-2 border-indigo-500/70 bg-[#0C102E] text-center shadow-lg shadow-indigo-950/40"
-                >
-                  <Globe className="w-4 h-4 mx-auto text-indigo-400 mb-1" />
-                  <div className="text-xs font-bold text-white">VisaNet Emulator</div>
-                  <div className="text-[9px] font-mono text-indigo-300">
-                    {isPt ? 'Autorizador Base I' : 'Base I Authorizer'}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* PHASE 2: ASYNCHRONOUS MESSAGING */}
-            <div className="relative pt-1">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2.5">
-                <GitMerge className="w-3.5 h-3.5 text-purple-400" />
-                <span className="font-bold text-slate-200">
-                  {isPt
-                    ? 'Fase 2: Mensageria Assíncrona (Transactional Outbox & Relay At-Least-Once)'
-                    : 'Phase 2: Asynchronous Messaging (Transactional Outbox & At-Least-Once Relay)'}
-                </span>
-                <div className="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
-              </div>
-
-              <div className="grid grid-cols-5 gap-5 sm:gap-6 items-center relative">
-                <div className="hidden sm:block"></div>
-
-                <div
-                  id="node-dboutbox"
-                  className="arch-node p-2.5 rounded-xl border-2 border-indigo-500/70 bg-[#0D1230] text-center shadow-lg relative"
-                >
-                  <Database className="w-4 h-4 mx-auto text-indigo-400 mb-1" />
-                  <div className="text-xs font-bold text-white">DB &amp; Outbox</div>
-                  <div className="text-[9px] font-mono text-indigo-300">PostgreSQL ACID</div>
-                </div>
-
-                <div
-                  id="node-outboxrelay"
-                  className="arch-node p-2.5 rounded-xl border-2 border-orange-500/70 bg-[#261208] text-center shadow-lg relative"
-                >
-                  <Truck className="w-4 h-4 mx-auto text-orange-400 mb-1" />
-                  <div className="text-xs font-bold text-white">Outbox Relay</div>
-                  <div className="text-[9px] font-mono text-orange-300">CDC / Backoff Worker</div>
-                </div>
-
-                <div
-                  id="node-rabbitmq"
-                  className="arch-node p-2.5 rounded-xl border-2 border-amber-500/70 bg-[#261807] text-center shadow-lg relative"
-                >
-                  <div className="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-amber-500/80 text-white flex items-center justify-center">
-                    <CornerDownRight className="w-2.5 h-2.5" />
-                  </div>
-                  <Inbox className="w-4 h-4 mx-auto text-amber-400 mb-1" />
-                  <div className="text-xs font-bold text-white">RabbitMQ</div>
-                  <div className="text-[9px] font-mono text-amber-300">Quorum Queue &amp; DLQ</div>
-                  <div
-                    id="badge-rmq-count"
-                    className="absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-amber-500 text-white font-mono text-[9px] font-bold flex items-center justify-center shadow-md"
-                  >
-                    0
-                  </div>
-                </div>
-
-                <div
-                  id="node-settlementlistener"
-                  className="arch-node p-2.5 rounded-xl border-2 border-emerald-500/70 bg-[#072417] text-center shadow-lg relative"
-                >
-                  <Settings className="w-3 h-3 text-slate-400 absolute top-1.5 right-1.5" />
-                  <Headphones className="w-4 h-4 mx-auto text-emerald-400 mb-1" />
-                  <div className="text-xs font-bold text-white">Settlement Listener</div>
-                  <div className="text-[9px] font-mono text-emerald-300">
-                    {isPt ? 'Consumidor Idempotente' : 'Idempotent Consumer'}
-                  </div>
-                </div>
-              </div>
-            </div>
-
-            {/* PHASE 3: BATCH SETTLEMENT */}
-            <div className="relative pt-1">
-              <div className="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2.5">
-                <Clock className="w-3.5 h-3.5 text-blue-400" />
-                <span className="font-bold text-slate-200">
-                  {isPt
-                    ? 'Fase 3: Clearing & Liquidação em Lote (Cut-Off / Base II TC50)'
-                    : 'Phase 3: Batch Clearing & Settlement (Cut-Off / Base II TC50)'}
-                </span>
-                <div className="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
-              </div>
-
-              <div className="grid grid-cols-5 gap-5 sm:gap-6 items-start relative">
-                <div className="hidden sm:block"></div>
-                <div className="hidden sm:block"></div>
-
-                <div className="space-y-3.5">
-                  <div
-                    id="node-tc57log"
-                    className="arch-node p-2.5 rounded-xl border-2 border-slate-500/60 bg-[#0E1524] text-center shadow-lg relative"
-                  >
-                    <span className="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-slate-600 text-white font-mono text-[9px] flex items-center justify-center font-bold">
-                      2
-                    </span>
-                    <FileText className="w-4 h-4 mx-auto text-slate-300 mb-1" />
-                    <div className="text-xs font-bold text-white">Clearing Log (TC57)</div>
-                    <div className="text-[9px] font-mono text-slate-400">
-                      {isPt ? 'Staging Base II' : 'Base II Staging'}
-                    </div>
-                  </div>
-
-                  <div
-                    id="node-springbatch"
-                    className="arch-node p-2.5 rounded-xl border-2 border-amber-400/70 bg-[#292008] text-center shadow-lg relative"
-                  >
-                    <Clock className="w-3 h-3 text-slate-400 absolute top-1.5 right-1.5" />
-                    <Layers className="w-4 h-4 mx-auto text-amber-400 mb-1" />
-                    <div className="text-xs font-bold text-white">Spring Batch</div>
-                    <div className="text-[9px] font-mono text-amber-300">
-                      {isPt ? 'Conciliação Chunk + ShedLock' : 'Chunk Recon + ShedLock'}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="pt-[3.2rem]">
-                  <div
-                    id="node-payout"
-                    className="arch-node p-2.5 rounded-xl border-2 border-emerald-500/70 bg-[#06261A] text-center shadow-lg"
-                  >
-                    <Landmark className="w-4 h-4 mx-auto text-emerald-400 mb-1" />
-                    <div className="text-xs font-bold text-white">Payout &amp; Ledger</div>
-                    <div className="text-[9px] font-mono text-emerald-300">
-                      {isPt ? 'Liquidação Partidas Dobradas' : 'Double-Entry Settlement'}
-                    </div>
-                  </div>
-                  <div className="text-[9px] font-mono text-slate-400 text-center mt-1">
-                    {isPt ? 'Saída TC50' : 'TC50 Output'}
-                  </div>
-                </div>
-
-                <div className="hidden sm:block"></div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Stage Progress Scrubber */}
-        <div className="px-5 py-2 bg-[#030610] border-t border-[#152342] flex items-center gap-4">
-          <span id="sim-timeline-time" className="text-xs font-mono font-bold text-cyan-400 shrink-0">
-            STEP 0
-          </span>
-          <div className="flex-1 h-1.5 rounded-full bg-slate-800 overflow-hidden relative">
-            <div
-              id="sim-timeline-progress"
-              className="h-full bg-gradient-to-r from-cyan-500 via-amber-400 to-[#00D47E] w-0 transition-all duration-300"
-            ></div>
-          </div>
-          <span id="sim-timeline-total" className="text-xs font-mono text-slate-400 shrink-0">
-            OF 7
-          </span>
-        </div>
-
-        {/* INTERACTIVE STEP-BY-STEP PIPELINE & TECHNICAL EXPLANATION PANEL */}
-        <div className="p-5 sm:p-6 bg-[#050A18] border-t border-[#152342] grid lg:grid-cols-12 gap-6 items-start">
-          {/* Left Column: Sequential Stage Cards */}
-          <div className="lg:col-span-5 space-y-2.5">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xs font-mono uppercase tracking-wider text-slate-300 font-bold flex items-center gap-1.5">
-                <ListOrdered className="w-3.5 h-3.5 text-[#00D47E]" />
-                <span>
-                  {isPt
-                    ? 'Sequência de Etapas do Cenário (Clique para Inspecionar)'
-                    : 'Scenario Stage Sequence (Click to Inspect)'}
-                </span>
-              </h2>
-              <span className="text-[10px] font-mono text-slate-400">
-                {isPt ? 'Alternativa Textual' : 'Text Alternative'}
-              </span>
-            </div>
-            <div id="sim-steps-list" className="space-y-2" role="region" aria-label="Scenario Step Sequence"></div>
-          </div>
-
-          {/* Right Column: Detailed Technical Stage Breakdown & Simulated DB State Inspector */}
-          <div className="lg:col-span-7 space-y-4">
-            <div
-              id="sim-step-detail-card"
-              aria-live="polite"
-              className="p-4 sm:p-5 rounded-2xl bg-[#080E1E] border border-[#152342] space-y-3"
-            ></div>
-
-            {/* Simulated Relational & Broker State Inspector */}
-            <div className="p-4 sm:p-5 rounded-2xl bg-[#080E1E] border border-[#152342] space-y-3">
-              <div className="flex flex-wrap items-center justify-between gap-2 border-b border-[#152342] pb-2.5">
-                <div className="text-xs font-mono font-bold text-white flex items-center gap-1.5">
-                  <Database className="w-3.5 h-3.5 text-indigo-400" />
-                  <span>
-                    {isPt
-                      ? 'Inspetor de Persistência & Estado Simulado (Modelo em Memória)'
-                      : 'Simulated Persistence & State Inspector (In-Memory Model)'}
+              <div>
+                <div className="flex items-center gap-2">
+                  <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 to-purple-400 tracking-wide">
+                    OrionPay Datadog
+                  </h2>
+                  <span className="text-[10px] font-mono px-2 py-0.5 rounded bg-indigo-950/80 border border-indigo-500/40 text-indigo-300">
+                    OrionPay Switch Lab
                   </span>
                 </div>
-                <span className="text-[10px] font-mono text-slate-400">
-                  {isPt ? 'Atualizado a cada etapa executada' : 'Updates per executed step'}
-                </span>
+                <div className="text-xs text-gray-500 font-mono flex items-center">
+                  Transactional Outbox <span className="mx-2">|</span>
+                  <div
+                    className={`w-2 h-2 rounded-full mr-1.5 ${
+                      wsConnected
+                        ? 'bg-green-500 shadow-[0_0_5px_rgba(34,197,94,1)]'
+                        : 'bg-cyan-400 shadow-[0_0_5px_rgba(6,182,212,1)]'
+                    }`}
+                  ></div>
+                  <span className="text-cyan-400 text-[10px]">
+                    {wsConnected
+                      ? 'WS CONNECTED'
+                      : isPt
+                      ? 'LOCAL SIMULATION READY'
+                      : 'LOCAL SIMULATION READY'}
+                  </span>
+                </div>
+              </div>
+            </div>
+
+            {/* Chaos Engineering Quick Toggles */}
+            <div className="flex flex-wrap items-center gap-1.5 bg-gray-950/80 px-3 py-1.5 rounded-xl border border-gray-800">
+              <span className="text-[10px] font-mono uppercase tracking-wider text-gray-400 mr-1 flex items-center gap-1">
+                <i className="fa-solid fa-bolt-lightning text-amber-400"></i>
+                Chaos:
+              </span>
+              <button
+                type="button"
+                onClick={() => toggleChaos('gw')}
+                className={`px-2 py-1 rounded text-[10px] font-mono font-bold border transition-all ${
+                  uiChaos.gw
+                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60'
+                    : 'bg-red-950/80 border-red-500 text-red-300 animate-pulse'
+                }`}
+                title={isPt ? 'Derrubar / Restaurar Switch Adq (C++)' : 'Toggle Switch Adq (C++) UP/DOWN'}
+              >
+                Switch C++: {uiChaos.gw ? 'ON' : 'OFF'}
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleChaos('db')}
+                className={`px-2 py-1 rounded text-[10px] font-mono font-bold border transition-all ${
+                  uiChaos.db
+                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60'
+                    : 'bg-red-950/80 border-red-500 text-red-300 animate-pulse'
+                }`}
+                title={isPt ? 'Derrubar / Restaurar PostgreSQL Core' : 'Toggle PostgreSQL Core UP/DOWN'}
+              >
+                DB Core: {uiChaos.db ? 'ON' : 'OFF'}
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleChaos('relay')}
+                className={`px-2 py-1 rounded text-[10px] font-mono font-bold border transition-all ${
+                  uiChaos.relay
+                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60'
+                    : 'bg-red-950/80 border-red-500 text-red-300 animate-pulse'
+                }`}
+                title={isPt ? 'Derrubar / Restaurar Outbox Relay' : 'Toggle Outbox Relay UP/DOWN'}
+              >
+                Relay: {uiChaos.relay ? 'ON' : 'OFF'}
+              </button>
+              <button
+                type="button"
+                onClick={() => toggleChaos('rmq')}
+                className={`px-2 py-1 rounded text-[10px] font-mono font-bold border transition-all ${
+                  uiChaos.rmq
+                    ? 'bg-emerald-950/60 border-emerald-500/40 text-emerald-300 hover:bg-emerald-900/60'
+                    : 'bg-red-950/80 border-red-500 text-red-300 animate-pulse'
+                }`}
+                title={
+                  isPt
+                    ? 'Derrubar / Restaurar RabbitMQ (Testar retenção Outbox no BD)'
+                    : 'Toggle RabbitMQ UP/DOWN (Test Outbox DB retention)'
+                }
+              >
+                RabbitMQ: {uiChaos.rmq ? 'ON' : 'OFF'}
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center gap-3 sm:space-x-4">
+              {/* Metrics */}
+              <div className="flex flex-wrap gap-2 sm:space-x-3">
+                <div className="bg-gray-800/50 rounded p-2 border border-gray-700 min-w-[90px] flex flex-col items-center justify-center">
+                  <span className="text-[9px] text-gray-400 uppercase">
+                    {isPt ? 'Transações Live' : 'Live Tx'}
+                  </span>
+                  <span className="text-lg font-bold text-cyan-400">{uiMetrics.pdvCount}</span>
+                </div>
+                <div className="bg-gray-800/50 rounded p-2 border border-gray-700 min-w-[100px] flex flex-col items-center justify-center">
+                  <span className="text-[9px] text-gray-400 uppercase">Volume (R$)</span>
+                  <span className="text-lg font-bold text-green-400">
+                    {uiMetrics.totalVolume.toFixed(2).replace('.', ',')}
+                  </span>
+                </div>
+                <div className="bg-gray-800/50 rounded p-2 border border-red-900/50 min-w-[90px] flex flex-col items-center justify-center">
+                  <span className="text-[9px] text-gray-400 uppercase text-center leading-tight">
+                    {isPt ? 'Presos no DB' : 'Stuck in DB'}
+                  </span>
+                  <span className="text-lg font-bold text-red-400">{uiMetrics.dbQueue}</span>
+                </div>
+                <div className="bg-gray-800/50 rounded p-2 border border-gray-700 min-w-[90px] flex flex-col items-center justify-center">
+                  <span className="text-[9px] text-gray-400 uppercase">
+                    {isPt ? 'Fila RMQ' : 'RMQ Queue'}
+                  </span>
+                  <span className="text-lg font-bold text-orange-400">{uiMetrics.rmqQueue}</span>
+                </div>
               </div>
 
-              <div className="grid sm:grid-cols-2 gap-3 text-[11px] font-mono">
-                <div className="rounded-xl border border-[#152342] bg-[#040711] overflow-x-auto">
-                  <div className="px-2.5 py-1.5 bg-[#060C1A] border-b border-[#152342] text-[10px] text-cyan-300 font-bold">
-                    TABLE: idempotency_keys
-                  </div>
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="text-[9px] text-slate-400 uppercase">
-                        <th className="py-1 px-2.5">Key</th>
-                        <th className="py-1 px-2.5">Hash</th>
-                        <th className="py-1 px-2.5">Status</th>
-                        <th className="py-1 px-2.5">Replayed</th>
-                      </tr>
-                    </thead>
-                    <tbody id="sim-table-idem" className="text-[10px]"></tbody>
-                  </table>
-                </div>
+              <div className="hidden sm:block h-8 w-px bg-gray-800" />
 
-                <div className="rounded-xl border border-[#152342] bg-[#040711] overflow-x-auto">
-                  <div className="px-2.5 py-1.5 bg-[#060C1A] border-b border-[#152342] text-[10px] text-emerald-300 font-bold">
-                    TABLE: transactions
-                  </div>
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="text-[9px] text-slate-400 uppercase">
-                        <th className="py-1 px-2.5">Tx ID</th>
-                        <th className="py-1 px-2.5">Amount</th>
-                        <th className="py-1 px-2.5">Protocol</th>
-                        <th className="py-1 px-2.5">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody id="sim-table-tx" className="text-[10px]"></tbody>
-                  </table>
-                </div>
+              {/* Action Buttons */}
+              <div className="flex items-center gap-2">
+                {/* Simular Local */}
+                <button
+                  type="button"
+                  onClick={simulateLocalTest}
+                  className="px-3 h-10 rounded-lg border border-cyan-500/50 bg-cyan-950/40 text-cyan-400 hover:text-cyan-200 hover:bg-cyan-900/50 hover:border-cyan-400 flex items-center gap-2 justify-center transition-all active:scale-95 text-xs font-mono font-bold shadow-[0_0_15px_rgba(6,182,212,0.2)]"
+                  title={isPt ? 'Simular Transação Local' : 'Simulate Local Transaction'}
+                >
+                  <i className="fa-solid fa-rocket text-base"></i>
+                  <span className="hidden xl:inline">{isPt ? 'Simular Transação' : 'Simulate Tx'}</span>
+                </button>
 
-                <div className="rounded-xl border border-[#152342] bg-[#040711] overflow-x-auto">
-                  <div className="px-2.5 py-1.5 bg-[#060C1A] border-b border-[#152342] text-[10px] text-purple-300 font-bold">
-                    TABLE: outbox_events
-                  </div>
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="text-[9px] text-slate-400 uppercase">
-                        <th className="py-1 px-2.5">Event</th>
-                        <th className="py-1 px-2.5">Topic</th>
-                        <th className="py-1 px-2.5">Tries</th>
-                        <th className="py-1 px-2.5">Status</th>
-                      </tr>
-                    </thead>
-                    <tbody id="sim-table-outbox" className="text-[10px]"></tbody>
-                  </table>
-                </div>
+                {/* Rodar Batch (Fase 3) */}
+                <button
+                  type="button"
+                  onClick={runBatch}
+                  className="px-3 h-10 rounded-lg border border-yellow-500/50 bg-yellow-950/30 text-yellow-400 hover:text-yellow-200 hover:bg-yellow-900/40 hover:border-yellow-400 flex items-center gap-2 justify-center transition-all active:scale-95 text-xs font-mono font-bold"
+                  title={isPt ? 'Simular Liquidação (Batch / Pull)' : 'Simulate Settlement (Batch / Pull)'}
+                >
+                  <i className="fa-solid fa-business-time text-base"></i>
+                  <span className="hidden xl:inline">{isPt ? 'Rodar Batch' : 'Run Batch'}</span>
+                </button>
 
-                <div className="rounded-xl border border-[#152342] bg-[#040711] overflow-x-auto">
-                  <div className="px-2.5 py-1.5 bg-[#060C1A] border-b border-[#152342] text-[10px] text-amber-300 font-bold">
-                    TABLE: processed_events (Consumer Dedup)
-                  </div>
-                  <table className="w-full text-left border-collapse">
-                    <thead>
-                      <tr className="text-[9px] text-slate-400 uppercase">
-                        <th className="py-1 px-2.5">Event</th>
-                        <th className="py-1 px-2.5">Dedup Check</th>
-                        <th className="py-1 px-2.5">Ledger</th>
-                        <th className="py-1 px-2.5">State</th>
-                      </tr>
-                    </thead>
-                    <tbody id="sim-table-consumer" className="text-[10px]"></tbody>
-                  </table>
-                </div>
+                {/* Resetar */}
+                <button
+                  type="button"
+                  onClick={resetAllMetrics}
+                  className="w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 flex items-center justify-center transition-all active:scale-95"
+                  title={isPt ? 'Resetar Simulador' : 'Reset Simulator'}
+                >
+                  <i className="fa-solid fa-rotate-left text-base"></i>
+                </button>
+
+                {/* Settings */}
+                <button
+                  type="button"
+                  onClick={() => setIsSettingsOpen(true)}
+                  className="w-10 h-10 rounded-lg border border-gray-700 bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700 hover:border-indigo-500/50 flex items-center justify-center transition-all active:scale-95"
+                  title={isPt ? 'Configurações de Conexão' : 'Connection Settings'}
+                >
+                  <i className="fa-solid fa-gear text-base"></i>
+                </button>
+
+                {/* Toggle Terminal */}
+                <button
+                  type="button"
+                  onClick={() => setIsTerminalOpen(!isTerminalOpen)}
+                  className={`w-10 h-10 rounded-lg border border-gray-700 ${
+                    isTerminalOpen
+                      ? 'bg-indigo-600 text-white'
+                      : 'bg-gray-800 text-gray-400 hover:text-white hover:bg-gray-700'
+                  } flex items-center justify-center transition-all active:scale-95`}
+                  title={isPt ? 'Ver Logs / Terminal' : 'Toggle Logs / Terminal'}
+                >
+                  <i className="fa-solid fa-terminal text-base"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+        </header>
+
+        <SettingsModal
+          isOpen={isSettingsOpen}
+          onClose={() => setIsSettingsOpen(false)}
+          onSave={() => {
+            window.location.reload();
+          }}
+        />
+
+        {/* Interactive Architecture Canvas (Exact 5-col x 5-row layout from orionpay-datadog) */}
+        <div className="relative w-full overflow-x-auto bg-[#030712]">
+          <div
+            ref={canvasRef}
+            className="relative min-w-[960px] min-h-[780px] w-full h-full"
+          >
+            {/* Phase Dividers */}
+            <div className="absolute inset-x-0 top-[26%] border-b-2 border-dashed border-gray-800 w-full z-0">
+              <div className="absolute left-10 -top-6 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                <i className="fa-solid fa-bolt text-cyan-500 mr-2"></i>
+                {isPt ? 'Fase 1: Autorização (Síncrona)' : 'Phase 1: Authorization (Synchronous)'}
+              </div>
+            </div>
+            <div className="absolute inset-x-0 top-[60%] border-b-2 border-dashed border-gray-800 w-full z-0">
+              <div className="absolute left-10 -top-6 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                <i className="fa-solid fa-network-wired text-purple-500 mr-2"></i>
+                {isPt ? 'Fase 2: Mensageria (Assíncrona)' : 'Phase 2: Messaging (Asynchronous)'}
+              </div>
+              <div className="absolute left-10 top-2 text-xs font-bold text-gray-500 uppercase tracking-widest">
+                <i className="fa-solid fa-clock text-blue-500 mr-2"></i>
+                {isPt ? 'Fase 3: Liquidação (Batch / Pull)' : 'Phase 3: Settlement (Batch / Pull)'}
+              </div>
+            </div>
+
+            <svg
+              ref={svgRef}
+              className="absolute inset-0 w-full h-full pointer-events-none z-0 overflow-visible"
+            ></svg>
+            <div
+              ref={particlesContainerRef}
+              className="absolute inset-0 pointer-events-none z-50"
+            ></div>
+
+            <div className="grid grid-cols-5 gap-6 w-full max-w-7xl mx-auto h-full pt-8 pb-28 relative z-10 items-center justify-items-center">
+              {/* Row 1: Crypto Vault */}
+              <div className="col-start-3 row-start-1 mb-12">
+                <SoftHSM subtitle={isPt ? 'Cofre Criptográfico' : 'Crypto Vault'} />
+              </div>
+
+              {/* Row 2: Hot Path */}
+              <div className="col-start-1 row-start-2">
+                <SoftPOS subtitle={isPt ? 'App Lojista' : 'Merchant App'} />
+              </div>
+              <div className="col-start-2 row-start-2">
+                <MerchantService subtitle={isPt ? 'API Orquestradora' : 'Orchestrator API'} />
+              </div>
+              <div
+                onClick={() => toggleChaos('gw')}
+                title={isPt ? 'Clique para alternar Switch Adq (ON/OFF)' : 'Click to toggle Switch Adq (ON/OFF)'}
+                className={`col-start-3 row-start-2 transition-all duration-300 cursor-pointer ${
+                  !uiChaos.gw ? 'opacity-50 grayscale' : ''
+                }`}
+              >
+                <SwitchAdq subtitle={isPt ? 'Maestro Central' : 'Central Switch'} />
+              </div>
+              <div className="col-start-4 row-start-2">
+                <GatewayVisa subtitle={isPt ? 'Conector Bandeira' : 'Scheme Connector'} />
+              </div>
+              <div className="col-start-5 row-start-2">
+                <VisaNet subtitle={isPt ? 'Rede Externa' : 'External Network'} />
+              </div>
+
+              {/* Row 3: Event Path */}
+              <div
+                onClick={() => toggleChaos('db')}
+                title={isPt ? 'Clique para alternar PostgreSQL Core (ON/OFF)' : 'Click to toggle PostgreSQL Core (ON/OFF)'}
+                className={`col-start-2 row-start-3 mt-12 transition-all duration-300 cursor-pointer ${
+                  !uiChaos.db ? 'opacity-50 grayscale' : ''
+                }`}
+              >
+                <PostgreSQL
+                  queueCount={uiMetrics.dbQueue}
+                  subtitle="PostgreSQL Core"
+                />
+              </div>
+              <div
+                onClick={() => toggleChaos('relay')}
+                title={isPt ? 'Clique para alternar Outbox Relay (ON/OFF)' : 'Click to toggle Outbox Relay (ON/OFF)'}
+                className={`col-start-3 row-start-3 mt-12 transition-all duration-300 cursor-pointer ${
+                  !uiChaos.relay ? 'opacity-50 grayscale' : ''
+                }`}
+              >
+                <OutboxRelay subtitle="Debezium / Worker" />
+              </div>
+              <div
+                onClick={() => toggleChaos('rmq')}
+                title={isPt ? 'Clique para alternar RabbitMQ (ON/OFF)' : 'Click to toggle RabbitMQ (ON/OFF)'}
+                className={`col-start-4 row-start-3 mt-12 transition-all duration-300 cursor-pointer ${
+                  !uiChaos.rmq ? 'opacity-50 grayscale' : ''
+                }`}
+              >
+                <RabbitMQ
+                  queueCount={uiMetrics.rmqQueue}
+                  subtitle={isPt ? 'Fila de Eventos' : 'Event Queue'}
+                />
+              </div>
+              <div className="col-start-5 row-start-3 mt-12">
+                <Settlement subtitle={isPt ? 'Cálculo Real-Time' : 'Real-Time MDR'} />
+              </div>
+
+              {/* Row 4: Log */}
+              <div className="col-start-3 row-start-4 mt-8">
+                <NetworkLog
+                  queueCount={uiMetrics.logQueue}
+                  title={isPt ? 'Log de Rede (TC57)' : 'Network Log (TC57)'}
+                  subtitle={isPt ? 'Registro Transacional' : 'Transaction Log'}
+                />
+              </div>
+
+              {/* Row 5: Batch Path */}
+              <div className="col-start-3 row-start-5 mt-8">
+                <Reconciliation subtitle={isPt ? 'Job Noturno (Recon)' : 'Nightly Job (Recon)'} />
+              </div>
+              <div className="col-start-4 row-start-5 mt-8">
+                <Payout subtitle={isPt ? 'Liquidação Financeira' : 'Financial Settlement'} />
               </div>
             </div>
           </div>
         </div>
 
-        {/* Synthetic Execution Trace Console */}
-        <div id="sim-terminal-container" className="p-4 bg-[#02040A] border-t border-[#152342] font-mono text-xs">
-          <div className="flex flex-wrap items-center justify-between gap-2 text-slate-400 text-[10px] pb-2 border-b border-[#152342]">
-            <span className="flex items-center gap-1.5">
-              <Terminal className="w-3.5 h-3.5 text-blue-400" />
-              {isPt
-                ? 'TRACE DE EXECUÇÃO SINTÉTICO • LOGS LOCAIS DA MÁQUINA DE ESTADOS'
-                : 'SYNTHETIC EXECUTION TRACE • LOCAL CLIENT-SIDE STATE MACHINE LOGS'}
-            </span>
-            <span id="sim-latency-badge" role="status" aria-live="polite" className="text-slate-400">
-              STATE: IDLE &bull; SCENARIO A
-            </span>
-          </div>
-          <div
-            id="sim-console-output"
-            role="log"
-            aria-live="polite"
-            className="pt-3 space-y-1.5 text-slate-300 min-h-[85px] max-h-[140px] overflow-y-auto"
-          ></div>
-        </div>
+        {/* Live Terminal Logs */}
+        {isTerminalOpen && <SimulatorTerminal logs={logs} />}
       </div>
 
       {/* CORE PAYMENT & DISTRIBUTED SYSTEMS CONCEPTS REFERENCE */}
@@ -986,16 +1361,18 @@ export default function SwitchSimulator() {
           </a>
 
           <a
-            href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/js/components/simulator.js"
+            href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/src/components/SwitchSimulator.jsx"
             target="_blank"
             rel="noopener noreferrer"
             className="p-3 rounded-xl bg-[#080E1E] border border-[#152342] hover:border-[#00D47E]/60 transition-all flex flex-col justify-between group"
           >
             <div>
               <div className="text-[10px] text-slate-400 uppercase">
-                {isPt ? 'Implementação da Máquina de Estados' : 'State Machine Implementation'}
+                {isPt ? 'Motor de Simulação & Partículas' : 'Particle & Flow Engine'}
               </div>
-              <div className="text-white font-bold mt-0.5 group-hover:text-[#00D47E]">js/components/simulator.js</div>
+              <div className="text-white font-bold mt-0.5 group-hover:text-[#00D47E]">
+                src/components/SwitchSimulator.jsx
+              </div>
             </div>
             <div className="text-[10px] text-cyan-400 mt-2">
               {isPt ? 'Inspecionar Código do Simulador →' : 'Inspect Simulator Source →'}
@@ -1040,4 +1417,3 @@ export default function SwitchSimulator() {
     </section>
   );
 }
-
