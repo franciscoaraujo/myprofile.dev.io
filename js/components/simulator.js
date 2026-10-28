@@ -1380,7 +1380,7 @@ function renderStepInspector(stepIdx, isExecutedOrSelected = false) {
                         <span>View Architecture Case Study</span>
                         <span>&rarr;</span>
                     </a>
-                    <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/main/js/components/simulator.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
+                    <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/js/components/simulator.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
                         simulator.js
                     </a>
                 </div>
@@ -1434,7 +1434,7 @@ function inspectArchitectureNode(nodeId) {
                         <span>${meta.refLabel}</span>
                         <span>&rarr;</span>
                     </a>
-                    <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/main/js/data/orion-data.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
+                    <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/js/data/orion-data.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
                         orion-data.js
                     </a>
                 </div>
