@@ -27,9 +27,11 @@ import {
   Lock,
   FileSpreadsheet,
   Workflow,
+  Landmark,
 } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import HeroPreviewCard from '../components/HeroPreviewCard';
+import { PROFILE_BIO, TRIAD_SKILLS } from '../data/portfolio-data';
 
 export default function OverviewPage() {
   const { lang } = useApp();
@@ -129,8 +131,8 @@ export default function OverviewPage() {
                   <Server className="w-3.5 h-3.5 text-cyan-400" />
                   <span>
                     {isPt
-                      ? 'Engenheiro Backend Sênior | Java & Sistemas de Pagamento'
-                      : 'Senior Backend Engineer | Java & Payment Systems'}
+                      ? 'Engenheiro de Software Especialista | Backend Java & C++'
+                      : 'Staff / Specialist Software Engineer | Backend Java & C++'}
                   </span>
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
@@ -141,11 +143,11 @@ export default function OverviewPage() {
                 </h2>
                 <p className="text-xs font-mono text-slate-400 flex items-center gap-2">
                   <span className="text-slate-300 font-medium">
-                    {isPt ? '13+ Anos de Experiência' : '13+ Years Experience'}
+                    {isPt ? '13 Anos de Trajetória Backend' : '13-Year Backend Trajectory'}
                   </span>
                   <span>&bull;</span>
                   <span className="text-cyan-400 font-medium">
-                    {isPt ? 'Infraestrutura de Pagamentos' : 'Payment Infrastructure'}
+                    {isPt ? 'Sistemas Críticos & Meios de Pagamento' : 'Critical Systems & Payment Processing'}
                   </span>
                 </p>
               </div>
@@ -154,75 +156,107 @@ export default function OverviewPage() {
             {/* Main Heading & Tagline */}
             <div className="space-y-4">
               <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
-                {isPt ? 'Engenharia Backend para ' : 'Backend Engineering for '}
+                {isPt ? 'Engenheiro de Software Especialista' : 'Staff / Specialist Software Engineer'}
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400">
-                  {isPt ? 'Sistemas Financeiros de Missão Crítica' : 'Mission-Critical Financial Systems'}
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400 text-2xl sm:text-3xl lg:text-4xl">
+                  {isPt
+                    ? 'Backend Java & C++ | Sistemas Críticos & Meios de Pagamento'
+                    : 'Backend Java & C++ | Mission-Critical Systems & Payment Processing'}
                 </span>
               </h1>
-              <p className="text-base sm:text-lg text-slate-200 leading-relaxed max-w-2xl font-normal">
-                {isPt
-                  ? '“Construo sistemas backend confiáveis para processamento de pagamentos, integrações financeiras e aplicações distribuídas.”'
-                  : '“I build reliable backend systems for payment processing, financial integrations, and distributed applications.”'}
-              </p>
-              <p className="text-sm text-slate-300 leading-relaxed max-w-2xl">
-                {isPt ? (
-                  <>
-                    Contribuidor Individual Especialista com{' '}
-                    <strong className="text-white font-semibold">
-                      mais de 13 anos de experiência em desenvolvimento backend
-                    </strong>{' '}
-                    no ecossistema Java, switches de autorização transacional (
-                    <span className="font-mono text-cyan-300">ISO 8583 / VisaNet</span>), simulação de hardware
-                    criptográfico (
-                    <span className="font-mono text-[#00D47E]">C++ SoftHSM, Tradução de PIN Block</span>), clearing em
-                    lote de alto volume e mensageria distribuída.
-                  </>
-                ) : (
-                  <>
-                    Specialized Individual Contributor with{' '}
-                    <strong className="text-white font-semibold">13+ years of backend development experience</strong> in
-                    Java ecosystem, transaction authorization switches (
-                    <span className="font-mono text-cyan-300">ISO 8583 / VisaNet</span>), cryptographic hardware
-                    simulation (<span className="font-mono text-[#00D47E]">C++ SoftHSM, PIN Block Translation</span>),
-                    high-volume batch clearing, and distributed messaging.
-                  </>
-                )}
-              </p>
+
+              {/* Opção 1: Bio / Perfil Profissional (3 Parágrafos) */}
+              <div className="space-y-3 text-sm text-slate-300 leading-relaxed max-w-2xl">
+                <p>
+                  {isPt ? (
+                    <>
+                      Engenheiro de Software com <strong className="text-white font-semibold">13 anos de trajetória</strong> em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em <span className="text-cyan-300 font-mono font-medium">Java</span> e <span className="text-[#00D47E] font-mono font-medium">C++</span>.
+                    </>
+                  ) : (
+                    <>
+                      Software Engineer with <strong className="text-white font-semibold">13 years of trajectory</strong> in high-performance backend and mission-critical distributed systems, combining deep mastery of <span className="text-cyan-300 font-mono font-medium">Java</span> and <span className="text-[#00D47E] font-mono font-medium">C++</span>.
+                    </>
+                  )}
+                </p>
+                <p>
+                  {isPt ? (
+                    <>
+                      Construiu sólida bagagem corporativa atuando em integração bancária corporativa (<strong className="text-white">Rabobank</strong>), plataformas de registro financeiro (<strong className="text-white">B3</strong>) e modernização de grandes serviços corporativos (<strong className="text-white">Serasa Experian</strong>), além de projetos de visão computacional em C++.
+                    </>
+                  ) : (
+                    <>
+                      Built a solid corporate track record across enterprise banking integration (<strong className="text-white">Rabobank</strong>), financial asset registry platforms (<strong className="text-white">B3 Stock Exchange</strong>), and legacy enterprise modernization (<strong className="text-white">Serasa Experian</strong>), alongside low-level computer vision systems in C++.
+                    </>
+                  )}
+                </p>
+                <p>
+                  {isPt ? (
+                    <>
+                      Especializou-se fortemente no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, liderando o desenho e a implementação de arquiteturas transacionais completas: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                    </>
+                  ) : (
+                    <>
+                      Specialized deeply in <strong className="text-white">Payment Processing and Acquiring</strong>, leading the design and implementation of end-to-end transactional architectures: low-latency authorization engines (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), distributed resilient messaging, point-of-sale security (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>), and clearing & settlement pipelines (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                    </>
+                  )}
+                </p>
+              </div>
             </div>
 
-            {/* Core Technologies Pill Grid */}
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-2.5 pt-1 text-xs font-mono">
-              <div className="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80">
-                <Code2 className="w-4 h-4 text-[#00D47E]" />
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase">
-                    {isPt ? 'Stack Principal' : 'Core Stack'}
+            {/* Core Competencies Triad Grid */}
+            <div className="space-y-2.5 pt-1">
+              <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
+                {/* 1. Core Engineering */}
+                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-[#00D47E]/40 transition-all glass-metal">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-[#00D47E] uppercase font-bold tracking-wider">
+                      {isPt ? 'Core Engineering' : 'Core Engineering'}
+                    </span>
+                    <Code2 className="w-3.5 h-3.5 text-[#00D47E]" />
                   </div>
-                  <div className="text-slate-200 font-bold">Java 21 • Spring Boot • C++</div>
+                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                    Java 21 • Spring Boot • C++20 • Sist. Distribuídos • Hexagonal / DDD
+                  </div>
+                </div>
+
+                {/* 2. Setor Bancário & Corporativo */}
+                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-cyan-400/40 transition-all glass-metal">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-cyan-400 uppercase font-bold tracking-wider">
+                      {isPt ? 'Setor Bancário & Corp.' : 'Enterprise Banking'}
+                    </span>
+                    <Landmark className="w-3.5 h-3.5 text-cyan-400" />
+                  </div>
+                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                    Rabobank • B3 • Serasa Experian • Apache Camel • OpenCV
+                  </div>
+                </div>
+
+                {/* 3. Adquirência & Fintechs */}
+                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-blue-400/40 transition-all glass-metal">
+                  <div className="flex items-center justify-between">
+                    <span className="text-[10px] text-blue-400 uppercase font-bold tracking-wider">
+                      {isPt ? 'Adquirência & Fintechs' : 'Acquiring & Fintechs'}
+                    </span>
+                    <Cpu className="w-3.5 h-3.5 text-blue-400" />
+                  </div>
+                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                    Switch Adquirente • ISO 8583 • HSM / PIN Block • Clearing (Base II)
+                  </div>
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80">
-                <Layers className="w-4 h-4 text-cyan-400" />
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase">
-                    {isPt ? 'Sistemas Distribuídos' : 'Distributed'}
-                  </div>
-                  <div className="text-slate-200 font-bold">RabbitMQ • Kafka • PostgreSQL</div>
+              {/* Location & Work Scope Bar */}
+              <div className="flex items-center justify-between px-3 py-1.5 rounded-lg border border-[#152342]/70 bg-[#060B17]/60 text-[11px] font-mono text-slate-400">
+                <div className="flex items-center gap-1.5">
+                  <MapPin className="w-3.5 h-3.5 text-amber-400" />
+                  <span className="text-slate-300">
+                    {isPt ? 'São Paulo / Barueri, Brasil' : 'São Paulo / Barueri, Brazil'}
+                  </span>
                 </div>
-              </div>
-
-              <div className="flex items-center gap-2 p-2.5 rounded-lg border border-[#152342] bg-[#080E1E]/80 col-span-2 sm:col-span-1">
-                <MapPin className="w-4 h-4 text-amber-400" />
-                <div>
-                  <div className="text-[10px] text-slate-500 uppercase">
-                    {isPt ? 'Localização & Escopo' : 'Location & Work Scope'}
-                  </div>
-                  <div className="text-slate-200 font-bold">
-                    {isPt ? 'Barueri, Brasil • Remoto Global' : 'Barueri, Brazil • Remote World'}
-                  </div>
-                </div>
+                <span className="text-[#00D47E] font-medium">
+                  {isPt ? 'Disponível para Posições Globais / Remoto' : 'Open to Global / Remote Roles'}
+                </span>
               </div>
             </div>
 
@@ -289,17 +323,17 @@ export default function OverviewPage() {
             <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-[#00D47E]/40 transition-all">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
-                  {isPt ? 'Experiência Contínua' : 'Continuous Experience'}
+                  {isPt ? 'Trajetória Backend' : 'Backend Trajectory'}
                 </span>
                 <Clock className="w-4 h-4 text-[#00D47E]" />
               </div>
               <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                13+ <span className="text-[#00D47E] text-lg font-sans">{isPt ? 'Anos' : 'Years'}</span>
+                13 <span className="text-[#00D47E] text-lg font-sans">{isPt ? 'Anos' : 'Years'}</span>
               </div>
               <p className="text-xs text-slate-400">
                 {isPt
-                  ? 'Atuação prática em sistemas backend para adquirentes, consultorias financeiras e bancos corporativos.'
-                  : 'Hands-on backend systems in acquirers, financial consulting, and enterprise banking.'}
+                  ? 'Bagagem corporativa sólida em grandes instituições (Rabobank, B3, Serasa Experian) e especialização em adquirência.'
+                  : 'Solid corporate background across major institutions (Rabobank, B3, Serasa Experian) and acquiring specialization.'}
               </p>
             </div>
 

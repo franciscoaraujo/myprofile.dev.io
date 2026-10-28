@@ -15,7 +15,7 @@ export default function Footer() {
         <div className="flex items-center gap-2">
           <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span>
           <span className="text-slate-300 font-semibold">Francisco José Oliveira Araújo</span>
-          <span>&bull; {isPt ? 'Engenheiro Backend Sênior' : 'Senior Backend Engineer'}</span>
+          <span>&bull; {isPt ? 'Engenheiro de Software Especialista | Java & C++' : 'Specialist Software Engineer | Java & C++'}</span>
         </div>
 
         <div className="flex flex-wrap items-center justify-center gap-4 text-[11px]">

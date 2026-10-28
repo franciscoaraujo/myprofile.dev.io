@@ -626,10 +626,130 @@ export const SKILLS_DATA = [
   },
 ];
 
+export const PROFILE_BIO = {
+  headlinePt: 'Engenheiro de Software Especialista | Backend Java & C++ | Sistemas Críticos & Meios de Pagamento',
+  headlineEn: 'Staff / Specialist Software Engineer | Backend Java & C++ | Mission-Critical Systems & Payment Processing',
+  taglinePt: 'Engenharia Backend para Sistemas Críticos & Meios de Pagamento',
+  taglineEn: 'Backend Engineering for Critical Systems & Payment Processing',
+  shortBioPt:
+    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
+  shortBioEn:
+    'Staff / Senior Software Engineer with 13 years of experience in high-performance backend and mission-critical distributed systems, combining deep mastery of Java and C++.',
+  paragraphsPt: [
+    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
+    'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',
+    'Especializou-se fortemente no ecossistema de Meios de Pagamento e Adquirência, liderando o desenho e a implementação de arquiteturas transacionais completas: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
+  ],
+  paragraphsEn: [
+    'Software Engineer with 13 years of trajectory in high-performance backend and mission-critical distributed systems, combining deep mastery in Java and C++.',
+    'Built a solid corporate track record across enterprise banking integration (Rabobank), financial asset registry platforms (B3 Stock Exchange), and legacy enterprise modernization (Serasa Experian), alongside low-level computer vision systems in C++.',
+    'Specialized deeply in Payment Processing and Acquiring ecosystems, leading the design and implementation of end-to-end transactional architectures: low-latency authorization engines (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
+  ]
+};
+
+export const TRIAD_SKILLS = [
+  {
+    categoryPt: 'Core Engineering',
+    categoryEn: 'Core Engineering',
+    badgePt: 'Linguagens & Sistemas',
+    badgeEn: 'Languages & Systems',
+    color: 'emerald',
+    icon: 'Code2',
+    items: [
+      'Java 21 / 17',
+      'Spring Boot 3.x',
+      'C++20 / Modern C++',
+      'Sistemas Distribuídos',
+      'Arquitetura Hexagonal / DDD'
+    ]
+  },
+  {
+    categoryPt: 'Setor Bancário & Corporativo',
+    categoryEn: 'Enterprise & Banking',
+    badgePt: 'Grandes Instituições',
+    badgeEn: 'Major Institutions',
+    color: 'cyan',
+    icon: 'Landmark',
+    items: [
+      'Rabobank Brasil',
+      'B3 (Bolsa do Brasil)',
+      'Serasa Experian',
+      'Apache Camel (EIP)',
+      'Visão Computacional (OpenCV)'
+    ]
+  },
+  {
+    categoryPt: 'Adquirência & Fintechs',
+    categoryEn: 'Acquiring & Fintechs',
+    badgePt: 'Especialização de Ponta',
+    badgeEn: 'Senior Specialization',
+    color: 'blue',
+    icon: 'Cpu',
+    items: [
+      'Switch Adquirente',
+      'ISO 8583 / MTI',
+      'HSM / PIN Block',
+      'Clearing (Base II / TC50)',
+      'Spring Batch'
+    ]
+  }
+];
+
+export const CAREER_ERAS = [
+  {
+    id: 'era-payments',
+    eraPt: 'Especialização em Adquirência e Meios de Pagamento',
+    eraEn: 'Specialization in Acquiring & Payment Systems',
+    periodPt: '2023 – Presente',
+    periodEn: '2023 – Present',
+    badgePt: 'Fase Atual • Especialização de Ponta',
+    badgeEn: 'Current Phase • Senior Specialization',
+    color: 'emerald',
+    descPt:
+      'RedeFlex e projeto de referência autoral OrionPay. Desenho e implementação de arquiteturas transacionais completas de adquirência: motores de autorização de baixa latência (ISO 8583, Switch Adquirente C++ / Java 21), mensageria tolerante a falhas (RabbitMQ / Outbox), segurança de balcão (SoftHSM, tradução de PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II TC50 em Spring Batch).',
+    descEn:
+      'RedeFlex and authorial reference project OrionPay. Architecture and implementation of full transaction acquiring ecosystems: low-latency authorization engines (ISO 8583, C++ / Java 21 Switch), fault-tolerant messaging (RabbitMQ / Outbox), cryptographic POS security (SoftHSM, PIN block translation, EMV), and clearing & settlement pipelines (Base II TC50 via Spring Batch).',
+    institutions: ['RedeFlex', 'OrionPay (Projetos Autorais)']
+  },
+  {
+    id: 'era-corporate',
+    eraPt: 'Escala Corporativa e Setor Bancário/Financeiro',
+    eraEn: 'Enterprise Scale, Banking & Financial Platforms',
+    periodPt: '2019 – 2023',
+    periodEn: '2019 – 2023',
+    badgePt: 'Escala Bancária • Mercado Financeiro',
+    badgeEn: 'Enterprise Banking • Capital Markets',
+    color: 'cyan',
+    descPt:
+      'Atuação de destaque em grandes instituições reguladas via Grupo GFT: registro de recebíveis financeiros em conformidade com o BACEN na B3 (Bolsa de Valores), middleware de mensageria segura e EIP com Apache Camel no Rabobank Brasil, e modernização de arquitetura legada monolítica Java EE para microsserviços de score de crédito na Serasa Experian.',
+    descEn:
+      'High-impact enterprise consulting via Grupo GFT across regulated institutions: financial receivables registration conforming to Central Bank standards at B3 (Stock Exchange), secure messaging and EIP middleware with Apache Camel at Rabobank Brasil, and legacy Java EE modernization into decoupled microservices for credit scoring at Serasa Experian.',
+    institutions: ['Rabobank Brasil', 'B3 (Brasil, Bolsa, Balcão)', 'Serasa Experian']
+  },
+  {
+    id: 'era-foundation',
+    eraPt: 'Fundação Técnica & Engenharia de Baixo Nível',
+    eraEn: 'Technical Foundation & Low-Level Engineering',
+    periodPt: '2013 – 2018',
+    periodEn: '2013 – 2018',
+    badgePt: 'Engenharia de Base • C++ & Performance',
+    badgeEn: 'Foundational Systems • C++ & Performance',
+    color: 'indigo',
+    descPt:
+      'Motores biométricos de alta performance em C++ utilizando OpenCV para reconhecimento facial, certificação digital e controle de acesso rigoroso no Grupo Criar. Desenvolvimento de coletores de dados automatizados em Java / JAX-RS e aplicativos nativos em Android SDK, além de APIs de alto tráfego na Duel Midia.',
+    descEn:
+      'High-performance biometric facial recognition engines in C++ with OpenCV for digital certification and access control at Grupo Criar. Automated data collectors in Java / JAX-RS and native Android apps, plus high-traffic concurrent APIs at Duel Midia.',
+    institutions: ['Grupo Criar', 'Duel Midia DV']
+  }
+];
+
 export const EXPERIENCE_DATA = [
   {
     company: 'RedeFlex',
     current: true,
+    eraId: 'era-payments',
+    eraBadgePt: 'Especialização em Adquirência (2023 – Presente)',
+    eraBadgeEn: 'Payment Acquiring Specialization (2023 – Present)',
     badgeEn: 'Current Role',
     badgePt: 'Cargo Atual',
     domainEn: 'Card Acquiring & FinTech',
@@ -653,6 +773,9 @@ export const EXPERIENCE_DATA = [
   {
     company: 'Grupo GFT',
     current: false,
+    eraId: 'era-corporate',
+    eraBadgePt: 'Escala Corporativa & Bancária (2019 – 2023)',
+    eraBadgeEn: 'Enterprise & Banking Scale (2019 – 2023)',
     domainEn: 'Global Financial Technology Consulting',
     domainPt: 'Consultoria Global em Tecnologia Financeira',
     roleEn: 'Senior Java Engineer',
@@ -704,6 +827,9 @@ export const EXPERIENCE_DATA = [
   {
     company: 'Duel Midia DV',
     current: false,
+    eraId: 'era-foundation',
+    eraBadgePt: 'Fundação Técnica & Performance (2013 – 2018)',
+    eraBadgeEn: 'Technical Foundation & Performance (2013 – 2018)',
     roleEn: 'Java Backend Developer',
     rolePt: 'Desenvolvedor Backend Java',
     periodEn: 'June 2018 – November 2018',
@@ -717,6 +843,9 @@ export const EXPERIENCE_DATA = [
   {
     company: 'Grupo Criar',
     current: false,
+    eraId: 'era-foundation',
+    eraBadgePt: 'Fundação Técnica & Performance (2013 – 2018)',
+    eraBadgeEn: 'Technical Foundation & Performance (2013 – 2018)',
     roleEn: 'C++ / Java Software Engineer',
     rolePt: 'Engenheiro de Software C++ / Java',
     periodEn: 'May 2013 – April 2018 (5 years)',

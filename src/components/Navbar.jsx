@@ -39,7 +39,7 @@ export default function Navbar() {
               </span>
             </div>
             <span className="text-[11px] font-mono text-slate-400 tracking-wider whitespace-nowrap">
-              {isPt ? 'Engenheiro Backend Sênior' : 'Senior Backend Engineer'}
+              {isPt ? 'Engenheiro Especialista | Java & C++' : 'Specialist Software Engineer | Java & C++'}
             </span>
           </div>
         </Link>

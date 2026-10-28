@@ -2,9 +2,9 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, TrendingUp, Landmark, Shield, ArrowRight } from 'lucide-react';
+import { Briefcase, TrendingUp, Landmark, Shield, ArrowRight, Layers, Cpu, Code2 } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
-import { EXPERIENCE_DATA } from '../../data/portfolio-data';
+import { EXPERIENCE_DATA, CAREER_ERAS } from '../../data/portfolio-data';
 
 export default function ExperiencePage() {
   const { lang } = useApp();
@@ -12,19 +12,89 @@ export default function ExperiencePage() {
 
   return (
     <section className="py-12 lg:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-      <div className="space-y-3 mb-14 text-center max-w-3xl mx-auto">
+      {/* Header */}
+      <div className="space-y-3 mb-10 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
           <Briefcase className="w-3.5 h-3.5" />
-          <span>{isPt ? 'Trajetória Profissional Verificável' : 'Verifiable Career Trajectory'}</span>
+          <span>{isPt ? 'Trajetória Profissional de 13 Anos' : '13-Year Verifiable Career Trajectory'}</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
-          {isPt ? 'Experiência Profissional' : 'Professional Experience'}
+          {isPt ? 'Experiência Profissional & Trajetória' : 'Professional Experience & Career History'}
         </h1>
-        <p className="text-slate-300 text-sm sm:text-base">
+        <p className="text-slate-300 text-sm sm:text-base leading-relaxed">
           {isPt
-            ? 'Mais de 13 anos entregando arquiteturas backend em adquirentes de pagamentos, infraestrutura de compensação em bolsa de valores e consultoria financeira.'
-            : '13+ years delivering backend architectures across payments acquirers, stock exchange clearing infrastructure, and financial consulting.'}
+            ? '13 anos de evolução contínua em backend: desde a fundação técnica em baixo nível e visão computacional em C++, passando por escala bancária corporativa (Rabobank, B3, Serasa Experian), até a especialização sênior em adquirência e motores transacionais de meios de pagamento.'
+            : '13 years of continuous backend evolution: from foundational low-level systems & computer vision in C++, through enterprise banking scale (Rabobank, B3, Serasa Experian), to senior specialization in transaction acquiring & payment engines.'}
         </p>
+      </div>
+
+      {/* 3 Career Eras / Narrative Hierarchy */}
+      <div className="mb-14">
+        <div className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold mb-3 flex items-center gap-2">
+          <Layers className="w-4 h-4 text-cyan-400" />
+          <span>{isPt ? 'Narrativa de Carreira • 3 Fases de Maturidade Técnica' : 'Career Narrative • 3 Technical Maturity Eras'}</span>
+        </div>
+        <div className="grid md:grid-cols-3 gap-4">
+          {CAREER_ERAS.map((era) => {
+            const isPayments = era.id === 'era-payments';
+            const isCorporate = era.id === 'era-corporate';
+            const borderColor = isPayments
+              ? 'border-[#00D47E]/40 hover:border-[#00D47E]'
+              : isCorporate
+              ? 'border-cyan-500/40 hover:border-cyan-400'
+              : 'border-indigo-500/40 hover:border-indigo-400';
+            const badgeColor = isPayments
+              ? 'text-[#00D47E] bg-emerald-950/80 border-emerald-700/60'
+              : isCorporate
+              ? 'text-cyan-300 bg-cyan-950/80 border-cyan-700/60'
+              : 'text-indigo-300 bg-indigo-950/80 border-indigo-700/60';
+            const Icon = isPayments ? Cpu : isCorporate ? Landmark : Code2;
+
+            return (
+              <div
+                key={era.id}
+                className={`p-5 rounded-2xl border bg-[#080E1E]/90 ${borderColor} transition-all space-y-3 glass-metal flex flex-col justify-between`}
+              >
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between gap-2">
+                    <span className={`text-[10px] font-mono font-bold uppercase px-2 py-0.5 rounded border ${badgeColor}`}>
+                      {isPt ? era.badgePt : era.badgeEn}
+                    </span>
+                    <Icon className="w-4 h-4 text-slate-400" />
+                  </div>
+                  <h3 className="text-base font-bold text-white tracking-tight leading-snug">
+                    {isPt ? era.eraPt : era.eraEn}
+                  </h3>
+                  <div className="text-xs font-mono text-slate-400">
+                    {isPt ? era.periodPt : era.periodEn}
+                  </div>
+                  <p className="text-xs text-slate-300 leading-relaxed pt-1">
+                    {isPt ? era.descPt : era.descEn}
+                  </p>
+                </div>
+
+                <div className="pt-2 border-t border-[#152342] flex flex-wrap gap-1.5">
+                  {era.institutions.map((inst) => (
+                    <span
+                      key={inst}
+                      className="text-[10px] font-mono px-2 py-0.5 rounded bg-[#040711] text-slate-300 border border-[#152342]"
+                    >
+                      {inst}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            );
+          })}
+        </div>
+      </div>
+
+      {/* Detailed Chronological Timeline */}
+      <div className="space-y-4 mb-6">
+        <div className="text-xs font-mono uppercase tracking-wider text-slate-400 font-semibold flex items-center gap-2">
+          <Briefcase className="w-4 h-4 text-[#00D47E]" />
+          <span>{isPt ? 'Histórico Cronológico Detalhado' : 'Detailed Chronological Timeline'}</span>
+        </div>
       </div>
 
       {/* Vertical Timeline */}
@@ -59,6 +129,11 @@ export default function ExperiencePage() {
                     {job.current && (
                       <span className="text-xs font-mono font-bold text-[#00D47E] px-2.5 py-0.5 rounded-full bg-emerald-950/80 border border-emerald-700/60">
                         {isPt ? job.badgePt : job.badgeEn}
+                      </span>
+                    )}
+                    {job.eraBadgePt && (
+                      <span className="text-[10px] font-mono text-slate-300 bg-[#040711] px-2 py-0.5 rounded border border-[#152342]">
+                        {isPt ? job.eraBadgePt : job.eraBadgeEn}
                       </span>
                     )}
                     {job.domainEn && (
