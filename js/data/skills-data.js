@@ -43,8 +43,8 @@ const skillList = [
     { name: "Linux / POSIX", cat: "cloud", badge: "OS", desc: "Production profiling, socket tuning, shell automation" },
 
     // Security & Cryptography
-    { name: "HSM & PKCS#11", cat: "security", badge: "Crypto", desc: "Hardware security simulator, symmetric key management" },
-    { name: "PIN Block Translation", cat: "security", badge: "PCI Scope", desc: "Re-encryption under TMK to ZPK in secure memory" },
+    { name: "HSM & PKCS#11 Concepts", cat: "security", badge: "Crypto Sim", desc: "Software security simulator, symmetric key management" },
+    { name: "PIN Block Translation", cat: "security", badge: "Key Hierarchy", desc: "Simulated re-encryption under TMK to ZPK in memory" },
     { name: "Symmetric Ciphers", cat: "security", badge: "Crypto", desc: "3DES, AES-CBC, Key Check Value (KCV), LMK separation" },
     { name: "OAuth2 & JWT", cat: "security", badge: "Auth", desc: "Keycloak, token validation, secure service-to-service auth" }
 ];

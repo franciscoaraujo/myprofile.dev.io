@@ -21,7 +21,7 @@ function copyEmail() {
     }
 }
 
-function showToast(message = "Email copiado para a área de transferência!") {
+function showToast(message = "Email copied to clipboard!") {
     const toast = document.getElementById('toast');
     const msgSpan = document.getElementById('toast-message');
     if (!toast || !msgSpan) return;

@@ -17,7 +17,7 @@ function setTheme(mode) {
         if (sunIcon) sunIcon.classList.remove('hidden');
         if (moonIcon) moonIcon.classList.add('hidden');
         if (themeText) {
-            themeText.textContent = 'Claro';
+            themeText.textContent = 'Light';
             themeText.classList.remove('text-slate-300');
             themeText.classList.add('text-slate-800');
         }
