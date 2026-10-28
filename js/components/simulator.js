@@ -1582,7 +1582,7 @@ function drawArchitectureArrows() {
 
             d = `M ${fromCenterX + offsetX} ${fromCenterY} L ${toCenterX + offsetX} ${toCenterY}`;
         } else if (pipe.dir === 'feedback-up') {
-            const bottomY = (fRect.bottom - cRect.top) + container.scrollTop + 22;
+            const bottomY = (fRect.bottom - cRect.top) + container.scrollTop + 14;
             const targetBottomY = (tRect.bottom - cRect.top) + container.scrollTop;
 
             arrowX = toCenterX;

@@ -695,18 +695,18 @@
             <div id="arch-canvas-container" class="relative rounded-2xl border border-[#152342] bg-[#040816] shadow-2xl overflow-hidden glass-metal">
                 
                 <!-- Top Control Bar & Explicitly Scoped Session Counters -->
-                <div class="px-5 py-4 bg-[#060B1C] border-b border-[#152342] flex flex-wrap items-center justify-between gap-4">
+                <div class="px-4 py-2.5 bg-[#060B1C] border-b border-[#152342] flex flex-wrap items-center justify-between gap-3">
                     <!-- Brand & Honest Simulation Runtime Status -->
-                    <div class="flex items-center gap-3">
-                        <div class="w-9 h-9 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center shadow-lg shadow-purple-900/30">
-                            <i data-lucide="boxes" class="w-5 h-5"></i>
+                    <div class="flex items-center gap-2.5">
+                        <div class="w-8 h-8 rounded-xl bg-purple-600/20 border border-purple-500/40 text-purple-400 flex items-center justify-center shadow-lg shadow-purple-900/30">
+                            <i data-lucide="boxes" class="w-4 h-4"></i>
                         </div>
                         <div>
-                            <div class="text-sm font-bold text-white tracking-tight flex items-center gap-2">
+                            <div class="text-xs sm:text-sm font-bold text-white tracking-tight flex items-center gap-2">
                                 OrionPay Switch Lab
                                 <span class="px-1.5 py-0.5 rounded text-[9px] font-mono bg-purple-500/10 text-purple-300 border border-purple-500/30 uppercase">Deterministic State Machine</span>
                             </div>
-                            <div class="text-[11px] font-mono text-slate-400 flex flex-wrap items-center gap-2">
+                            <div class="text-[10px] font-mono text-slate-400 flex flex-wrap items-center gap-1.5">
                                 <span>Local Browser Runtime</span>
                                 <span>•</span>
                                 <span class="inline-flex items-center gap-1 text-amber-300">
@@ -717,40 +717,40 @@
                     </div>
 
                     <!-- Simulated Session State Counters -->
-                    <div class="flex flex-wrap items-center gap-2 sm:gap-2.5 text-xs font-mono" aria-label="Simulated Session State Counters">
-                        <div class="px-2.5 py-1.5 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[82px]" title="Count of simulated transactions approved in the active scenario run">
-                            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Sim Approved Tx</div>
-                            <div id="stat-live-tx" class="text-sm font-bold text-cyan-400">0</div>
+                    <div class="flex flex-wrap items-center gap-2 text-xs font-mono" aria-label="Simulated Session State Counters">
+                        <div class="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]" title="Count of simulated transactions approved in the active scenario run">
+                            <div class="text-[8px] text-slate-400 uppercase tracking-wider">Sim Approved Tx</div>
+                            <div id="stat-live-tx" class="text-xs font-bold text-cyan-400">0</div>
                         </div>
-                        <div class="px-2.5 py-1.5 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[92px]" title="Synthetic BRL volume accumulated in the active scenario run">
-                            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Synthetic (BRL)</div>
-                            <div id="stat-volume" class="text-sm font-bold text-[#00D47E]">0.00</div>
+                        <div class="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[86px]" title="Synthetic BRL volume accumulated in the active scenario run">
+                            <div class="text-[8px] text-slate-400 uppercase tracking-wider">Synthetic (BRL)</div>
+                            <div id="stat-volume" class="text-xs font-bold text-[#00D47E]">0.00</div>
                         </div>
-                        <div class="px-2.5 py-1.5 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[82px]" title="Events committed in simulated outbox_events table awaiting broker publish confirmation">
-                            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Outbox Pending</div>
-                            <div id="stat-db-stuck" class="text-sm font-bold text-red-400">0</div>
+                        <div class="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]" title="Events committed in simulated outbox_events table awaiting broker publish confirmation">
+                            <div class="text-[8px] text-slate-400 uppercase tracking-wider">Outbox Pending</div>
+                            <div id="stat-db-stuck" class="text-xs font-bold text-red-400">0</div>
                         </div>
-                        <div class="px-2.5 py-1.5 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[82px]" title="Events enqueued in simulated RabbitMQ awaiting consumer acknowledgment">
-                            <div class="text-[9px] text-slate-400 uppercase tracking-wider">Broker Queue</div>
-                            <div id="stat-rmq-queue" class="text-sm font-bold text-amber-400">0</div>
+                        <div class="px-2.5 py-1 rounded-lg bg-[#030610] border border-[#152342] text-center min-w-[78px]" title="Events enqueued in simulated RabbitMQ awaiting consumer acknowledgment">
+                            <div class="text-[8px] text-slate-400 uppercase tracking-wider">Broker Queue</div>
+                            <div id="stat-rmq-queue" class="text-xs font-bold text-amber-400">0</div>
                         </div>
                     </div>
 
                     <!-- Action Control Buttons -->
-                    <div class="flex flex-wrap items-center gap-2">
-                        <button type="button" id="btn-fire-tx" onclick="runSelectedScenario()" aria-label="Run Selected Scenario Automatically" class="px-3 py-2 rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold">
+                    <div class="flex flex-wrap items-center gap-1.5">
+                        <button type="button" id="btn-fire-tx" onclick="runSelectedScenario()" aria-label="Run Selected Scenario Automatically" class="px-3 py-1.5 rounded-xl bg-blue-600 hover:bg-blue-500 text-white shadow-lg shadow-blue-600/30 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold">
                             <i data-lucide="play" class="w-3.5 h-3.5"></i>
                             <span>Run Scenario</span>
                         </button>
-                        <button type="button" id="btn-step-tx" onclick="stepScenarioForward()" aria-label="Execute Next Scenario Step Manually" class="px-3 py-2 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold">
+                        <button type="button" id="btn-step-tx" onclick="stepScenarioForward()" aria-label="Execute Next Scenario Step Manually" class="px-3 py-1.5 rounded-xl bg-cyan-500/20 hover:bg-cyan-500/30 border border-cyan-500/50 text-cyan-300 transition-all active:scale-95 flex items-center gap-1.5 text-xs font-mono font-bold">
                             <i data-lucide="step-forward" class="w-3.5 h-3.5"></i>
                             <span class="step-btn-label">Step Forward</span>
                         </button>
-                        <button type="button" id="btn-reset-tx" onclick="resetSimulationStats()" aria-label="Reset Scenario State" class="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono">
+                        <button type="button" id="btn-reset-tx" onclick="resetSimulationStats()" aria-label="Reset Scenario State" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono">
                             <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
                             <span>Reset</span>
                         </button>
-                        <button type="button" onclick="toggleTerminalView()" aria-label="Toggle Execution Trace Console" class="px-2.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono" title="Show/Hide Execution Log Console">
+                        <button type="button" onclick="toggleTerminalView()" aria-label="Toggle Execution Trace Console" class="px-2.5 py-1.5 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-slate-200 transition-all hover:text-white flex items-center gap-1.5 text-xs font-mono" title="Show/Hide Execution Log Console">
                             <i data-lucide="terminal" class="w-3.5 h-3.5"></i>
                             <span class="hidden sm:inline">Logs</span>
                         </button>
@@ -758,8 +758,8 @@
                 </div>
 
                 <!-- Scenario Summary & Visual Legend Bar -->
-                <div class="px-5 py-2.5 bg-[#030610] border-b border-[#152342] flex flex-wrap items-center justify-between gap-3 text-[11px] font-mono">
-                    <div id="sim-scenario-summary" class="text-slate-300">
+                <div class="px-4 py-1.5 bg-[#030610] border-b border-[#152342] flex flex-wrap items-center justify-between gap-2 text-[10px] font-mono">
+                    <div id="sim-scenario-summary" class="text-slate-300 truncate max-w-3xl">
                         Demonstrates the standard happy path: synchronous authorization completes in Phase 1 and commits atomically with an Outbox event.
                     </div>
                     <div class="flex flex-wrap items-center gap-3 text-[10px] text-slate-400">
@@ -782,7 +782,7 @@
                 </div>
 
                 <!-- Mobile Toggle for Full SVG Architecture Map (Avoids forced horizontal scrolling on phones) -->
-                <div class="lg:hidden px-5 py-2.5 bg-[#050A18] border-b border-[#152342] flex items-center justify-between">
+                <div class="lg:hidden px-4 py-2 bg-[#050A18] border-b border-[#152342] flex items-center justify-between">
                     <span class="text-[11px] font-mono text-slate-300">Mobile View: Vertical step cards active below</span>
                     <button type="button" onclick="toggleMobileDiagramView()" class="px-2.5 py-1 rounded-lg bg-[#081229] border border-cyan-500/40 text-cyan-300 text-[11px] font-mono font-semibold">
                         <span id="btn-mobile-diagram-text">Show Full Architecture Diagram (Scrollable)</span>
@@ -791,7 +791,7 @@
 
                 <!-- Architectural Mesh Map Canvas (3 Phases - Visible by default on Desktop, toggleable on Mobile) -->
                 <div id="arch-desktop-diagram-wrapper" class="hidden lg:block overflow-x-auto">
-                    <div id="arch-mesh-area" class="p-6 lg:p-10 space-y-10 relative min-w-[780px]">
+                    <div id="arch-mesh-area" class="px-5 pt-2 pb-3 space-y-3.5 relative min-w-[780px]">
                         
                         <!-- Animated Data Packet Token -->
                         <div id="data-packet-token" class="data-packet-token opacity-0" aria-hidden="true"></div>
@@ -802,153 +802,153 @@
                         </svg>
                         
                         <!-- PHASE 1: SYNCHRONOUS AUTHORIZATION -->
-                        <div class="relative pt-16">
-                            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-6">
+                        <div class="relative pt-5">
+                            <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-3">
                                 <i data-lucide="zap" class="w-3.5 h-3.5 text-cyan-400"></i>
                                 <span class="font-bold text-slate-200">Phase 1: Synchronous Authorization (Blocking Request / Response)</span>
                                 <div class="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
                             </div>
 
                             <!-- Nodes Row with C++ SoftHSM Top Anchor -->
-                            <div class="grid grid-cols-5 gap-6 sm:gap-8 items-center relative">
+                            <div class="grid grid-cols-5 gap-5 sm:gap-6 items-center relative">
                                 
                                 <!-- Node 1: SoftPOS -->
-                                <div id="node-softpos" class="arch-node p-3.5 rounded-xl border-2 border-cyan-500/70 bg-[#061124] text-center shadow-lg shadow-cyan-950/40">
-                                    <i data-lucide="smartphone" class="w-5 h-5 mx-auto text-cyan-400 mb-1.5"></i>
+                                <div id="node-softpos" class="arch-node p-2.5 rounded-xl border-2 border-cyan-500/70 bg-[#061124] text-center shadow-lg shadow-cyan-950/40">
+                                    <i data-lucide="smartphone" class="w-4 h-4 mx-auto text-cyan-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">SoftPOS</div>
-                                    <div class="text-[9px] font-mono text-cyan-300 mt-0.5">Merchant Capture</div>
+                                    <div class="text-[9px] font-mono text-cyan-300">Merchant Capture</div>
                                 </div>
 
                                 <!-- Node 2: Merchant Service -->
-                                <div id="node-merchant" class="arch-node p-3.5 rounded-xl border-2 border-purple-500/70 bg-[#120B24] text-center shadow-lg shadow-purple-950/40">
-                                    <i data-lucide="cpu" class="w-5 h-5 mx-auto text-purple-400 mb-1.5"></i>
+                                <div id="node-merchant" class="arch-node p-2.5 rounded-xl border-2 border-purple-500/70 bg-[#120B24] text-center shadow-lg shadow-purple-950/40">
+                                    <i data-lucide="cpu" class="w-4 h-4 mx-auto text-purple-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">Merchant Service</div>
-                                    <div class="text-[9px] font-mono text-purple-300 mt-0.5">Orchestrator &amp; Idem</div>
+                                    <div class="text-[9px] font-mono text-purple-300">Orchestrator &amp; Idem</div>
                                 </div>
 
                                 <!-- Node 3: Acquiring Switch + SoftHSM -->
                                 <div class="relative flex items-center justify-center">
                                     <!-- Top SoftHSM floating cleanly above Switch -->
-                                    <div id="node-softhsm" class="arch-node absolute -top-[4.8rem] p-2 px-3.5 rounded-xl border-2 border-red-500/70 bg-[#240A10] text-center shadow-lg shadow-red-950/40 z-20 whitespace-nowrap">
-                                        <i data-lucide="shield" class="w-4 h-4 mx-auto text-red-400 mb-0.5"></i>
-                                        <div class="text-[10px] font-bold text-white">SoftHSM (C++ Sim)</div>
-                                        <div class="text-[8px] font-mono text-red-300">TMK &rarr; ZPK PIN Trans</div>
+                                    <div id="node-softhsm" class="arch-node absolute -top-[3.6rem] py-1 px-3 rounded-xl border-2 border-red-500/70 bg-[#240A10] text-center shadow-lg shadow-red-950/40 z-20 whitespace-nowrap">
+                                        <i data-lucide="shield" class="w-3.5 h-3.5 mx-auto text-red-400"></i>
+                                        <div class="text-[10px] font-bold text-white leading-tight">SoftHSM (C++ Sim)</div>
+                                        <div class="text-[8px] font-mono text-red-300 leading-tight">TMK &rarr; ZPK PIN Trans</div>
                                     </div>
                                     <!-- Switch Node -->
-                                    <div id="node-switch" class="arch-node w-full p-3.5 rounded-xl border-2 border-blue-500/80 bg-[#091530] text-center shadow-lg shadow-blue-950/40">
-                                        <i data-lucide="server" class="w-5 h-5 mx-auto text-blue-400 mb-1.5"></i>
+                                    <div id="node-switch" class="arch-node w-full p-2.5 rounded-xl border-2 border-blue-500/80 bg-[#091530] text-center shadow-lg shadow-blue-950/40">
+                                        <i data-lucide="server" class="w-4 h-4 mx-auto text-blue-400 mb-1"></i>
                                         <div class="text-xs font-bold text-white">Acquiring Switch</div>
-                                        <div class="text-[9px] font-mono text-blue-300 mt-0.5">ISO 8583 Core</div>
+                                        <div class="text-[9px] font-mono text-blue-300">ISO 8583 Core</div>
                                     </div>
                                 </div>
 
                                 <!-- Node 4: Visa Gateway -->
-                                <div id="node-visagateway" class="arch-node p-3.5 rounded-xl border-2 border-blue-600/70 bg-[#07132B] text-center shadow-lg shadow-blue-950/40">
-                                    <div class="w-6 h-4 mx-auto bg-blue-600 rounded text-[9px] font-black text-white flex items-center justify-center mb-1.5">VISA</div>
+                                <div id="node-visagateway" class="arch-node p-2.5 rounded-xl border-2 border-blue-600/70 bg-[#07132B] text-center shadow-lg shadow-blue-950/40">
+                                    <div class="w-6 h-3.5 mx-auto bg-blue-600 rounded text-[8px] font-black text-white flex items-center justify-center mb-1">VISA</div>
                                     <div class="text-xs font-bold text-white">Visa Gateway</div>
-                                    <div class="text-[9px] font-mono text-blue-300 mt-0.5">Scheme Connector</div>
+                                    <div class="text-[9px] font-mono text-blue-300">Scheme Connector</div>
                                 </div>
 
                                 <!-- Node 5: VisaNet Emulator -->
-                                <div id="node-visanet" class="arch-node p-3.5 rounded-xl border-2 border-indigo-500/70 bg-[#0C102E] text-center shadow-lg shadow-indigo-950/40">
-                                    <i data-lucide="globe" class="w-5 h-5 mx-auto text-indigo-400 mb-1.5"></i>
+                                <div id="node-visanet" class="arch-node p-2.5 rounded-xl border-2 border-indigo-500/70 bg-[#0C102E] text-center shadow-lg shadow-indigo-950/40">
+                                    <i data-lucide="globe" class="w-4 h-4 mx-auto text-indigo-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">VisaNet Emulator</div>
-                                    <div class="text-[9px] font-mono text-indigo-300 mt-0.5">Base I Authorizer</div>
+                                    <div class="text-[9px] font-mono text-indigo-300">Base I Authorizer</div>
                                 </div>
 
                             </div>
                         </div>
 
                         <!-- PHASE 2: ASYNCHRONOUS MESSAGING (TRANSACTIONAL OUTBOX) -->
-                        <div class="relative pt-2">
-                            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-6">
+                        <div class="relative pt-1">
+                            <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2.5">
                                 <i data-lucide="git-merge" class="w-3.5 h-3.5 text-purple-400"></i>
                                 <span class="font-bold text-slate-200">Phase 2: Asynchronous Messaging (Transactional Outbox &amp; At-Least-Once Relay)</span>
                                 <div class="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
                             </div>
 
                             <!-- 5-Column Grid aligned with Phase 1 nodes -->
-                            <div class="grid grid-cols-5 gap-6 sm:gap-8 items-center relative">
+                            <div class="grid grid-cols-5 gap-5 sm:gap-6 items-center relative">
                                 
                                 <!-- Col 1: Empty slot below SoftPOS -->
                                 <div class="hidden sm:block"></div>
 
                                 <!-- Col 2: DB & Outbox -->
-                                <div id="node-dboutbox" class="arch-node p-3.5 rounded-xl border-2 border-indigo-500/70 bg-[#0D1230] text-center shadow-lg relative">
-                                    <i data-lucide="database" class="w-5 h-5 mx-auto text-indigo-400 mb-1.5"></i>
+                                <div id="node-dboutbox" class="arch-node p-2.5 rounded-xl border-2 border-indigo-500/70 bg-[#0D1230] text-center shadow-lg relative">
+                                    <i data-lucide="database" class="w-4 h-4 mx-auto text-indigo-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">DB &amp; Outbox</div>
-                                    <div class="text-[9px] font-mono text-indigo-300 mt-0.5">PostgreSQL ACID</div>
+                                    <div class="text-[9px] font-mono text-indigo-300">PostgreSQL ACID</div>
                                 </div>
 
                                 <!-- Col 3: Outbox Relay -->
-                                <div id="node-outboxrelay" class="arch-node p-3.5 rounded-xl border-2 border-orange-500/70 bg-[#261208] text-center shadow-lg relative">
-                                    <i data-lucide="truck" class="w-5 h-5 mx-auto text-orange-400 mb-1.5"></i>
+                                <div id="node-outboxrelay" class="arch-node p-2.5 rounded-xl border-2 border-orange-500/70 bg-[#261208] text-center shadow-lg relative">
+                                    <i data-lucide="truck" class="w-4 h-4 mx-auto text-orange-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">Outbox Relay</div>
-                                    <div class="text-[9px] font-mono text-orange-300 mt-0.5">CDC / Backoff Worker</div>
+                                    <div class="text-[9px] font-mono text-orange-300">CDC / Backoff Worker</div>
                                 </div>
 
                                 <!-- Col 4: RabbitMQ -->
-                                <div id="node-rabbitmq" class="arch-node p-3.5 rounded-xl border-2 border-amber-500/70 bg-[#261807] text-center shadow-lg relative">
+                                <div id="node-rabbitmq" class="arch-node p-2.5 rounded-xl border-2 border-amber-500/70 bg-[#261807] text-center shadow-lg relative">
                                     <div class="absolute -top-1.5 -right-1.5 w-4 h-4 rounded-full bg-amber-500/80 text-white flex items-center justify-center">
                                         <i data-lucide="corner-down-right" class="w-2.5 h-2.5"></i>
                                     </div>
-                                    <i data-lucide="inbox" class="w-5 h-5 mx-auto text-amber-400 mb-1.5"></i>
+                                    <i data-lucide="inbox" class="w-4 h-4 mx-auto text-amber-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">RabbitMQ</div>
-                                    <div class="text-[9px] font-mono text-amber-300 mt-0.5">Quorum Queue &amp; DLQ</div>
-                                    <div id="badge-rmq-count" class="absolute -bottom-2 -right-2 w-5 h-5 rounded-full bg-amber-500 text-white font-mono text-[10px] font-bold flex items-center justify-center shadow-md">0</div>
+                                    <div class="text-[9px] font-mono text-amber-300">Quorum Queue &amp; DLQ</div>
+                                    <div id="badge-rmq-count" class="absolute -bottom-2 -right-2 w-4 h-4 rounded-full bg-amber-500 text-white font-mono text-[9px] font-bold flex items-center justify-center shadow-md">0</div>
                                 </div>
 
                                 <!-- Col 5: Settlement Listener -->
-                                <div id="node-settlementlistener" class="arch-node p-3.5 rounded-xl border-2 border-emerald-500/70 bg-[#072417] text-center shadow-lg relative">
-                                    <i data-lucide="settings" class="w-3.5 h-3.5 text-slate-400 absolute top-2 right-2"></i>
-                                    <i data-lucide="headphones" class="w-5 h-5 mx-auto text-emerald-400 mb-1.5"></i>
+                                <div id="node-settlementlistener" class="arch-node p-2.5 rounded-xl border-2 border-emerald-500/70 bg-[#072417] text-center shadow-lg relative">
+                                    <i data-lucide="settings" class="w-3 h-3 text-slate-400 absolute top-1.5 right-1.5"></i>
+                                    <i data-lucide="headphones" class="w-4 h-4 mx-auto text-emerald-400 mb-1"></i>
                                     <div class="text-xs font-bold text-white">Settlement Listener</div>
-                                    <div class="text-[9px] font-mono text-emerald-300 mt-0.5">Idempotent Consumer</div>
+                                    <div class="text-[9px] font-mono text-emerald-300">Idempotent Consumer</div>
                                 </div>
 
                             </div>
                         </div>
 
                         <!-- PHASE 3: BATCH SETTLEMENT & RECONCILIATION -->
-                        <div class="relative pt-2">
-                            <div class="flex items-center gap-2 text-[11px] font-mono uppercase tracking-wider text-slate-400 mb-6">
+                        <div class="relative pt-1">
+                            <div class="flex items-center gap-2 text-[10px] font-mono uppercase tracking-wider text-slate-400 mb-2.5">
                                 <i data-lucide="clock" class="w-3.5 h-3.5 text-blue-400"></i>
                                 <span class="font-bold text-slate-200">Phase 3: Batch Clearing &amp; Settlement (Cut-Off / Base II TC50)</span>
                                 <div class="flex-1 h-px bg-slate-800/80 border-t border-dashed border-slate-700/60 ml-2"></div>
                             </div>
 
                             <!-- 5-Column Grid aligned with previous phases -->
-                            <div class="grid grid-cols-5 gap-6 sm:gap-8 items-start relative">
+                            <div class="grid grid-cols-5 gap-5 sm:gap-6 items-start relative">
                                 
                                 <!-- Col 1 & 2: Empty slots -->
                                 <div class="hidden sm:block"></div>
                                 <div class="hidden sm:block"></div>
 
                                 <!-- Col 3: Vertical stack (Network Log TC57 above, Spring Batch below) -->
-                                <div class="space-y-6">
-                                    <div id="node-tc57log" class="arch-node p-3.5 rounded-xl border-2 border-slate-500/60 bg-[#0E1524] text-center shadow-lg relative">
+                                <div class="space-y-3.5">
+                                    <div id="node-tc57log" class="arch-node p-2.5 rounded-xl border-2 border-slate-500/60 bg-[#0E1524] text-center shadow-lg relative">
                                         <span class="absolute -top-2 -right-2 w-4 h-4 rounded-full bg-slate-600 text-white font-mono text-[9px] flex items-center justify-center font-bold">2</span>
-                                        <i data-lucide="file-text" class="w-5 h-5 mx-auto text-slate-300 mb-1.5"></i>
+                                        <i data-lucide="file-text" class="w-4 h-4 mx-auto text-slate-300 mb-1"></i>
                                         <div class="text-xs font-bold text-white">Clearing Log (TC57)</div>
-                                        <div class="text-[9px] font-mono text-slate-400 mt-0.5">Base II Staging</div>
+                                        <div class="text-[9px] font-mono text-slate-400">Base II Staging</div>
                                     </div>
 
-                                    <div id="node-springbatch" class="arch-node p-3.5 rounded-xl border-2 border-amber-400/70 bg-[#292008] text-center shadow-lg relative">
-                                        <i data-lucide="clock" class="w-3.5 h-3.5 text-slate-400 absolute top-2 right-2"></i>
-                                        <i data-lucide="layers" class="w-5 h-5 mx-auto text-amber-400 mb-1.5"></i>
+                                    <div id="node-springbatch" class="arch-node p-2.5 rounded-xl border-2 border-amber-400/70 bg-[#292008] text-center shadow-lg relative">
+                                        <i data-lucide="clock" class="w-3 h-3 text-slate-400 absolute top-1.5 right-1.5"></i>
+                                        <i data-lucide="layers" class="w-4 h-4 mx-auto text-amber-400 mb-1"></i>
                                         <div class="text-xs font-bold text-white">Spring Batch</div>
-                                        <div class="text-[9px] font-mono text-amber-300 mt-0.5">Chunk Recon + ShedLock</div>
+                                        <div class="text-[9px] font-mono text-amber-300">Chunk Recon + ShedLock</div>
                                     </div>
                                 </div>
 
                                 <!-- Col 4: Payout & Ledger -->
-                                <div class="pt-[4.5rem]">
-                                    <div id="node-payout" class="arch-node p-3.5 rounded-xl border-2 border-emerald-500/70 bg-[#06261A] text-center shadow-lg">
-                                        <i data-lucide="landmark" class="w-5 h-5 mx-auto text-emerald-400 mb-1.5"></i>
+                                <div class="pt-[3.2rem]">
+                                    <div id="node-payout" class="arch-node p-2.5 rounded-xl border-2 border-emerald-500/70 bg-[#06261A] text-center shadow-lg">
+                                        <i data-lucide="landmark" class="w-4 h-4 mx-auto text-emerald-400 mb-1"></i>
                                         <div class="text-xs font-bold text-white">Payout &amp; Ledger</div>
-                                        <div class="text-[9px] font-mono text-emerald-300 mt-0.5">Double-Entry Settlement</div>
+                                        <div class="text-[9px] font-mono text-emerald-300">Double-Entry Settlement</div>
                                     </div>
-                                    <div class="text-[10px] font-mono text-slate-400 text-center mt-1.5">TC50 Output</div>
+                                    <div class="text-[9px] font-mono text-slate-400 text-center mt-1">TC50 Output</div>
                                 </div>
 
                                 <!-- Col 5: Space for vertical descent line from Settlement Listener -->
@@ -961,7 +961,7 @@
                 </div>
 
                 <!-- Stage Progress Scrubber -->
-                <div class="px-6 py-3 bg-[#030610] border-t border-[#152342] flex items-center gap-4">
+                <div class="px-5 py-2 bg-[#030610] border-t border-[#152342] flex items-center gap-4">
                     <span id="sim-timeline-time" class="text-xs font-mono font-bold text-cyan-400 shrink-0">STEP 0</span>
                     <div class="flex-1 h-1.5 rounded-full bg-slate-800 overflow-hidden relative">
                         <div id="sim-timeline-progress" class="h-full bg-gradient-to-r from-cyan-500 via-amber-400 to-[#00D47E] w-0 transition-all duration-300"></div>
