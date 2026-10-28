@@ -920,6 +920,7 @@ function initSimulatorLab() {
     });
 
     selectScenario('scenario-a', false);
+    initHeroPreview();
 }
 
 /**
@@ -1791,5 +1792,280 @@ function toggleMobileDiagramView() {
     } else {
         wrapper.classList.add('hidden');
         if (btnText) btnText.textContent = 'Show Full Architecture Diagram (Scrollable)';
+    }
+}
+
+/* ============================================================================
+   HERO ORIONPAY COMPACT INTERACTIVE PREVIEW (REUSES SHARED SCENARIO A CONTEXT)
+   ============================================================================ */
+let heroPreviewState = 'IDLE'; // 'IDLE' | 'RUNNING' | 'COMPLETED'
+let heroCurrentStage = -1;
+let heroTimers = [];
+
+const HERO_PREVIEW_STAGES = [
+    {
+        num: 1,
+        code: 'AUTHORIZATION REQUEST',
+        shortBadge: 'REQ',
+        summary: 'Synthetic request received: Amount BRL 84.50, Token tok_synth_4091, Idempotency-Key idem-a104-9c82.',
+        detail: 'Uses strictly non-sensitive synthetic data in browser memory. No real PAN, PIN, or cryptographic keys are transmitted.',
+        log: '&gt; [1/7] AUTHORIZATION REQUEST: Inbound synthetic payload (amount=BRL 84.50, token=tok_synth_4091, idem_key=idem-a104-9c82).'
+    },
+    {
+        num: 2,
+        code: 'VALIDATION',
+        shortBadge: 'VALID',
+        summary: 'Schema & mandatory field validation: verifies amount > 0, currency=BRL, merchant_id, and idempotency key format.',
+        detail: 'Fails fast at the API boundary before acquiring database locks or invoking downstream switch components.',
+        log: '&gt; [2/7] VALIDATION: Mandatory fields &amp; synthetic payload contract verified (status=VALID).'
+    },
+    {
+        num: 3,
+        code: 'IDEMPOTENCY CHECK',
+        shortBadge: 'IDEM',
+        summary: 'Verifies synthetic key "idem-a104-9c82" + payload hash (sha256:7f83b1). Status transitions from MISS to IN_PROGRESS.',
+        detail: 'Deduplicates network retries carrying the same key. Note: key-based idempotency does not prevent duplicates if a client generates a new key.',
+        log: '&gt; [3/7] IDEMPOTENCY CHECK: Key "idem-a104-9c82" lookup=MISS -&gt; lock registered as IN_PROGRESS (hash=sha256:7f83b1).'
+    },
+    {
+        num: 4,
+        code: 'TRANSACTION PERSISTENCE',
+        shortBadge: 'DB TX',
+        summary: 'Models persisting transaction TX-9041A (APPROVED) after simulated authorizer response (MTI 0110 / DE39=00).',
+        detail: 'Executed here as an in-memory browser state transition illustrating relational PostgreSQL persistence in the reference architecture.',
+        log: '&gt; [4/7] TRANSACTION PERSISTENCE: Simulated local record TX-9041A staged as APPROVED (illustrative in-memory state).'
+    },
+    {
+        num: 5,
+        code: 'TRANSACTIONAL OUTBOX',
+        shortBadge: 'OUTBOX',
+        summary: 'Registers event EVT-501 (status=PENDING) in the same local database transaction as the business state change (TX-9041A).',
+        detail: 'Ensures consistency between the transaction row and the outbox row in PostgreSQL—without claiming atomic transactions across DB and broker.',
+        log: '&gt; [5/7] TRANSACTIONAL OUTBOX: Event EVT-501 recorded atomically with TX-9041A in simulated DB (status=PENDING).'
+    },
+    {
+        num: 6,
+        code: 'ASYNCHRONOUS MESSAGING',
+        shortBadge: 'ASYNC',
+        summary: 'Separates Outbox Relay publication (PUBLISHED) from consumer processing (CONSUMED + event_id deduplication).',
+        detail: 'Simulated locally (no live broker). Models At-Least-Once delivery where consumer deduplication guards against redeliveries.',
+        log: '&gt; [6/7] ASYNCHRONOUS MESSAGING: Local sim relay published EVT-501 -&gt; Consumer verified event_id &amp; acknowledged (At-Least-Once).'
+    },
+    {
+        num: 7,
+        code: 'RESULT',
+        shortBadge: 'RESULT',
+        summary: 'Synthetic authorization flow completed: TX-9041A approved, response snapshot cached under idem-a104-9c82, and Outbox event processed.',
+        detail: 'All stages executed in the local browser simulator. Use "Explore the payment flow" below to test duplicate retries and broker outages.',
+        log: '&gt; [7/7] RESULT: Synthetic flow complete (TX-9041A | SIMULATED APPROVAL | Outbox EVT-501 consumed).'
+    }
+];
+
+function clearHeroTimers() {
+    heroTimers.forEach(t => clearTimeout(t));
+    heroTimers = [];
+}
+
+function initHeroPreview() {
+    const container = document.getElementById('hero-orionpay-card');
+    if (!container) return;
+    resetHeroPreviewDemo();
+}
+
+function renderHeroPreviewUI(inspectedIndex = null) {
+    const stagesGrid = document.getElementById('hero-stages-list');
+    const activeDetail = document.getElementById('hero-stage-detail');
+    const resultBanner = document.getElementById('hero-result-banner');
+    const statusPill = document.getElementById('hero-sim-status-pill');
+    const btnRun = document.getElementById('btn-hero-run');
+
+    if (!stagesGrid) return;
+
+    const focusIdx = inspectedIndex !== null ? inspectedIndex : (heroCurrentStage >= 0 ? heroCurrentStage : 0);
+
+    stagesGrid.innerHTML = HERO_PREVIEW_STAGES.map((stg, idx) => {
+        let stateText = 'IDLE';
+        let badgeStyle = 'bg-slate-800/90 text-slate-400 border-slate-700';
+        let rowStyle = 'border-[#152342] bg-[#040711]/80 text-slate-300';
+
+        if (idx < heroCurrentStage || (idx === heroCurrentStage && heroPreviewState === 'COMPLETED')) {
+            stateText = 'DONE';
+            badgeStyle = 'bg-emerald-950 text-[#00D47E] border-[#00D47E]/40';
+            rowStyle = 'border-[#00D47E]/40 bg-[#071526] text-white';
+        } else if (idx === heroCurrentStage && heroPreviewState === 'RUNNING') {
+            stateText = 'ACTIVE';
+            badgeStyle = 'bg-cyan-500 text-slate-950 border-cyan-300';
+            rowStyle = 'border-cyan-400 bg-[#0A1931] text-white shadow-md';
+        }
+
+        const isFocused = (idx === focusIdx && heroCurrentStage >= 0) || (idx === inspectedIndex);
+        const focusRing = isFocused ? 'ring-1 ring-cyan-400/60' : '';
+
+        return `
+            <button type="button"
+                    onclick="inspectHeroStage(${idx})"
+                    aria-label="Stage ${stg.num}: ${stg.code} - Status: ${stateText}"
+                    class="w-full text-left px-2.5 py-1.5 rounded-lg border ${rowStyle} ${focusRing} hover:border-cyan-400/60 transition-all flex items-center justify-between gap-2 font-mono">
+                <span class="text-[11px] font-bold truncate">
+                    <span class="text-cyan-400">${stg.num}.</span> ${stg.code}
+                </span>
+                <span class="shrink-0 px-1.5 py-0.5 rounded text-[9px] font-bold border ${badgeStyle}">
+                    ${stateText}
+                </span>
+            </button>
+        `;
+    }).join('');
+
+    if (activeDetail) {
+        if (heroCurrentStage === -1 && inspectedIndex === null) {
+            activeDetail.innerHTML = `
+                <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                    <span class="text-cyan-300 font-bold">STAGE INSPECTOR (READY)</span>
+                    <span>LOCAL BROWSER STATE MACHINE</span>
+                </div>
+                <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+                    Click <strong class="text-[#00D47E]">"Run Demo"</strong> to execute the 7-stage synthetic authorization walkthrough, or select any stage above to inspect its engineering role.
+                </p>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">
+                    Payload ready: <code class="text-cyan-300">BRL 84.50</code> &bull; <code class="text-cyan-300">idem-a104-9c82</code> &bull; <code class="text-cyan-300">tok_synth_4091</code> (Non-sensitive synthetic data).
+                </p>
+            `;
+        } else {
+            const stg = HERO_PREVIEW_STAGES[focusIdx] || HERO_PREVIEW_STAGES[0];
+            const modeLabel = (focusIdx <= heroCurrentStage) ? 'EXECUTED IN LOCAL SIM' : 'STAGE PREVIEW';
+            activeDetail.innerHTML = `
+                <div class="flex items-center justify-between text-[10px] font-mono">
+                    <span class="text-[#00D47E] font-bold">${stg.num}. ${stg.code}</span>
+                    <span class="text-slate-400">${modeLabel}</span>
+                </div>
+                <p class="text-xs text-slate-200 mt-1 leading-relaxed">${stg.summary}</p>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">${stg.detail}</p>
+            `;
+        }
+    }
+
+    if (resultBanner) {
+        if (heroPreviewState === 'COMPLETED') {
+            resultBanner.className = 'px-3 py-2 rounded-lg border border-[#00D47E]/50 bg-emerald-950/40 font-mono text-[11px] flex items-center justify-between gap-2';
+            resultBanner.innerHTML = `
+                <span class="text-[#00D47E] font-bold flex items-center gap-1.5">
+                    <span class="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+                    RESULT: SIMULATED APPROVAL (TX-9041A)
+                </span>
+                <span class="text-slate-300 text-[10px]">Outbox EVT-501 Relayed &amp; Consumed</span>
+            `;
+        } else if (heroPreviewState === 'RUNNING') {
+            resultBanner.className = 'px-3 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/30 font-mono text-[11px] flex items-center justify-between gap-2';
+            resultBanner.innerHTML = `
+                <span class="text-cyan-300 font-bold">EXECUTING STAGE ${heroCurrentStage + 1} OF 7...</span>
+                <span class="text-slate-400 text-[10px]">Pending completion</span>
+            `;
+        } else {
+            resultBanner.className = 'px-3 py-2 rounded-lg border border-[#152342] bg-[#040711] font-mono text-[11px] flex items-center justify-between gap-2';
+            resultBanner.innerHTML = `
+                <span class="text-slate-400">RESULT: AWAITING EXECUTION</span>
+                <span class="text-slate-500 text-[10px]">No authorization result generated yet</span>
+            `;
+        }
+    }
+
+    if (statusPill) {
+        if (heroPreviewState === 'RUNNING') {
+            statusPill.textContent = `RUNNING (${heroCurrentStage + 1}/7)`;
+            statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-cyan-950 text-cyan-300 border border-cyan-500/40 font-bold';
+        } else if (heroPreviewState === 'COMPLETED') {
+            statusPill.textContent = 'COMPLETED (7/7)';
+            statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-emerald-950 text-[#00D47E] border border-[#00D47E]/40 font-bold';
+        } else {
+            statusPill.textContent = 'IDLE (0/7)';
+            statusPill.className = 'text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-bold';
+        }
+    }
+
+    if (btnRun) {
+        const isRunning = heroPreviewState === 'RUNNING';
+        btnRun.disabled = isRunning;
+        if (isRunning) {
+            btnRun.classList.add('opacity-50', 'cursor-not-allowed');
+        } else {
+            btnRun.classList.remove('opacity-50', 'cursor-not-allowed');
+        }
+    }
+}
+
+function inspectHeroStage(idx) {
+    if (idx < 0 || idx >= HERO_PREVIEW_STAGES.length) return;
+    renderHeroPreviewUI(idx);
+}
+
+function runHeroPreviewDemo() {
+    if (heroPreviewState === 'RUNNING') return;
+    clearHeroTimers();
+
+    heroPreviewState = 'RUNNING';
+    heroCurrentStage = -1;
+
+    const logEl = document.getElementById('hero-terminal-log');
+    if (logEl) {
+        logEl.innerHTML = `<div class="text-slate-400">// Starting local synthetic authorization sequence...</div>`;
+    }
+
+    const stepDelayMs = prefersReducedMotion() ? 60 : 420;
+
+    function advanceHeroStage() {
+        const nextIdx = heroCurrentStage + 1;
+        if (nextIdx >= HERO_PREVIEW_STAGES.length) {
+            heroPreviewState = 'COMPLETED';
+            renderHeroPreviewUI();
+            return;
+        }
+
+        heroCurrentStage = nextIdx;
+        const stg = HERO_PREVIEW_STAGES[nextIdx];
+        if (logEl) {
+            const line = document.createElement('div');
+            line.className = nextIdx === HERO_PREVIEW_STAGES.length - 1 ? 'text-[#00D47E] font-bold' : 'text-slate-300';
+            line.innerHTML = stg.log;
+            logEl.appendChild(line);
+            logEl.scrollTop = logEl.scrollHeight;
+        }
+
+        renderHeroPreviewUI();
+
+        if (nextIdx < HERO_PREVIEW_STAGES.length - 1) {
+            const tid = setTimeout(advanceHeroStage, stepDelayMs);
+            heroTimers.push(tid);
+        } else {
+            heroPreviewState = 'COMPLETED';
+            renderHeroPreviewUI();
+        }
+    }
+
+    advanceHeroStage();
+}
+
+function resetHeroPreviewDemo() {
+    clearHeroTimers();
+    heroPreviewState = 'IDLE';
+    heroCurrentStage = -1;
+
+    const logEl = document.getElementById('hero-terminal-log');
+    if (logEl) {
+        logEl.innerHTML = `
+            <div class="text-slate-400">// Local browser simulation standby (no external network calls)</div>
+            <div class="text-slate-300">&gt; Click <strong class="text-white">"Run Demo"</strong> to execute stages 1–7 with synthetic data.</div>
+        `;
+    }
+
+    renderHeroPreviewUI();
+}
+
+function exploreFullSimulatorFlow() {
+    if (typeof selectScenario === 'function' && simState === 'IDLE') {
+        selectScenario('scenario-a', false);
+    }
+    const simSection = document.getElementById('simulator');
+    if (simSection && typeof simSection.scrollIntoView === 'function') {
+        simSection.scrollIntoView({ behavior: prefersReducedMotion() ? 'auto' : 'smooth' });
     }
 }

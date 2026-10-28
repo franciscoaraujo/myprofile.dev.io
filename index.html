@@ -400,70 +400,101 @@
                     </div>
                 </div>
 
-                <!-- Right Column: Candidate Profile & Architecture Card -->
-                <div class="lg:col-span-5 space-y-4">
+                <!-- Right Column: OrionPay Interactive Payment Authorization Demo Preview -->
+                <div class="lg:col-span-5">
                     
-                    <!-- Candidate Identity Card -->
-                    <div class="relative rounded-2xl p-5 border border-slate-700/80 bg-gradient-to-br from-[#0B132B] via-[#080E1E] to-[#040711] shadow-2xl overflow-hidden">
-                        <div class="flex items-center justify-between">
-                            <div class="flex items-center gap-3">
-                                <div class="w-10 h-7 rounded card-chip relative border border-amber-600/40 p-1 flex flex-col justify-between" aria-hidden="true">
-                                    <div class="w-full h-0.5 bg-amber-800/60"></div>
-                                    <div class="w-1/2 h-0.5 bg-amber-800/60 mx-auto"></div>
-                                    <div class="w-full h-0.5 bg-amber-800/60"></div>
+                    <div id="hero-orionpay-card" class="rounded-2xl border border-[#152342] bg-[#060B17]/95 shadow-2xl overflow-hidden terminal-glow">
+                        <!-- Card Header (Phase 4: Explicit Simulation Identification) -->
+                        <div class="px-4 py-3 bg-[#03060E] border-b border-[#152342] flex flex-wrap items-center justify-between gap-2">
+                            <div class="flex items-center gap-2.5">
+                                <div class="w-8 h-8 rounded-lg bg-[#00D47E]/15 border border-[#00D47E]/40 flex items-center justify-center text-[#00D47E] shrink-0">
+                                    <i data-lucide="cpu" class="w-4 h-4"></i>
                                 </div>
-                                <span class="text-[10px] font-mono uppercase tracking-widest text-slate-400">Financial Systems IC</span>
+                                <div>
+                                    <div class="flex items-center gap-2">
+                                        <span class="text-xs font-mono font-black tracking-wider text-white">ORIONPAY</span>
+                                        <span id="hero-sim-status-pill" role="status" aria-live="polite" class="text-[10px] font-mono px-2 py-0.5 rounded bg-slate-800 text-slate-300 border border-slate-700 font-bold">
+                                            IDLE (0/7)
+                                        </span>
+                                    </div>
+                                    <div class="text-[11px] font-sans font-semibold text-cyan-300 leading-tight">
+                                        Payment Authorization Demo
+                                    </div>
+                                </div>
                             </div>
-                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 font-semibold">
-                                CONFIRMED PROFILE
+
+                            <span class="text-[9px] font-mono font-bold tracking-wider px-2 py-1 rounded bg-amber-950/90 text-amber-300 border border-amber-500/40 uppercase">
+                                SIMULATION · SYNTHETIC DATA
                             </span>
                         </div>
 
-                        <div class="mt-4 pt-2 flex items-center gap-4">
-                            <div class="w-12 h-12 rounded-xl p-[1px] bg-gradient-to-br from-cyan-400 to-[#00D47E] shrink-0 overflow-hidden shadow">
-                                <img src="assets/profile.jpg" alt="Francisco Araújo" class="w-full h-full object-cover object-top rounded-[11px]" onerror="this.onerror=null; this.src='https://github.com/franciscoaraujo.png';">
+                        <!-- Card Body: 7-Stage Pipeline, Active Stage Breakdown & Compact Local Trace -->
+                        <div class="p-4 space-y-3 bg-[#040711]/90">
+                            <!-- Subheader Context -->
+                            <div class="flex flex-wrap items-center justify-between gap-1 text-[10px] font-mono text-slate-400 border-b border-[#152342]/80 pb-2">
+                                <span>Local Client-Side Execution (No Live Network)</span>
+                                <span class="text-cyan-400">Select a stage or click Run Demo</span>
                             </div>
-                            <div class="flex-1 min-w-0">
-                                <div class="text-[10px] font-mono uppercase text-slate-400">Software Engineer</div>
-                                <div class="text-sm sm:text-base font-bold text-white tracking-wide truncate">FRANCISCO ARAÚJO</div>
-                                <div class="text-[11px] font-mono text-[#00D47E] truncate">SENIOR BACKEND &bull; JAVA &bull; PAYMENTS</div>
-                            </div>
-                            <div class="text-right font-mono text-[10px] text-slate-400 shrink-0">
-                                <div>LANG: EN &bull; PT &bull; FR</div>
-                                <div class="text-cyan-400 font-bold">13+ YRS EXP</div>
-                            </div>
-                        </div>
-                    </div>
 
-                    <!-- Architecture & Telemetry Card (Realistic Specification) -->
-                    <div class="rounded-2xl border border-[#152342] bg-[#060B17]/95 shadow-2xl overflow-hidden terminal-glow">
-                        <div class="px-4 py-3 bg-[#03060E] border-b border-[#152342] flex items-center justify-between">
-                            <div class="flex items-center gap-2">
-                                <span class="w-2.5 h-2.5 rounded-full bg-red-500/80"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-amber-500/80"></span>
-                                <span class="w-2.5 h-2.5 rounded-full bg-[#00D47E]"></span>
-                                <span class="text-xs font-mono text-slate-400 ml-1.5 flex items-center gap-1.5">
-                                    <i data-lucide="terminal" class="w-3.5 h-3.5 text-blue-400"></i>
-                                    switch-transaction-stream.log
-                                </span>
+                            <!-- 7 Interactive Stages List (Populated by simulator.js) -->
+                            <div id="hero-stages-list" class="grid grid-cols-1 sm:grid-cols-2 gap-1.5" role="region" aria-label="OrionPay Authorization Preview Stages">
+                                <!-- Populated dynamically by initHeroPreview() in simulator.js -->
                             </div>
-                            <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-blue-950 text-blue-300 border border-blue-800">
-                                SYNTHETIC PROTOCOL TRACE
-                            </span>
-                        </div>
 
-                        <!-- Technical Log Sample -->
-                        <div class="p-4 font-mono text-[11px] space-y-1.5 text-slate-300 bg-[#040711]/90">
-                            <div class="text-slate-500">// ISO 8583 Authorization Inbound Sequence</div>
-                            <div class="text-[#00D47E] flex justify-between">
-                                <span>&gt; ISO_MTI: 0100 [INBOUND_TERMINAL_CAPTURE]</span>
-                                <span class="text-cyan-400">TCP Socket</span>
+                            <!-- Selected / Active Stage Technical Explanation -->
+                            <div id="hero-stage-detail" aria-live="polite" class="p-3 rounded-xl bg-[#080E1E] border border-[#152342]">
+                                <!-- Populated dynamically by simulator.js -->
                             </div>
-                            <div class="text-slate-400">&gt; DE3_PROC_CODE: 000000 (Purchase Authorization)</div>
-                            <div class="text-slate-400">&gt; DE4_AMOUNT: 000000035000 (R$ 350.00 / BCD format)</div>
-                            <div class="text-amber-300">&gt; DE52_PINBLOCK: [C++ SoftHSM: TMK -&gt; ZPK Translation OK]</div>
-                            <div class="text-cyan-300">&gt; OUTBOUND_SCHEME: VisaNet Base I MTI 0110 Response: 00 (APPROVED)</div>
-                            <div class="text-[#00D47E]">&gt; TRANSACTIONAL_OUTBOX: Event queued for RabbitMQ CDC relay</div>
+
+                            <!-- Explicit Result Banner (Never displays approval before sequence completes) -->
+                            <div id="hero-result-banner" role="status" aria-live="polite" class="px-3 py-2 rounded-lg border border-[#152342] bg-[#040711] font-mono text-[11px] flex items-center justify-between gap-2">
+                                <span class="text-slate-400">RESULT: AWAITING EXECUTION</span>
+                                <span class="text-slate-500 text-[10px]">No authorization result generated yet</span>
+                            </div>
+
+                            <!-- Compact Synthetic Terminal Log -->
+                            <div class="rounded-xl border border-[#152342] bg-[#03060E] p-2.5 font-mono text-[10px]">
+                                <div class="flex items-center justify-between text-slate-500 pb-1.5 mb-1.5 border-b border-[#152342]/80">
+                                    <span class="flex items-center gap-1.5">
+                                        <span class="w-2 h-2 rounded-full bg-[#00D47E]/80"></span>
+                                        <span>orionpay-local-preview.log</span>
+                                    </span>
+                                    <span>SYNTHETIC TRACE</span>
+                                </div>
+                                <div id="hero-terminal-log" role="log" aria-live="polite" class="space-y-1 text-slate-300 max-h-[68px] overflow-y-auto">
+                                    <!-- Populated by simulator.js -->
+                                </div>
+                            </div>
+
+                            <!-- Functional Controls (Phase 6: Run Demo, Reset, Explore the payment flow) -->
+                            <div class="pt-1 flex flex-wrap items-center justify-between gap-2 border-t border-[#152342]">
+                                <div class="flex items-center gap-2">
+                                    <button type="button"
+                                            id="btn-hero-run"
+                                            onclick="runHeroPreviewDemo()"
+                                            aria-label="Run OrionPay Authorization Preview Demo"
+                                            class="px-3.5 py-2 rounded-xl bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-mono font-bold text-xs transition-all shadow-md shadow-emerald-500/10 active:scale-95 inline-flex items-center gap-1.5">
+                                        <i data-lucide="play" class="w-3.5 h-3.5"></i>
+                                        <span>Run Demo</span>
+                                    </button>
+
+                                    <button type="button"
+                                            id="btn-hero-reset"
+                                            onclick="resetHeroPreviewDemo()"
+                                            aria-label="Reset OrionPay Preview Demo"
+                                            class="px-3 py-2 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] hover:border-slate-600 text-slate-200 font-mono text-xs transition-all inline-flex items-center gap-1.5">
+                                        <i data-lucide="rotate-ccw" class="w-3.5 h-3.5"></i>
+                                        <span>Reset</span>
+                                    </button>
+                                </div>
+
+                                <a href="#simulator"
+                                   onclick="exploreFullSimulatorFlow()"
+                                   class="px-3 py-2 rounded-xl border border-cyan-500/40 bg-cyan-950/40 hover:bg-cyan-900/50 text-cyan-300 hover:text-white font-mono font-semibold text-xs transition-all inline-flex items-center gap-1.5">
+                                    <span>Explore the payment flow</span>
+                                    <i data-lucide="arrow-down-right" class="w-3.5 h-3.5"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
 
