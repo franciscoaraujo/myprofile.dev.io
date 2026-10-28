@@ -985,7 +985,10 @@ function selectScenario(scenarioId, autoRun = false) {
     const scenario = SIM_SCENARIOS[scenarioId];
     const summaryEl = document.getElementById('sim-scenario-summary');
     if (summaryEl) {
-        summaryEl.textContent = scenario.summaryBanner;
+        const isPt = window.currentLang === 'pt';
+        summaryEl.textContent = (isPt && window.SIM_PT_SUMMARIES && window.SIM_PT_SUMMARIES[scenarioId])
+            ? window.SIM_PT_SUMMARIES[scenarioId]
+            : scenario.summaryBanner;
     }
 
     renderStepCardsList();
@@ -1254,13 +1257,14 @@ function updateControlButtonsUI() {
 
     if (btnStep) {
         const labelSpan = btnStep.querySelector('.step-btn-label');
+        const isPt = window.currentLang === 'pt';
         if (labelSpan) {
             if (simState === 'RUNNING') {
-                labelSpan.textContent = 'Pause / Step';
+                labelSpan.textContent = isPt ? 'Pausar / Passo' : 'Pause / Step';
             } else if (simState === 'STEPPING' && currentStepIndex >= 0) {
-                labelSpan.textContent = 'Next Step';
+                labelSpan.textContent = isPt ? 'Próxima Etapa' : 'Next Step';
             } else {
-                labelSpan.textContent = 'Step Forward';
+                labelSpan.textContent = isPt ? 'Avançar Etapa' : 'Step Forward';
             }
         }
     }
@@ -1311,13 +1315,15 @@ function renderStepCardsList() {
             }
         }
 
+        const isPt = window.currentLang === 'pt';
+        const ptStep = (isPt && window.SIM_PT_STEPS && window.SIM_PT_STEPS[step.id]) ? window.SIM_PT_STEPS[step.id] : null;
         return `
             <button type="button"
                     onclick="renderStepInspector(${idx}, true)"
                     class="w-full text-left p-3 rounded-xl border ${cardBorder} hover:border-cyan-400/60 transition-all flex items-start justify-between gap-2.5 group">
                 <div class="min-w-0 flex-1">
                     <div class="flex items-center gap-2">
-                        <span class="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate">${step.title}</span>
+                        <span class="text-xs font-bold text-white group-hover:text-cyan-300 transition-colors truncate">${ptStep ? ptStep.title : step.title}</span>
                     </div>
                     <div class="text-[10px] font-mono text-slate-400 mt-1 flex flex-wrap items-center gap-1.5">
                         <span class="text-cyan-300">${step.component}</span>
@@ -1343,42 +1349,44 @@ function renderStepInspector(stepIdx, isExecutedOrSelected = false) {
     const scenario = SIM_SCENARIOS[activeScenarioId];
     if (!scenario || !scenario.steps[stepIdx]) return;
 
+    const isPt = window.currentLang === 'pt';
     const step = scenario.steps[stepIdx];
+    const ptStep = (isPt && window.SIM_PT_STEPS && window.SIM_PT_STEPS[step.id]) ? window.SIM_PT_STEPS[step.id] : null;
     const stateBadge = (stepIdx <= currentStepIndex)
-        ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-[#00D47E] border border-[#00D47E]/40">${step.badgeText || 'EXECUTED'}</span>`
-        : `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700">STAGE PREVIEW</span>`;
+        ? `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-emerald-950 text-[#00D47E] border border-[#00D47E]/40">${step.badgeText || (isPt ? 'EXECUTADO' : 'EXECUTED')}</span>`
+        : `<span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-slate-800 text-slate-300 border border-slate-700">${isPt ? 'PRÉVIA DA ETAPA' : 'STAGE PREVIEW'}</span>`;
 
     container.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#152342] pb-3">
             <div>
                 <div class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold">${scenario.badge} • ${step.mode}</div>
-                <h4 class="text-sm sm:text-base font-bold text-white mt-0.5">${step.title}</h4>
+                <h4 class="text-sm sm:text-base font-bold text-white mt-0.5">${ptStep ? ptStep.title : step.title}</h4>
             </div>
             ${stateBadge}
         </div>
 
         <div class="grid sm:grid-cols-2 gap-3 pt-1 text-xs">
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-[#00D47E] font-bold">What Happens</div>
-                <p class="text-slate-300 leading-relaxed">${step.what}</p>
+                <div class="text-[10px] font-mono uppercase text-[#00D47E] font-bold">${isPt ? 'O Que Acontece' : 'What Happens'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptStep ? ptStep.what : step.what}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-cyan-400 font-bold">Why This Stage Exists</div>
-                <p class="text-slate-300 leading-relaxed">${step.why}</p>
+                <div class="text-[10px] font-mono uppercase text-cyan-400 font-bold">${isPt ? 'Por Que Esta Etapa Existe' : 'Why This Stage Exists'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptStep ? ptStep.why : step.why}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-amber-400 font-bold">Technical Risk Mitigated</div>
-                <p class="text-slate-300 leading-relaxed">${step.risk}</p>
+                <div class="text-[10px] font-mono uppercase text-amber-400 font-bold">${isPt ? 'Risco Técnico Mitigado' : 'Technical Risk Mitigated'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptStep ? ptStep.risk : step.risk}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1 flex flex-col justify-between">
                 <div>
-                    <div class="text-[10px] font-mono uppercase text-purple-300 font-bold">Responsible Component &amp; Scope</div>
+                    <div class="text-[10px] font-mono uppercase text-purple-300 font-bold">${isPt ? 'Componente Responsável &amp; Escopo' : 'Responsible Component &amp; Scope'}</div>
                     <p class="text-white font-mono text-[11px] font-semibold mt-0.5">${step.component}</p>
-                    <p class="text-slate-400 text-[11px] mt-1">${step.scope}</p>
+                    <p class="text-slate-400 text-[11px] mt-1">${ptStep ? ptStep.scope : step.scope}</p>
                 </div>
                 <div class="pt-2 flex items-center justify-between border-t border-[#152342]/80 mt-2">
                     <a href="#projects" onclick="if(typeof switchOrionTab==='function'){switchOrionTab('${step.refTab || 'switch'}');}" class="text-[11px] font-mono font-bold text-[#00D47E] hover:underline inline-flex items-center gap-1">
-                        <span>View Architecture Case Study</span>
+                        <span>${isPt ? 'Ver Estudo de Caso da Arquitetura' : 'View Architecture Case Study'}</span>
                         <span>&rarr;</span>
                     </a>
                     <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/js/components/simulator.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
@@ -1398,6 +1406,9 @@ function inspectArchitectureNode(nodeId) {
     const container = document.getElementById('sim-step-detail-card');
     if (!meta || !container) return;
 
+    const isPt = window.currentLang === 'pt';
+    const ptNode = (isPt && window.SIM_PT_NODES && window.SIM_PT_NODES[nodeId]) ? window.SIM_PT_NODES[nodeId] : null;
+
     document.querySelectorAll('.arch-node').forEach(n => n.classList.remove('active-node'));
     const nodeEl = document.getElementById(nodeId);
     if (nodeEl) nodeEl.classList.add('active-node');
@@ -1405,34 +1416,34 @@ function inspectArchitectureNode(nodeId) {
     container.innerHTML = `
         <div class="flex flex-wrap items-center justify-between gap-2 border-b border-[#152342] pb-3">
             <div>
-                <div class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold">COMPONENT INSPECTOR • ${meta.phase}</div>
-                <h4 class="text-sm sm:text-base font-bold text-white mt-0.5">${meta.name}</h4>
+                <div class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold">${isPt ? 'INSPETOR DE COMPONENTE' : 'COMPONENT INSPECTOR'} • ${meta.phase}</div>
+                <h4 class="text-sm sm:text-base font-bold text-white mt-0.5">${ptNode ? ptNode.name : meta.name}</h4>
             </div>
-            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300 border border-blue-500/40">NODE SELECTED</span>
+            <span class="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-blue-950 text-blue-300 border border-blue-500/40">${isPt ? 'NÓ SELECIONADO' : 'NODE SELECTED'}</span>
         </div>
 
         <div class="grid sm:grid-cols-2 gap-3 pt-1 text-xs">
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-[#00D47E] font-bold">What Happens</div>
-                <p class="text-slate-300 leading-relaxed">${meta.what}</p>
+                <div class="text-[10px] font-mono uppercase text-[#00D47E] font-bold">${isPt ? 'O Que Acontece' : 'What Happens'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptNode ? ptNode.what : meta.what}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-cyan-400 font-bold">Why It Exists</div>
-                <p class="text-slate-300 leading-relaxed">${meta.why}</p>
+                <div class="text-[10px] font-mono uppercase text-cyan-400 font-bold">${isPt ? 'Por Que Existe' : 'Why It Exists'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptNode ? ptNode.why : meta.why}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1">
-                <div class="text-[10px] font-mono uppercase text-amber-400 font-bold">Technical Risk Mitigated</div>
-                <p class="text-slate-300 leading-relaxed">${meta.risk}</p>
+                <div class="text-[10px] font-mono uppercase text-amber-400 font-bold">${isPt ? 'Risco Técnico Mitigado' : 'Technical Risk Mitigated'}</div>
+                <p class="text-slate-300 leading-relaxed">${ptNode ? ptNode.risk : meta.risk}</p>
             </div>
             <div class="p-3 rounded-xl bg-[#040711] border border-[#152342] space-y-1 flex flex-col justify-between">
                 <div>
-                    <div class="text-[10px] font-mono uppercase text-purple-300 font-bold">Responsible Module &amp; Simulation Scope</div>
+                    <div class="text-[10px] font-mono uppercase text-purple-300 font-bold">${isPt ? 'Módulo Responsável &amp; Escopo' : 'Responsible Module &amp; Simulation Scope'}</div>
                     <p class="text-white font-mono text-[11px] font-semibold mt-0.5">${meta.component}</p>
-                    <p class="text-slate-400 text-[11px] mt-1">${meta.scope}</p>
+                    <p class="text-slate-400 text-[11px] mt-1">${ptNode ? ptNode.scope : meta.scope}</p>
                 </div>
                 <div class="pt-2 flex items-center justify-between border-t border-[#152342]/80 mt-2">
                     <a href="${meta.refLink}" onclick="if(typeof switchOrionTab==='function'){switchOrionTab('${meta.refTab}');}" class="text-[11px] font-mono font-bold text-[#00D47E] hover:underline inline-flex items-center gap-1">
-                        <span>${meta.refLabel}</span>
+                        <span>${isPt ? 'Inspecionar Estudo de Caso' : meta.refLabel}</span>
                         <span>&rarr;</span>
                     </a>
                     <a href="https://github.com/franciscoaraujo/myprofile.dev.io/blob/master/js/data/orion-data.js" target="_blank" rel="noopener noreferrer" class="text-[10px] font-mono text-slate-400 hover:text-white underline">
@@ -1452,10 +1463,11 @@ function renderSimulatedStorageTables() {
     const tbodyTx = document.getElementById('sim-table-tx');
     const tbodyOutbox = document.getElementById('sim-table-outbox');
     const tbodyConsumer = document.getElementById('sim-table-consumer');
+    const isPt = window.currentLang === 'pt';
 
     if (tbodyIdem) {
         tbodyIdem.innerHTML = simulatedStorage.idempotencyKeys.length === 0
-            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">No idempotency keys recorded in current scenario state.</td></tr>`
+            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">${isPt ? 'Nenhuma chave de idempotência registrada no estado atual.' : 'No idempotency keys recorded in current scenario state.'}</td></tr>`
             : simulatedStorage.idempotencyKeys.map(r => `
                 <tr class="border-t border-[#152342]/60">
                     <td class="py-1.5 px-2.5 text-cyan-300 font-bold">${r.key}</td>
@@ -1468,7 +1480,7 @@ function renderSimulatedStorageTables() {
 
     if (tbodyTx) {
         tbodyTx.innerHTML = simulatedStorage.transactions.length === 0
-            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">No persisted transactions yet.</td></tr>`
+            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">${isPt ? 'Nenhuma transação persistida ainda.' : 'No persisted transactions yet.'}</td></tr>`
             : simulatedStorage.transactions.map(t => `
                 <tr class="border-t border-[#152342]/60">
                     <td class="py-1.5 px-2.5 text-white font-bold">${t.txId}</td>
@@ -1481,7 +1493,7 @@ function renderSimulatedStorageTables() {
 
     if (tbodyOutbox) {
         tbodyOutbox.innerHTML = simulatedStorage.outboxEvents.length === 0
-            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">Outbox table empty (0 events).</td></tr>`
+            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">${isPt ? 'Tabela Outbox vazia (0 eventos).' : 'Outbox table empty (0 events).'}</td></tr>`
             : simulatedStorage.outboxEvents.map(o => {
                 const statusColor = o.status.includes('FAILED')
                     ? 'text-red-400'
@@ -1499,7 +1511,7 @@ function renderSimulatedStorageTables() {
 
     if (tbodyConsumer) {
         tbodyConsumer.innerHTML = simulatedStorage.consumerLedger.length === 0
-            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">No consumer events processed yet.</td></tr>`
+            ? `<tr><td colspan="4" class="py-2 px-2.5 text-slate-500 italic">${isPt ? 'Nenhum evento processado pelo consumidor ainda.' : 'No consumer events processed yet.'}</td></tr>`
             : simulatedStorage.consumerLedger.map(c => `
                 <tr class="border-t border-[#152342]/60">
                     <td class="py-1.5 px-2.5 text-emerald-300 font-bold">${c.eventId}</td>
@@ -1916,9 +1928,22 @@ function renderHeroPreviewUI(inspectedIndex = null) {
         `;
     }).join('');
 
+    const isPt = window.currentLang === 'pt';
+
     if (activeDetail) {
         if (heroCurrentStage === -1 && inspectedIndex === null) {
-            activeDetail.innerHTML = `
+            activeDetail.innerHTML = isPt ? `
+                <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
+                    <span class="text-cyan-300 font-bold">INSPETOR DE ETAPA (PRONTO)</span>
+                    <span>MÁQUINA DE ESTADOS LOCAL</span>
+                </div>
+                <p class="text-xs text-slate-200 mt-1 leading-relaxed">
+                    Clique em <strong class="text-[#00D47E]">"Executar Demo"</strong> para rodar as 7 etapas sintéticas de autorização, ou selecione qualquer etapa acima para inspecionar seu papel técnico.
+                </p>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">
+                    Payload pronto: <code class="text-cyan-300">BRL 84.50</code> &bull; <code class="text-cyan-300">idem-a104-9c82</code> &bull; <code class="text-cyan-300">tok_synth_4091</code> (Dados sintéticos não sensíveis).
+                </p>
+            ` : `
                 <div class="flex items-center justify-between text-[10px] font-mono text-slate-400">
                     <span class="text-cyan-300 font-bold">STAGE INSPECTOR (READY)</span>
                     <span>LOCAL BROWSER STATE MACHINE</span>
@@ -1932,14 +1957,17 @@ function renderHeroPreviewUI(inspectedIndex = null) {
             `;
         } else {
             const stg = HERO_PREVIEW_STAGES[focusIdx] || HERO_PREVIEW_STAGES[0];
-            const modeLabel = (focusIdx <= heroCurrentStage) ? 'EXECUTED IN LOCAL SIM' : 'STAGE PREVIEW';
+            const ptHero = (isPt && window.HERO_PT_STAGES && window.HERO_PT_STAGES[focusIdx]) ? window.HERO_PT_STAGES[focusIdx] : null;
+            const modeLabel = (focusIdx <= heroCurrentStage)
+                ? (isPt ? 'EXECUTADO NA SIMULAÇÃO LOCAL' : 'EXECUTED IN LOCAL SIM')
+                : (isPt ? 'PRÉVIA DA ETAPA' : 'STAGE PREVIEW');
             activeDetail.innerHTML = `
                 <div class="flex items-center justify-between text-[10px] font-mono">
                     <span class="text-[#00D47E] font-bold">${stg.num}. ${stg.code}</span>
                     <span class="text-slate-400">${modeLabel}</span>
                 </div>
-                <p class="text-xs text-slate-200 mt-1 leading-relaxed">${stg.summary}</p>
-                <p class="text-[11px] text-slate-400 mt-1 leading-snug">${stg.detail}</p>
+                <p class="text-xs text-slate-200 mt-1 leading-relaxed">${ptHero ? ptHero.summary : stg.summary}</p>
+                <p class="text-[11px] text-slate-400 mt-1 leading-snug">${ptHero ? ptHero.detail : stg.detail}</p>
             `;
         }
     }
@@ -1950,21 +1978,21 @@ function renderHeroPreviewUI(inspectedIndex = null) {
             resultBanner.innerHTML = `
                 <span class="text-[#00D47E] font-bold flex items-center gap-1.5">
                     <span class="w-2 h-2 rounded-full bg-[#00D47E]"></span>
-                    RESULT: SIMULATED APPROVAL (TX-9041A)
+                    ${isPt ? 'RESULTADO: APROVAÇÃO SIMULADA (TX-9041A)' : 'RESULT: SIMULATED APPROVAL (TX-9041A)'}
                 </span>
-                <span class="text-slate-300 text-[10px]">Outbox EVT-501 Relayed &amp; Consumed</span>
+                <span class="text-slate-300 text-[10px]">${isPt ? 'Outbox EVT-501 Publicado &amp; Consumido' : 'Outbox EVT-501 Relayed &amp; Consumed'}</span>
             `;
         } else if (heroPreviewState === 'RUNNING') {
             resultBanner.className = 'px-3 py-2 rounded-lg border border-cyan-500/40 bg-cyan-950/30 font-mono text-[11px] flex items-center justify-between gap-2';
             resultBanner.innerHTML = `
-                <span class="text-cyan-300 font-bold">EXECUTING STAGE ${heroCurrentStage + 1} OF 7...</span>
-                <span class="text-slate-400 text-[10px]">Pending completion</span>
+                <span class="text-cyan-300 font-bold">${isPt ? `EXECUTANDO ETAPA ${heroCurrentStage + 1} DE 7...` : `EXECUTING STAGE ${heroCurrentStage + 1} OF 7...`}</span>
+                <span class="text-slate-400 text-[10px]">${isPt ? 'Aguardando conclusão' : 'Pending completion'}</span>
             `;
         } else {
             resultBanner.className = 'px-3 py-2 rounded-lg border border-[#152342] bg-[#040711] font-mono text-[11px] flex items-center justify-between gap-2';
             resultBanner.innerHTML = `
-                <span class="text-slate-400">RESULT: AWAITING EXECUTION</span>
-                <span class="text-slate-500 text-[10px]">No authorization result generated yet</span>
+                <span class="text-slate-400">${isPt ? 'RESULTADO: AGUARDANDO EXECUÇÃO' : 'RESULT: AWAITING EXECUTION'}</span>
+                <span class="text-slate-500 text-[10px]">${isPt ? 'Nenhum resultado gerado ainda' : 'No authorization result generated yet'}</span>
             `;
         }
     }

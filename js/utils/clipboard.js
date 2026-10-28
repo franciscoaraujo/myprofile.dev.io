@@ -21,12 +21,16 @@ function copyEmail() {
     }
 }
 
-function showToast(message = "Email copied to clipboard!") {
+function showToast(message) {
+    const defaultMsg = window.currentLang === 'pt'
+        ? "E-mail copiado para a área de transferência!"
+        : "Email copied to clipboard!";
+    const finalMessage = message || defaultMsg;
     const toast = document.getElementById('toast');
     const msgSpan = document.getElementById('toast-message');
     if (!toast || !msgSpan) return;
 
-    msgSpan.textContent = message;
+    msgSpan.textContent = finalMessage;
     toast.classList.remove('translate-y-24', 'opacity-0');
     toast.classList.add('translate-y-0', 'opacity-100');
 

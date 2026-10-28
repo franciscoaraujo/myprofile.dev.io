@@ -5,6 +5,8 @@
 
 function filterSkills(category) {
     if (typeof skillList === 'undefined') return;
+    window.activeSkillCategory = category;
+    const isPt = window.currentLang === 'pt';
 
     const buttons = document.querySelectorAll('#skill-filter-buttons .skill-btn');
     buttons.forEach(btn => {
@@ -33,7 +35,7 @@ function filterSkills(category) {
                 </div>
                 <h4 class="text-xs font-bold text-white group-hover:text-emerald-300 transition-colors">${skill.name}</h4>
             </div>
-            <p class="text-[10px] text-slate-400 mt-2 font-mono leading-tight">${skill.desc}</p>
+            <p class="text-[10px] text-slate-400 mt-2 font-mono leading-tight">${isPt && skill.descPt ? skill.descPt : skill.desc}</p>
         </div>
     `).join('');
 

@@ -17,7 +17,7 @@ function setTheme(mode) {
         if (sunIcon) sunIcon.classList.remove('hidden');
         if (moonIcon) moonIcon.classList.add('hidden');
         if (themeText) {
-            themeText.textContent = 'Light';
+            themeText.textContent = window.currentLang === 'pt' ? 'Claro' : 'Light';
             themeText.classList.remove('text-slate-300');
             themeText.classList.add('text-slate-800');
         }
@@ -28,7 +28,7 @@ function setTheme(mode) {
         if (sunIcon) sunIcon.classList.add('hidden');
         if (moonIcon) moonIcon.classList.remove('hidden');
         if (themeText) {
-            themeText.textContent = 'Dark';
+            themeText.textContent = window.currentLang === 'pt' ? 'Escuro' : 'Dark';
             themeText.classList.add('text-slate-300');
             themeText.classList.remove('text-slate-800');
         }

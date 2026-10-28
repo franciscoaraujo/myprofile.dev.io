@@ -249,6 +249,12 @@
 
             <!-- Actions & CTAs -->
             <div class="flex items-center gap-2 sm:gap-2.5 shrink-0">
+                <!-- Language Toggle Switch (EN / PT) -->
+                <button onclick="toggleLanguage()" id="lang-toggle" class="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#152342] bg-[#080E1E] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer" title="Switch language to Portuguese (PT-BR)" aria-label="Switch Language (EN / PT)">
+                    <i data-lucide="globe" class="w-3.5 h-3.5 text-[#00D47E]"></i>
+                    <span id="lang-text" class="text-[11px] font-bold text-slate-200">EN</span>
+                </button>
+
                 <!-- Theme Toggle Switch -->
                 <button onclick="toggleTheme()" id="theme-toggle" class="relative inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#152342] bg-[#080E1E] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer" title="Toggle Dark / Light Theme" aria-label="Toggle Theme">
                     <div class="relative w-7 h-3.5 rounded-full bg-[#152342] dark:bg-[#152342] border border-[#1E325E] flex items-center p-0.5">
@@ -1618,6 +1624,7 @@
     <script src="js/data/skills-data.js"></script>
 
     <!-- Utilities -->
+    <script src="js/utils/i18n.js"></script>
     <script src="js/utils/theme.js"></script>
     <script src="js/utils/clipboard.js"></script>
 

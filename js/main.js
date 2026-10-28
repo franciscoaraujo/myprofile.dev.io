@@ -19,7 +19,12 @@ window.addEventListener('DOMContentLoaded', () => {
         filterSkills('all');
     }
 
-    // 4. Render Icons via Lucide
+    // 4. Initialize Language (EN by default or restore PT/EN from localStorage)
+    if (typeof initLanguage === 'function') {
+        initLanguage();
+    }
+
+    // 5. Render Icons via Lucide
     if (window.lucide && typeof lucide.createIcons === 'function') {
         lucide.createIcons();
     }

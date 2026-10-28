@@ -5,7 +5,11 @@
 
 function switchOrionTab(tabKey) {
     if (typeof orionData === 'undefined' || !orionData[tabKey]) return;
-    const data = orionData[tabKey];
+    window.activeOrionTab = tabKey;
+    const isPt = window.currentLang === 'pt';
+    const data = (isPt && typeof orionDataPt !== 'undefined' && orionDataPt[tabKey])
+        ? orionDataPt[tabKey]
+        : orionData[tabKey];
 
     // Update Tab Button States
     document.querySelectorAll('.orion-tab-btn').forEach(btn => {
@@ -52,7 +56,7 @@ function switchOrionTab(tabKey) {
         <!-- Problem Statement -->
         <div class="p-3.5 rounded-xl bg-[#0B132B]/40 border border-blue-900/40 space-y-1">
             <div class="text-[10px] font-mono uppercase tracking-wider text-cyan-400 font-bold flex items-center gap-1.5">
-                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> The Engineering Problem
+                <i data-lucide="alert-circle" class="w-3.5 h-3.5"></i> ${isPt ? 'O Problema de Engenharia' : 'The Engineering Problem'}
             </div>
             <p class="text-xs text-slate-300 leading-relaxed">${data.problem}</p>
         </div>
@@ -64,7 +68,7 @@ function switchOrionTab(tabKey) {
 
         <!-- Sequential Pipeline -->
         <div class="p-3.5 rounded-xl bg-[#040711] border border-[#152342]">
-            <div class="text-[10px] uppercase font-mono text-slate-500 mb-2 font-semibold">Execution Pipeline:</div>
+            <div class="text-[10px] uppercase font-mono text-slate-500 mb-2 font-semibold">${isPt ? 'Pipeline de Execução:' : 'Execution Pipeline:'}</div>
             <div class="flex flex-wrap items-center gap-2">
                 ${flowHtml}
             </div>
@@ -72,7 +76,7 @@ function switchOrionTab(tabKey) {
 
         <!-- Architectural Decisions -->
         <div class="space-y-2.5 pt-1">
-            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">Key Architectural Decisions &amp; Failure Recovery:</div>
+            <div class="text-xs font-mono uppercase text-slate-400 font-semibold">${isPt ? 'Decisões Arquiteturais &amp; Recuperação de Falhas:' : 'Key Architectural Decisions &amp; Failure Recovery:'}</div>
             <div class="space-y-2">
                 ${decisionsHtml}
             </div>
@@ -81,13 +85,13 @@ function switchOrionTab(tabKey) {
         <!-- Known Limitations & Scope -->
         <div class="p-3 rounded-xl bg-[#060B17] border border-amber-900/30 text-xs space-y-1">
             <div class="text-[10px] font-mono uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
-                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> Test Scope &amp; Engineering Constraints
+                <i data-lucide="shield-alert" class="w-3.5 h-3.5"></i> ${isPt ? 'Escopo de Testes &amp; Restrições de Engenharia' : 'Test Scope &amp; Engineering Constraints'}
             </div>
             <p class="text-[11px] text-slate-400 leading-relaxed">${data.limitations}</p>
         </div>
     `;
 
-    if (window.lucide && typeof lucide.createIcons === 'function') {
-        lucide.createIcons();
+    if (window.lucide && typeof window.lucide.createIcons === 'function') {
+        window.lucide.createIcons();
     }
 }
