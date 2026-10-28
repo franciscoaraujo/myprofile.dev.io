@@ -14,7 +14,7 @@ export default function Settlement({ subtitle = 'Cálculo Real-Time' }) {
     >
       <i
         id="mdr-engine-icon"
-        className="fa-solid fa-gear absolute -top-3 -right-3 text-gray-600 text-2xl transition-all duration-300 bg-gray-900 rounded-full"
+        className="fa-solid fa-gear absolute -top-3 -right-3 text-gray-600 text-2xl transition-all duration-300 bg-gray-900 rounded-full shadow-sm"
       ></i>
     </BaseNode>
   );

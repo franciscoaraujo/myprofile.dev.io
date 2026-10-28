@@ -44,8 +44,8 @@ export default function Navbar() {
           </div>
         </Link>
 
-        {/* Executive Desktop Navigation */}
-        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 xl:gap-2 text-xs font-mono text-slate-300">
+        {/* Executive Desktop Navigation (M3 Pill Active Indicators) */}
+        <nav aria-label="Main Navigation" className="hidden lg:flex items-center gap-1 xl:gap-1.5 text-xs font-mono text-slate-300">
           {navLinks.map((item) => {
             const isActive = pathname === item.href;
             if (item.isHighlight) {
@@ -53,9 +53,9 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3 py-1.5 rounded-lg transition-all flex items-center gap-1.5 whitespace-nowrap font-semibold border ${
+                  className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 whitespace-nowrap font-semibold border ${
                     isActive
-                      ? 'bg-cyan-500/20 text-white border-cyan-400 shadow-md shadow-cyan-950/50'
+                      ? 'bg-cyan-500/20 text-white border-cyan-400 shadow-sm'
                       : 'text-cyan-300 hover:text-cyan-200 hover:bg-cyan-950/40 border-cyan-500/20'
                   }`}
                 >
@@ -69,9 +69,9 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3 py-1.5 rounded-lg transition-all whitespace-nowrap ${
+                className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap ${
                   isActive
-                    ? 'bg-[#081229] text-[#00D47E] border border-[#00D47E]/40 font-bold'
+                    ? 'bg-[#081229] text-[#00D47E] border border-[#00D47E]/40 font-bold shadow-sm'
                     : 'hover:text-white hover:bg-slate-800/60'
                 }`}
               >
@@ -81,14 +81,14 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Actions & CTAs */}
+        {/* Actions & CTAs (M3 Pill Chips & Filled Buttons) */}
         <div className="flex items-center gap-2 sm:gap-2.5 shrink-0">
           {/* Language Toggle Switch (EN / PT) */}
           <button
             type="button"
             onClick={toggleLanguage}
             id="lang-toggle"
-            className="relative inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-lg border border-[#152342] bg-[#080E1E] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
+            className="relative inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
             title={isPt ? 'Alternar idioma para Inglês (EN)' : 'Switch language to Portuguese (PT-BR)'}
             aria-label="Switch Language (EN / PT)"
           >
@@ -98,16 +98,16 @@ export default function Navbar() {
             </span>
           </button>
 
-          {/* Theme Toggle Switch */}
+          {/* Theme Toggle Switch (M3 Switch Track & Thumb) */}
           <button
             type="button"
             onClick={toggleTheme}
             id="theme-toggle"
-            className="relative inline-flex items-center gap-2 px-2.5 py-1.5 rounded-lg border border-[#152342] bg-[#080E1E] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
+            className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
             title="Toggle Dark / Light Theme"
             aria-label="Toggle Theme"
           >
-            <div className="relative w-7 h-3.5 rounded-full bg-[#152342] border border-[#1E325E] flex items-center p-0.5">
+            <div className="relative w-7 h-3.5 rounded-full bg-[#111622] border border-[#384152] flex items-center p-0.5">
               <div
                 className={`w-2.5 h-2.5 rounded-full transition-transform duration-300 ${
                   theme === 'light' ? 'translate-x-3.5 bg-amber-500' : 'translate-x-0 bg-[#00D47E]'
@@ -131,16 +131,16 @@ export default function Navbar() {
             type="button"
             onClick={() => window.print()}
             title="Print / Export Engineering CV"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] hover:border-slate-600 text-xs font-mono text-slate-300 transition-all whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-500 text-xs font-mono text-slate-300 transition-all whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5 text-slate-400" />
             <span>{isPt ? 'Currículo (PDF)' : 'Resume (PDF)'}</span>
           </button>
 
-          {/* Contact CTA */}
+          {/* Contact CTA (M3 Primary Filled Pill Button) */}
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-3.5 py-2 rounded-lg bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-lg shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
+            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-md shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
           >
             <Mail className="w-3.5 h-3.5" />
             <span>{isPt ? 'Entrar em Contato' : 'Get in Touch'}</span>
@@ -151,7 +151,7 @@ export default function Navbar() {
       {/* Mobile & Tablet Page Navigation Bar */}
       <nav
         aria-label="Mobile Navigation"
-        className="lg:hidden border-t border-[#152342]/80 bg-[#060B17]/95 px-4 py-2 flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono"
+        className="lg:hidden border-t border-[#384152]/80 bg-[#151B28]/95 px-4 py-2 flex items-center gap-1.5 overflow-x-auto text-[11px] font-mono"
       >
         {navLinks.map((item) => {
           const isActive = pathname === item.href;
@@ -159,10 +159,10 @@ export default function Navbar() {
             <Link
               key={item.href}
               href={item.href}
-              className={`px-2.5 py-1 rounded-lg whitespace-nowrap transition-all ${
+              className={`px-3 py-1 rounded-full whitespace-nowrap transition-all ${
                 isActive
                   ? 'bg-[#00D47E]/15 text-[#00D47E] border border-[#00D47E]/40 font-bold'
-                  : 'text-slate-300 hover:text-white bg-[#080E1E]/60 border border-[#152342]'
+                  : 'text-slate-300 hover:text-white bg-[#1A2130] border border-[#384152]'
               }`}
             >
               {isPt ? item.labelPt : item.labelEn}

@@ -14,7 +14,7 @@ export default function RabbitMQ({ queueCount = 0, subtitle = 'Fila de Eventos' 
     >
       <i
         id="rmq-clock-icon"
-        className="fa-solid fa-clock absolute -top-3 -right-3 text-2xl opacity-0 transition-all duration-300 bg-gray-900 rounded-full"
+        className="fa-solid fa-clock absolute -top-3 -right-3 text-2xl opacity-0 transition-all duration-300 bg-gray-900 rounded-full shadow-sm"
       ></i>
 
       {queueCount > 0 && (

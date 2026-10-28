@@ -3,358 +3,586 @@
 @tailwind utilities;
 
 /* ========================================================
-   INSTITUTIONAL FINTECH DESIGN SYSTEM & GLOBAL STYLES
+   MATERIAL DESIGN 3 (M3) COLOR TOKENS & FINTECH SYSTEM
+   Reference: https://m3.material.io/components
    Francisco Araújo | Senior Backend Engineer
    ======================================================== */
 
+:root,
+html.dark {
+    /* M3 Dark Scheme Tokens (Material Design 3 Dark Tonal Hierarchy) */
+    --md-sys-color-background: #0B0F17;
+    --md-sys-color-on-background: #E2E8F0;
+    --md-sys-color-surface: #111622;
+    --md-sys-color-surface-dim: #0B0F17;
+    --md-sys-color-surface-bright: #2C3446;
+    --md-sys-color-surface-container-lowest: #070A10;
+    --md-sys-color-surface-container-low: #151B28;
+    --md-sys-color-surface-container: #1A2130;
+    --md-sys-color-surface-container-high: #232B3D;
+    --md-sys-color-surface-container-highest: #2E374D;
+    --md-sys-color-on-surface: #E2E8F0;
+    --md-sys-color-on-surface-variant: #C4C6D0;
+    --md-sys-color-outline: #8E9099;
+    --md-sys-color-outline-variant: #384152;
+
+    /* Primary / Secondary / Tertiary Roles (M3 Dark Tone 80 / Container Tone 30) */
+    --md-sys-color-primary: #4ADE80;
+    --md-sys-color-on-primary: #00391F;
+    --md-sys-color-primary-container: #064E3B;
+    --md-sys-color-on-primary-container: #A7F3D0;
+
+    --md-sys-color-secondary: #38BDF8;
+    --md-sys-color-on-secondary: #003549;
+    --md-sys-color-secondary-container: #0C4A6E;
+    --md-sys-color-on-secondary-container: #BAE6FD;
+
+    --md-sys-color-tertiary: #A5B4FC;
+    --md-sys-color-on-tertiary: #1E1B4B;
+    --md-sys-color-tertiary-container: #312E81;
+    --md-sys-color-on-tertiary-container: #E0E7FF;
+
+    /* M3 Elevation Shadows (Dark with Tonal Surface Tint) */
+    --md-sys-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.55);
+    --md-sys-elevation-2: 0 4px 12px -1px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(56, 189, 248, 0.07);
+    --md-sys-elevation-3: 0 12px 28px -4px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(99, 102, 241, 0.1);
+}
+
+html:not(.dark) {
+    /* M3 Light Scheme Tokens (Material 3 Tonal Surfaces) */
+    --md-sys-color-background: #F7F9FC;
+    --md-sys-color-on-background: #191C20;
+    --md-sys-color-surface: #FFFFFF;
+    --md-sys-color-surface-dim: #D8DAE0;
+    --md-sys-color-surface-bright: #FFFFFF;
+    --md-sys-color-surface-container-lowest: #FFFFFF;
+    --md-sys-color-surface-container-low: #F1F5F9;
+    --md-sys-color-surface-container: #EBF0F7;
+    --md-sys-color-surface-container-high: #E2E8F0;
+    --md-sys-color-surface-container-highest: #CBD5E1;
+    --md-sys-color-on-surface: #0F172A;
+    --md-sys-color-on-surface-variant: #44474E;
+    --md-sys-color-outline: #74777F;
+    --md-sys-color-outline-variant: #CBD5E1;
+
+    /* Primary / Secondary / Tertiary Roles (Light - High Contrast WCAG AA/AAA) */
+    --md-sys-color-primary: #006C4C;
+    --md-sys-color-on-primary: #FFFFFF;
+    --md-sys-color-primary-container: #CCFBF1;
+    --md-sys-color-on-primary-container: #002114;
+
+    --md-sys-color-secondary: #006399;
+    --md-sys-color-on-secondary: #FFFFFF;
+    --md-sys-color-secondary-container: #E0F2FE;
+    --md-sys-color-on-secondary-container: #001D32;
+
+    --md-sys-color-tertiary: #4338CA;
+    --md-sys-color-on-tertiary: #FFFFFF;
+    --md-sys-color-tertiary-container: #E0E7FF;
+    --md-sys-color-on-tertiary-container: #1E1B4B;
+
+    /* M3 Elevation Shadows (Light) */
+    --md-sys-elevation-1: 0 1px 2px 0 rgba(15, 23, 42, 0.06), 0 1px 3px 1px rgba(15, 23, 42, 0.08);
+    --md-sys-elevation-2: 0 4px 12px -1px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.05);
+    --md-sys-elevation-3: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+}
+
 ::-webkit-scrollbar {
     width: 7px;
+    height: 7px;
 }
 ::-webkit-scrollbar-track {
-    background: #040711;
+    background: var(--md-sys-color-background);
 }
 ::-webkit-scrollbar-thumb {
-    background: #152342;
-    border-radius: 4px;
+    background: var(--md-sys-color-outline-variant);
+    border-radius: 9999px;
 }
 ::-webkit-scrollbar-thumb:hover {
-    background: #2563EB;
+    background: var(--md-sys-color-secondary);
 }
 
-/* Banking Grid Pattern */
+/* M3 Surface & Grid Background */
 .fintech-grid {
-    background-color: #040711;
-    background-image: 
-        linear-gradient(rgba(21, 35, 66, 0.4) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(21, 35, 66, 0.4) 1px, transparent 1px);
+    background-color: var(--md-sys-color-background);
+    background-image:
+        linear-gradient(rgba(56, 65, 82, 0.25) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 65, 82, 0.25) 1px, transparent 1px);
     background-size: 40px 40px;
     background-position: -1px -1px;
-    transition: background-color 0.3s ease;
+    transition: background-color 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
-/* Mesh lighting for corporate depth */
 .radial-mesh {
-    background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.14) 0%, transparent 60%),
-                radial-gradient(circle at 85% 30%, rgba(0, 212, 126, 0.08) 0%, transparent 45%),
-                radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.06) 0%, transparent 40%);
+    background:
+        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
+        radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 40%);
 }
 
-/* Metallic Sheen Border */
+/* M3 Elevated & Outlined Card Surface (.glass-metal) */
 .glass-metal {
-    background: linear-gradient(135deg, rgba(13, 23, 47, 0.85) 0%, rgba(8, 14, 30, 0.95) 100%);
+    background: linear-gradient(145deg, var(--md-sys-color-surface-container) 0%, var(--md-sys-color-surface-container-low) 100%);
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(30, 50, 94, 0.8);
-    transition: background 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+    border: 1px solid var(--md-sys-color-outline-variant);
+    box-shadow: var(--md-sys-elevation-1);
+    border-radius: 24px;
+    transition: background 0.25s cubic-bezier(0.2, 0, 0, 1),
+                border-color 0.25s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1),
+                transform 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .glass-metal:hover {
-    border-color: rgba(56, 189, 248, 0.4);
-    box-shadow: 0 10px 30px -10px rgba(0, 212, 126, 0.1);
+    background: linear-gradient(145deg, var(--md-sys-color-surface-container-high) 0%, var(--md-sys-color-surface-container) 100%);
+    border-color: rgba(56, 189, 248, 0.5);
+    box-shadow: var(--md-sys-elevation-2);
 }
 
-/* Code/Terminal syntax styling */
 .terminal-glow {
-    box-shadow: 0 0 35px -5px rgba(0, 212, 126, 0.15), 0 0 15px -3px rgba(37, 99, 235, 0.2);
+    box-shadow: var(--md-sys-elevation-3);
 }
 
 /* ========================================================
-   LIGHT MODE (INSTITUTIONAL STRIPE / BLOOMBERG WHITE THEME)
+   MATERIAL DESIGN 3 (M3) DARK THEME SURFACE MAPPINGS
+   Unifies legacy hex classes into M3 Dark Surface Containers
    ======================================================== */
-html:not(.dark) body {
-    background-color: #F8FAFC !important;
-    color: #0F172A !important;
+html.dark body {
+    background-color: var(--md-sys-color-background);
+    color: var(--md-sys-color-on-surface);
 }
 
-html:not(.dark) ::-webkit-scrollbar-track {
-    background: #F1F5F9;
+html.dark header {
+    background-color: rgba(21, 27, 40, 0.92) !important;
+    border-bottom-color: var(--md-sys-color-outline-variant) !important;
+    box-shadow: var(--md-sys-elevation-1);
 }
-html:not(.dark) ::-webkit-scrollbar-thumb {
-    background: #CBD5E1;
+
+html.dark .bg-\[\#080E1E\],
+html.dark .bg-\[\#080E1E\]\/80,
+html.dark .bg-\[\#080E1E\]\/85,
+html.dark .bg-\[\#080E1E\]\/50,
+html.dark .bg-\[\#080E1E\]\/60,
+html.dark .bg-\[\#080E1E\]\/90 {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
 }
-html:not(.dark) ::-webkit-scrollbar-thumb:hover {
-    background: #94A3B8;
+
+html.dark .bg-\[\#040711\],
+html.dark .bg-\[\#03060E\],
+html.dark .bg-\[\#020409\] {
+    background-color: var(--md-sys-color-surface-container-lowest) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+}
+
+html.dark .bg-\[\#060B17\],
+html.dark .bg-\[\#060B17\]\/90,
+html.dark .bg-\[\#060B17\]\/95,
+html.dark .bg-\[\#060B17\]\/60,
+html.dark .bg-\[\#060C1B\] {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+}
+
+html.dark .border-\[\#152342\],
+html.dark .border-\[\#152342\]\/80,
+html.dark .border-\[\#152342\]\/90 {
+    border-color: var(--md-sys-color-outline-variant) !important;
+}
+
+/* ========================================================
+   MATERIAL DESIGN 3 (M3) LIGHT THEME CONVERSIONS
+   Applies M3 Surface Containers, Tonal Palettes & On-Surface Contrast
+   ======================================================== */
+html:not(.dark) body {
+    background-color: var(--md-sys-color-background) !important;
+    color: var(--md-sys-color-on-surface) !important;
 }
 
 html:not(.dark) .fintech-grid {
-    background-color: #F8FAFC !important;
-    background-image: 
-        linear-gradient(rgba(203, 213, 225, 0.5) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(203, 213, 225, 0.5) 1px, transparent 1px) !important;
+    background-color: var(--md-sys-color-background) !important;
+    background-image:
+        linear-gradient(rgba(203, 213, 225, 0.55) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(203, 213, 225, 0.55) 1px, transparent 1px) !important;
 }
 
 html:not(.dark) .radial-mesh {
-    background: radial-gradient(circle at 50% 0%, rgba(37, 99, 235, 0.08) 0%, transparent 60%),
-                radial-gradient(circle at 85% 30%, rgba(0, 212, 126, 0.06) 0%, transparent 45%),
-                radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.05) 0%, transparent 40%) !important;
+    background:
+        radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.07) 0%, transparent 60%),
+        radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.06) 0%, transparent 45%),
+        radial-gradient(circle at 15% 70%, rgba(79, 70, 229, 0.05) 0%, transparent 40%) !important;
 }
 
+/* M3 Top App Bar (Navbar) in Light Mode */
 html:not(.dark) header {
-    background-color: rgba(255, 255, 255, 0.92) !important;
-    border-bottom-color: #E2E8F0 !important;
-    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.05) !important;
+    background-color: rgba(255, 255, 255, 0.94) !important;
+    border-bottom-color: var(--md-sys-color-outline-variant) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
 }
 
-html:not(.dark) .glass-metal {
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.98) 0%, rgba(248, 250, 252, 0.98) 100%) !important;
-    border: 1px solid #E2E8F0 !important;
-    box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06) !important;
+html:not(.dark) nav[aria-label="Mobile Navigation"] {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-top-color: var(--md-sys-color-outline-variant) !important;
 }
+
+/* M3 Elevated Cards in Light Mode */
+html:not(.dark) .glass-metal {
+    background: var(--md-sys-color-surface) !important;
+    border: 1px solid var(--md-sys-color-outline-variant) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
+}
+
 html:not(.dark) .glass-metal:hover {
     border-color: #94A3B8 !important;
-    box-shadow: 0 10px 30px -5px rgba(15, 23, 42, 0.1) !important;
+    box-shadow: var(--md-sys-elevation-2) !important;
 }
 
-/* Typography adaptations */
+/* M3 Typography Hierarchy in Light Mode */
 html:not(.dark) .text-white {
-    color: #0F172A !important;
+    color: var(--md-sys-color-on-surface) !important;
 }
 html:not(.dark) .text-slate-200,
-html:not(.dark) .text-slate-300 {
+html:not(.dark) .text-slate-300,
+html:not(.dark) .text-gray-300 {
     color: #334155 !important;
 }
-html:not(.dark) .text-slate-400 {
+html:not(.dark) .text-slate-400,
+html:not(.dark) .text-gray-400 {
     color: #475569 !important;
 }
-html:not(.dark) .text-slate-500 {
+html:not(.dark) .text-slate-500,
+html:not(.dark) .text-gray-500 {
     color: #64748B !important;
 }
 
-/* Cards & Section backgrounds */
+/* M3 High-Contrast Tonal Text Roles in Light Mode */
+html:not(.dark) .text-\[\#00D47E\],
+html:not(.dark) .text-emerald-300,
+html:not(.dark) .text-emerald-400,
+html:not(.dark) .text-green-400 {
+    color: #047857 !important; /* M3 Primary / Emerald 700 */
+}
+html:not(.dark) .text-cyan-300,
+html:not(.dark) .text-cyan-400 {
+    color: #0369A1 !important; /* M3 Secondary / Sky 700 */
+}
+html:not(.dark) .text-blue-300,
+html:not(.dark) .text-blue-400 {
+    color: #1D4ED8 !important; /* Blue 700 */
+}
+html:not(.dark) .text-indigo-300,
+html:not(.dark) .text-indigo-400 {
+    color: #4338CA !important; /* M3 Tertiary / Indigo 700 */
+}
+html:not(.dark) .text-purple-300,
+html:not(.dark) .text-purple-400 {
+    color: #6D28D9 !important; /* Violet 700 */
+}
+html:not(.dark) .text-amber-300,
+html:not(.dark) .text-amber-400,
+html:not(.dark) .text-yellow-400 {
+    color: #B45309 !important; /* Amber 700 */
+}
+html:not(.dark) .text-orange-300,
+html:not(.dark) .text-orange-400 {
+    color: #C2410C !important; /* Orange 700 */
+}
+html:not(.dark) .text-red-300,
+html:not(.dark) .text-red-400,
+html:not(.dark) .text-rose-400 {
+    color: #B91C1C !important; /* Red 700 */
+}
+
+/* M3 Surface Containers (Replacing Dark Hex Backgrounds) */
 html:not(.dark) .bg-\[\#080E1E\],
 html:not(.dark) .bg-\[\#080E1E\]\/80,
+html:not(.dark) .bg-\[\#080E1E\]\/85,
 html:not(.dark) .bg-\[\#080E1E\]\/50,
-html:not(.dark) .bg-\[\#080E1E\]\/90 {
-    background-color: #FFFFFF !important;
-    border-color: #E2E8F0 !important;
-    box-shadow: 0 2px 8px -1px rgba(15, 23, 42, 0.06) !important;
+html:not(.dark) .bg-\[\#080E1E\]\/60,
+html:not(.dark) .bg-\[\#080E1E\]\/90,
+html:not(.dark) .bg-\[\#1A2130\],
+html:not(.dark) .bg-\[\#1A2130\]\/90,
+html:not(.dark) .bg-\[\#151B28\] {
+    background-color: var(--md-sys-color-surface) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+    box-shadow: var(--md-sys-elevation-1) !important;
 }
-html:not(.dark) .bg-\[\#040711\] {
-    background-color: #F1F5F9 !important;
-    border-color: #E2E8F0 !important;
+
+html:not(.dark) .bg-\[\#040711\],
+html:not(.dark) .bg-\[\#040711\]\/90,
+html:not(.dark) .bg-\[\#03060E\],
+html:not(.dark) .bg-\[\#111622\] {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
 }
+
+html:not(.dark) .bg-\[\#060B17\],
 html:not(.dark) .bg-\[\#060B17\]\/90,
+html:not(.dark) .bg-\[\#060B17\]\/95,
 html:not(.dark) .bg-\[\#060B17\]\/60,
-html:not(.dark) .bg-\[\#060C1B\] {
-    background-color: #F8FAFC !important;
-    border-color: #E2E8F0 !important;
+html:not(.dark) .bg-\[\#060C1B\],
+html:not(.dark) .bg-\[\#020409\],
+html:not(.dark) .bg-\[\#232B3D\],
+html:not(.dark) .bg-\[\#2E374D\] {
+    background-color: var(--md-sys-color-surface-container) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
 }
+
+html:not(.dark) .bg-slate-900,
+html:not(.dark) .bg-slate-900\/60,
+html:not(.dark) .bg-slate-900\/70,
+html:not(.dark) .bg-slate-800,
+html:not(.dark) .bg-gray-900,
+html:not(.dark) .bg-gray-950,
+html:not(.dark) .bg-gray-950\/80,
+html:not(.dark) .bg-gray-800,
+html:not(.dark) .bg-gray-800\/50 {
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+}
+
+/* M3 Tonal Chip & Container Backgrounds in Light Mode */
+html:not(.dark) .bg-blue-950\/40,
+html:not(.dark) .bg-blue-950\/70,
+html:not(.dark) .bg-\[\#061124\]\/80,
+html:not(.dark) .bg-\[\#081229\] {
+    background-color: #EFF6FF !important; /* Blue 50 Tonal Container */
+    border-color: #BFDBFE !important;
+}
+
+html:not(.dark) .bg-cyan-950,
+html:not(.dark) .bg-cyan-950\/20,
+html:not(.dark) .bg-cyan-950\/40,
+html:not(.dark) .bg-cyan-950\/60,
+html:not(.dark) .bg-\[\#081A33\] {
+    background-color: #E0F2FE !important; /* Sky 100 Tonal Container */
+    border-color: #7DD3FC !important;
+}
+
+html:not(.dark) .bg-emerald-950,
+html:not(.dark) .bg-emerald-950\/30,
+html:not(.dark) .bg-emerald-950\/60,
+html:not(.dark) .bg-emerald-950\/80,
+html:not(.dark) .bg-emerald-950\/90,
+html:not(.dark) .bg-\[\#071526\] {
+    background-color: #ECFDF5 !important; /* Emerald 50 Tonal Container */
+    border-color: #6EE7B7 !important;
+}
+
+html:not(.dark) .bg-amber-950,
+html:not(.dark) .bg-amber-950\/80,
+html:not(.dark) .bg-amber-950\/90,
+html:not(.dark) .bg-yellow-950\/30 {
+    background-color: #FFFBEB !important; /* Amber 50 Tonal Container */
+    border-color: #FCD34D !important;
+}
+
+html:not(.dark) .bg-indigo-950\/80 {
+    background-color: #EEF2FF !important; /* Indigo 50 Tonal Container */
+    border-color: #A5B4FC !important;
+}
+
+html:not(.dark) .bg-red-950,
+html:not(.dark) .bg-red-950\/80 {
+    background-color: #FEF2F2 !important; /* Red 50 Tonal Container */
+    border-color: #FCA5A5 !important;
+}
+
+/* M3 Contact Card & Gradient Surface Conversion in Light Mode */
+html:not(.dark) .from-\[\#080E1E\] {
+    --tw-gradient-from: #FFFFFF !important;
+    --tw-gradient-to: #F1F5F9 !important;
+    --tw-gradient-stops: var(--tw-gradient-from), #F8FAFC, var(--tw-gradient-to) !important;
+}
+
+/* M3 Outlines & Borders in Light Mode */
 html:not(.dark) .border-\[\#152342\],
-html:not(.dark) .border-\[\#152342\]\/90 {
-    border-color: #E2E8F0 !important;
+html:not(.dark) .border-\[\#152342\]\/80,
+html:not(.dark) .border-\[\#152342\]\/90,
+html:not(.dark) .border-\[\#384152\],
+html:not(.dark) .border-\[\#384152\]\/80,
+html:not(.dark) .border-slate-700,
+html:not(.dark) .border-slate-800,
+html:not(.dark) .border-gray-700,
+html:not(.dark) .border-gray-800 {
+    border-color: var(--md-sys-color-outline-variant) !important;
 }
 
-/* Preserve high-tech dark terminal for code/telemetry contrast */
-html:not(.dark) .terminal-glow,
-html:not(.dark) #sim-console-output,
-html:not(.dark) .terminal-glow .bg-\[\#03060E\],
-html:not(.dark) .terminal-glow .bg-\[\#040711\]\/90,
-html:not(.dark) .terminal-glow .bg-\[\#080E1E\] {
-    background-color: #060B17 !important;
-    border-color: #1E293B !important;
-}
-html:not(.dark) #arch-canvas-container {
-    background-color: #040816 !important;
-    border-color: #1E293B !important;
-}
-html:not(.dark) #arch-canvas-container .text-white {
-    color: #F8FAFC !important;
-}
-html:not(.dark) #arch-canvas-container .text-slate-300 {
-    color: #CBD5E1 !important;
-}
-html:not(.dark) #arch-canvas-container .text-slate-400 {
-    color: #94A3B8 !important;
-}
-html:not(.dark) #arch-canvas-container .bg-\[\#080E1E\],
-html:not(.dark) #arch-canvas-container .bg-\[\#080E1E\]\/80,
-html:not(.dark) #arch-canvas-container .bg-\[\#040711\] {
-    background-color: #080E1E !important;
-    border-color: #1E293B !important;
-}
-html:not(.dark) .terminal-glow .text-white,
-html:not(.dark) #sim-console-output .text-white {
-    color: #F8FAFC !important;
-}
-html:not(.dark) .terminal-glow .text-slate-300,
-html:not(.dark) #sim-console-output .text-slate-300 {
-    color: #CBD5E1 !important;
-}
-html:not(.dark) .terminal-glow .text-slate-400,
-html:not(.dark) #sim-console-output .text-slate-400 {
-    color: #94A3B8 !important;
+/* Preserve white text on primary filled gradient CTAs */
+html:not(.dark) .bg-indigo-600.text-white {
+    background-color: #4F46E5 !important;
+    color: #FFFFFF !important;
 }
 
-/* Footer */
+/* Footer in Light Mode */
 html:not(.dark) footer {
-    background-color: #F1F5F9 !important;
-    border-top-color: #E2E8F0 !important;
+    background-color: var(--md-sys-color-surface-container-low) !important;
+    border-top-color: var(--md-sys-color-outline-variant) !important;
 }
 html:not(.dark) footer .text-slate-300 {
-    color: #0F172A !important;
+    color: var(--md-sys-color-on-surface) !important;
 }
 
-/* Accessibility: Focus ring & Reduced Motion */
+/* Accessibility: M3 Focus Ring */
 a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focus-visible {
-    outline: 2px solid #00D47E !important;
+    outline: 2px solid var(--md-sys-color-primary) !important;
     outline-offset: 2px !important;
 }
 
 /* ========================================================
-   ORIONPAY SWITCH LAB / ARCHITECTURAL PIPELINE ANIMATIONS
-   ======================================================== */
-.arch-node {
-    transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
-    position: relative;
-    cursor: pointer;
-    z-index: 10;
-}
-.arch-node:hover {
-    transform: translateY(-2px);
-}
-.arch-node.active-node {
-    transform: scale(1.05);
-    box-shadow: 0 0 25px rgba(56, 189, 248, 0.75);
-    border-color: #38BDF8 !important;
-    z-index: 25;
-}
-.arch-node.state-ok {
-    border-color: #00D47E !important;
-    box-shadow: 0 0 16px rgba(0, 212, 126, 0.35);
-}
-.arch-node.state-warn {
-    border-color: #F59E0B !important;
-    box-shadow: 0 0 20px rgba(245, 158, 11, 0.5);
-}
-.arch-node.state-error {
-    border-color: #EF4444 !important;
-    box-shadow: 0 0 22px rgba(239, 68, 68, 0.65);
-}
-
-/* Data Packet animation glow */
-.data-packet-token {
-    width: 22px;
-    height: 14px;
-    border-radius: 3px;
-    background: #00E676;
-    box-shadow: 0 0 12px #00E676, 0 0 24px rgba(0, 230, 118, 0.8), inset 0 0 4px #FFFFFF;
-    position: absolute;
-    transform: translate(-50%, -50%);
-    pointer-events: none;
-    z-index: 50;
-    transition: opacity 0.2s ease, background-color 0.2s ease, box-shadow 0.2s ease;
-}
-.data-packet-token.token-warn {
-    background: #F59E0B;
-    box-shadow: 0 0 12px #F59E0B, 0 0 24px rgba(245, 158, 11, 0.8), inset 0 0 4px #FFFFFF;
-}
-.data-packet-token.token-error {
-    background: #EF4444;
-    box-shadow: 0 0 12px #EF4444, 0 0 24px rgba(239, 68, 68, 0.85), inset 0 0 4px #FFFFFF;
-}
-.data-packet-token.vertical-packet {
-    width: 14px;
-    height: 22px;
-}
-
-.arch-connector-line {
-    stroke: #334155;
-    stroke-width: 1.8;
-    stroke-dasharray: 5 4;
-    fill: none;
-    transition: stroke 0.25s ease, stroke-width 0.25s ease;
-}
-.arch-connector-line.sync-pipe {
-    stroke-dasharray: none;
-    stroke-width: 2;
-}
-.arch-connector-line.async-pipe {
-    stroke-dasharray: 6 4;
-}
-.arch-connector-line.active-pipe {
-    stroke: #00E676 !important;
-    stroke-width: 2.8 !important;
-    stroke-dasharray: none !important;
-    filter: drop-shadow(0 0 8px #00E676);
-}
-.arch-connector-line.warn-pipe {
-    stroke: #F59E0B !important;
-    stroke-width: 2.8 !important;
-    stroke-dasharray: 4 3 !important;
-    filter: drop-shadow(0 0 8px #F59E0B);
-}
-.arch-connector-line.error-pipe {
-    stroke: #EF4444 !important;
-    stroke-width: 2.8 !important;
-    stroke-dasharray: 3 3 !important;
-    filter: drop-shadow(0 0 8px #EF4444);
-}
-
-.arch-arrow-head {
-    fill: #475569;
-    transition: fill 0.25s ease, filter 0.25s ease;
-}
-.arch-arrow-head.active-pipe {
-    fill: #00E676 !important;
-    filter: drop-shadow(0 0 10px #00E676);
-}
-.arch-arrow-head.warn-pipe {
-    fill: #F59E0B !important;
-    filter: drop-shadow(0 0 10px #F59E0B);
-}
-.arch-arrow-head.error-pipe {
-    fill: #EF4444 !important;
-    filter: drop-shadow(0 0 10px #EF4444);
-}
-
-/* ========================================================
    ORIONPAY DATADOG LIVE APM & PARTICLE SIMULATION STYLES
+   Supports Both M3 Dark Mode and M3 Light Mode
    ======================================================== */
+#orionpay-datadog-wrapper {
+    background-color: var(--md-sys-color-surface-container-low);
+    border-color: var(--md-sys-color-outline-variant);
+    box-shadow: var(--md-sys-elevation-3);
+}
+
+#orionpay-datadog-wrapper .sim-canvas-surface {
+    background-color: var(--md-sys-color-surface-container-lowest);
+    background-image: radial-gradient(rgba(148, 163, 184, 0.14) 1px, transparent 1px);
+    background-size: 24px 24px;
+}
+
 #orionpay-datadog-wrapper .node {
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 140px;
-    height: 90px;
-    background-color: #111827 !important;
-    border: 2px solid;
-    border-radius: 12px;
+    width: 148px;
+    height: 94px;
+    background-color: var(--md-sys-color-surface-container-high);
+    border: 1.5px solid;
+    border-radius: 16px; /* M3 Medium-Large Elevated Card Radius */
     position: relative;
     z-index: 10;
-    transition: all 0.3s ease;
+    box-shadow: var(--md-sys-elevation-2);
+    transition: all 0.25s cubic-bezier(0.2, 0, 0, 1);
+}
+
+#orionpay-datadog-wrapper .node:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--md-sys-elevation-3);
 }
 
 #orionpay-datadog-wrapper .node-icon {
-    font-size: 1.5rem;
-    margin-bottom: 0.5rem;
+    font-size: 1.45rem;
+    margin-bottom: 0.45rem;
 }
 
 #orionpay-datadog-wrapper .node-title {
     font-size: 0.75rem;
-    font-weight: 600;
+    font-weight: 700;
     text-align: center;
-    line-height: 1.1;
+    line-height: 1.15;
+    letter-spacing: 0.01em;
 }
 
 #orionpay-datadog-wrapper .node-subtitle {
-    font-size: 0.6rem;
-    color: #9ca3af !important;
-    margin-top: 2px;
+    font-size: 0.62rem;
+    color: var(--md-sys-color-on-surface-variant);
+    margin-top: 3px;
     text-align: center;
-    padding: 0 4px;
+    padding: 0 6px;
 }
 
-#orionpay-datadog-wrapper .glow-cyan { border-color: #06b6d4; box-shadow: 0 0 15px rgba(6, 182, 212, 0.3); color: #cffafe !important; }
-#orionpay-datadog-wrapper .glow-purple { border-color: #a855f7; box-shadow: 0 0 15px rgba(168, 85, 247, 0.3); color: #f3e8ff !important; }
-#orionpay-datadog-wrapper .glow-blue { border-color: #3b82f6; box-shadow: 0 0 15px rgba(59, 130, 246, 0.3); color: #dbeafe !important; }
-#orionpay-datadog-wrapper .glow-indigo { border-color: #6366f1; box-shadow: 0 0 15px rgba(99, 102, 241, 0.3); color: #e0e7ff !important; }
-#orionpay-datadog-wrapper .glow-orange { border-color: #f97316; box-shadow: 0 0 15px rgba(249, 115, 22, 0.3); color: #ffedd5 !important; }
-#orionpay-datadog-wrapper .glow-green { border-color: #22c55e; box-shadow: 0 0 15px rgba(34, 197, 94, 0.3); color: #dcfce7 !important; }
-#orionpay-datadog-wrapper .glow-yellow { border-color: #eab308; box-shadow: 0 0 15px rgba(234, 179, 8, 0.3); color: #fef9c3 !important; }
-#orionpay-datadog-wrapper .glow-emerald { border-color: #10b981; box-shadow: 0 0 15px rgba(16, 185, 129, 0.3); color: #d1fae5 !important; }
-#orionpay-datadog-wrapper .glow-red { border-color: #ef4444; box-shadow: 0 0 15px rgba(239, 68, 68, 0.3); color: #fee2e2 !important; }
-#orionpay-datadog-wrapper .glow-gray { border-color: #6b7280; box-shadow: 0 0 15px rgba(107, 114, 128, 0.3); color: #f3f4f6 !important; }
+/* M3 Dark Mode Node Tonal Containers (Tone 20-25 Surface Tint + Tone 80 Border/Text) */
+#orionpay-datadog-wrapper .glow-cyan {
+    border-color: #22d3ee;
+    background: linear-gradient(145deg, rgba(8, 51, 68, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(6, 182, 212, 0.22);
+    color: #cffafe;
+}
+#orionpay-datadog-wrapper .glow-purple {
+    border-color: #c084fc;
+    background: linear-gradient(145deg, rgba(59, 7, 100, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(168, 85, 247, 0.22);
+    color: #f3e8ff;
+}
+#orionpay-datadog-wrapper .glow-blue {
+    border-color: #60a5fa;
+    background: linear-gradient(145deg, rgba(23, 37, 84, 0.7) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(59, 130, 246, 0.22);
+    color: #dbeafe;
+}
+#orionpay-datadog-wrapper .glow-indigo {
+    border-color: #818cf8;
+    background: linear-gradient(145deg, rgba(30, 27, 75, 0.75) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(99, 102, 241, 0.25);
+    color: #e0e7ff;
+}
+#orionpay-datadog-wrapper .glow-orange {
+    border-color: #fb923c;
+    background: linear-gradient(145deg, rgba(67, 20, 7, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(249, 115, 22, 0.22);
+    color: #ffedd5;
+}
+#orionpay-datadog-wrapper .glow-green {
+    border-color: #4ade80;
+    background: linear-gradient(145deg, rgba(5, 46, 22, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(34, 197, 94, 0.22);
+    color: #dcfce7;
+}
+#orionpay-datadog-wrapper .glow-yellow {
+    border-color: #facc15;
+    background: linear-gradient(145deg, rgba(66, 32, 6, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(234, 179, 8, 0.22);
+    color: #fef9c3;
+}
+#orionpay-datadog-wrapper .glow-emerald {
+    border-color: #34d399;
+    background: linear-gradient(145deg, rgba(6, 78, 59, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(16, 185, 129, 0.22);
+    color: #d1fae5;
+}
+#orionpay-datadog-wrapper .glow-red {
+    border-color: #f87171;
+    background: linear-gradient(145deg, rgba(69, 10, 10, 0.65) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(239, 68, 68, 0.22);
+    color: #fee2e2;
+}
+#orionpay-datadog-wrapper .glow-gray {
+    border-color: #9ca3af;
+    background: linear-gradient(145deg, rgba(31, 41, 55, 0.7) 0%, rgba(26, 33, 48, 0.96) 100%);
+    box-shadow: 0 4px 16px -2px rgba(107, 114, 128, 0.22);
+    color: #f3f4f6;
+}
+
+/* M3 Light Mode Conversion for Simulator Wrapper, Canvas, and Nodes */
+html:not(.dark) #orionpay-datadog-wrapper {
+    background-color: var(--md-sys-color-surface) !important;
+    border-color: var(--md-sys-color-outline-variant) !important;
+    color: var(--md-sys-color-on-surface) !important;
+    box-shadow: var(--md-sys-elevation-2) !important;
+}
+
+html:not(.dark) #orionpay-datadog-wrapper .sim-canvas-surface {
+    background-color: #F8FAFC !important;
+    background-image: radial-gradient(rgba(100, 116, 139, 0.2) 1px, transparent 1px) !important;
+    background-size: 24px 24px !important;
+}
+
+html:not(.dark) #orionpay-datadog-wrapper .node {
+    background: #FFFFFF !important;
+    box-shadow: var(--md-sys-elevation-1);
+}
+
+html:not(.dark) #orionpay-datadog-wrapper .node-subtitle {
+    color: #475569 !important;
+}
+
+html:not(.dark) #orionpay-datadog-wrapper .glow-cyan { border-color: #0284c7; background: #F0F9FF !important; color: #0C4A6E !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-purple { border-color: #7c3aed; background: #F5F3FF !important; color: #4C1D95 !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-blue { border-color: #2563eb; background: #EFF6FF !important; color: #1E3A8A !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-indigo { border-color: #4f46e5; background: #EEF2FF !important; color: #312E81 !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-orange { border-color: #ea580c; background: #FFF7ED !important; color: #7C2D12 !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-green { border-color: #16a34a; background: #F0FDF4 !important; color: #14532D !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-yellow { border-color: #ca8a04; background: #FEFCE8 !important; color: #713F12 !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-emerald { border-color: #059669; background: #ECFDF5 !important; color: #064E3B !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-red { border-color: #dc2626; background: #FEF2F2 !important; color: #7F1D1D !important; }
+html:not(.dark) #orionpay-datadog-wrapper .glow-gray { border-color: #64748b; background: #F8FAFC !important; color: #1E293B !important; }
 
 .particle {
     position: absolute;
@@ -438,6 +666,23 @@ a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focu
     transform: scale(1.06);
 }
 
+@keyframes db-partition-pulse {
+    0%, 100% {
+        border-color: #6366f1;
+        box-shadow: 0 0 25px rgba(99, 102, 241, 0.7), 0 0 50px rgba(6, 182, 212, 0.4);
+        transform: scale(1.05);
+    }
+    50% {
+        border-color: #22d3ee;
+        box-shadow: 0 0 45px rgba(34, 211, 238, 0.95), 0 0 70px rgba(99, 102, 241, 0.8);
+        transform: scale(1.09);
+    }
+}
+
+.node-active-db-pulse {
+    animation: db-partition-pulse 0.9s ease-in-out infinite !important;
+}
+
 .node-active-cyan {
     border-color: #06b6d4 !important;
     box-shadow: 0 0 40px rgba(6, 182, 212, 0.8) !important;
@@ -468,14 +713,6 @@ a:focus-visible, button:focus-visible, select:focus-visible, [tabindex="0"]:focu
     transform: scale(1.06);
 }
 
-html:not(.dark) #orionpay-datadog-wrapper {
-    background-color: #030712 !important;
-    color: #ffffff !important;
-}
-html:not(.dark) #orionpay-datadog-wrapper .text-white {
-    color: #ffffff !important;
-}
-
 @media (prefers-reduced-motion: reduce) {
     *, ::before, ::after {
         animation-duration: 0.001ms !important;
@@ -490,4 +727,3 @@ html:not(.dark) #orionpay-datadog-wrapper .text-white {
     body { background: white !important; color: black !important; }
     .print-only { display: block !important; }
 }
-
