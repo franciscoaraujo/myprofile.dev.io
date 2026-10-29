@@ -177,18 +177,17 @@ export default function SkillsPage() {
               <p className="text-slate-300 text-sm leading-relaxed">
                 {isPt ? (
                   <>
-                    Profunda familiaridade com padrões de meios de pagamento (
-                    <span className="font-mono text-cyan-300">ISO 8583, EMV, SPB Banco Central</span>), rotinas
-                    criptográficas de baixo nível em C++ e arquitetura de microsserviços moderna em Java 21 me permitem
-                    resolver casos extremos antes que se tornem divergências de conciliação ou deadlocks de
-                    concorrência.
+                    Experiência prática com padrões de meios de pagamento como{' '}
+                    <span className="font-mono text-cyan-300">ISO 8583 e EMV</span>, aliada ao desenvolvimento backend
+                    em Java e C++, permitindo tratar casos de borda antes que se tornem divergências de conciliação
+                    ou problemas de concorrência.
                   </>
                 ) : (
                   <>
-                    Deep familiarity with payment standards (
-                    <span className="font-mono text-cyan-300">ISO 8583, EMV, Central Bank SPB</span>), low-level
-                    cryptographic routines in C++, and modern Java 21 microservice design allows me to solve edge cases
-                    before they escalate into reconciliation debt or concurrency locks.
+                    Experience with payment standards such as{' '}
+                    <span className="font-mono text-cyan-300">ISO 8583 and EMV</span>, alongside backend development in
+                    Java and C++, allowing me to resolve edge cases before they escalate into reconciliation debt or
+                    concurrency issues.
                   </>
                 )}
               </p>
