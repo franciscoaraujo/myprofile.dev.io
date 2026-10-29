@@ -695,12 +695,26 @@ export const TRIAD_SKILLS = [
     badgeEn: 'Languages & Systems',
     color: 'emerald',
     icon: 'Code2',
-    items: [
+    itemsPt: [
       'Java 21 / 17',
       'Spring Boot 3.x',
       'C++20 / Modern C++',
       'Sistemas Distribuídos',
       'Arquitetura Hexagonal / DDD'
+    ],
+    itemsEn: [
+      'Java 21 / 17',
+      'Spring Boot 3.x',
+      'C++20 / Modern C++',
+      'Distributed Systems',
+      'Hexagonal Architecture / DDD'
+    ],
+    items: [
+      'Java 21 / 17',
+      'Spring Boot 3.x',
+      'C++20 / Modern C++',
+      'Distributed Systems',
+      'Hexagonal Architecture / DDD'
     ]
   },
   {
@@ -710,12 +724,26 @@ export const TRIAD_SKILLS = [
     badgeEn: 'Major Institutions',
     color: 'cyan',
     icon: 'Landmark',
-    items: [
+    itemsPt: [
       'Rabobank Brasil',
       'B3 (Bolsa do Brasil)',
       'Serasa Experian',
       'Apache Camel (EIP)',
       'Visão Computacional (OpenCV)'
+    ],
+    itemsEn: [
+      'Rabobank Brazil',
+      'B3 (Brazilian Stock Exchange)',
+      'Serasa Experian',
+      'Apache Camel (EIP)',
+      'Computer Vision (OpenCV)'
+    ],
+    items: [
+      'Rabobank Brazil',
+      'B3 (Brazilian Stock Exchange)',
+      'Serasa Experian',
+      'Apache Camel (EIP)',
+      'Computer Vision (OpenCV)'
     ]
   },
   {
@@ -725,8 +753,22 @@ export const TRIAD_SKILLS = [
     badgeEn: 'Senior Specialization',
     color: 'blue',
     icon: 'Cpu',
-    items: [
+    itemsPt: [
       'Switch Adquirente',
+      'ISO 8583 / MTI',
+      'HSM / PIN Block',
+      'Clearing (Base II / TC50)',
+      'Spring Batch'
+    ],
+    itemsEn: [
+      'Acquiring Switch',
+      'ISO 8583 / MTI',
+      'HSM / PIN Block',
+      'Clearing (Base II / TC50)',
+      'Spring Batch'
+    ],
+    items: [
+      'Acquiring Switch',
       'ISO 8583 / MTI',
       'HSM / PIN Block',
       'Clearing (Base II / TC50)',

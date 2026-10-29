@@ -226,17 +226,8 @@ export default function SkillsPage() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
                   <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-[#00D47E]" />
-                    <strong>{isPt ? 'Português:' : 'Portuguese:'}</strong> {isPt ? 'Nativo' : 'Native'}
-                  </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
                     <Languages className="w-3.5 h-3.5 text-cyan-400" />
-                    <strong>{isPt ? 'Inglês:' : 'English:'}</strong>{' '}
-                    {isPt ? 'Técnico / Profissional (B1-B2)' : 'Technical / Professional Working (B1-B2)'}
-                  </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
-                    <strong>{isPt ? 'Francês:' : 'French:'}</strong> {isPt ? 'Intermediário' : 'Intermediate'}
+                    <span>English — A2/B1</span>
                   </span>
                 </div>
               </div>
