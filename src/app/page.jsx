@@ -192,11 +192,11 @@ export default function OverviewPage() {
                 <p>
                   {isPt ? (
                     <>
-                      Especializou-se fortemente no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, liderando o desenho e a implementação de arquiteturas transacionais completas: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                      Especializou-se fortemente no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, participando de implementações de arquiteturas transacionais completas: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
                     </>
                   ) : (
                     <>
-                      Specialized deeply in <strong className="text-white">Payment Processing and Acquiring</strong>, leading the design and implementation of end-to-end transactional architectures: low-latency authorization engines (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), distributed resilient messaging, point-of-sale security (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>), and clearing & settlement pipelines (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                      Specialized deeply in <strong className="text-white">Payment Processing and Acquiring</strong>, contributing to implementations of end-to-end transactional architectures: low-latency authorization engines (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), distributed resilient messaging, point-of-sale security (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>), and clearing & settlement pipelines (<span className="font-mono text-blue-300">Clearing / Base II</span>).
                     </>
                   )}
                 </p>

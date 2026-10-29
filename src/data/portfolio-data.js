@@ -638,12 +638,12 @@ export const PROFILE_BIO = {
   paragraphsPt: [
     'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
     'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',
-    'Especializou-se fortemente no ecossistema de Meios de Pagamento e Adquirência, liderando o desenho e a implementação de arquiteturas transacionais completas: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
+    'Especializou-se fortemente no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais completas: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
   ],
   paragraphsEn: [
     'Software Engineer with 13 years of trajectory in high-performance backend and mission-critical distributed systems, combining deep mastery in Java and C++.',
     'Built a solid corporate track record across enterprise banking integration (Rabobank), financial asset registry platforms (B3 Stock Exchange), and legacy enterprise modernization (Serasa Experian), alongside low-level computer vision systems in C++.',
-    'Specialized deeply in Payment Processing and Acquiring ecosystems, leading the design and implementation of end-to-end transactional architectures: low-latency authorization engines (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
+    'Specialized deeply in Payment Processing and Acquiring ecosystems, contributing to implementations of end-to-end transactional architectures: low-latency authorization engines (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
   ]
 };
 
