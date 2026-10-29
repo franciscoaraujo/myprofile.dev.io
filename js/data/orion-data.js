@@ -128,7 +128,7 @@ const orionData = {
 
 const orionDataPt = {
     switch: {
-        title: "Switch Adquirente & Núcleo de Autorização",
+        title: "Acquiring Switch & Núcleo de Autorização",
         stack: "Java 21 • Spring Boot • PostgreSQL • ShedLock • RabbitMQ",
         status: "Protótipo de Engenharia / Arquitetura de Referência",
         summary: "Switch de transações financeiras de alta vazão projetado com estrita Separação de Responsabilidades (SoC). Desacopla a autorização online síncrona das etapas posteriores de compensação (clearing) e razão contábil (ledger).",

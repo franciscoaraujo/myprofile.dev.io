@@ -192,7 +192,7 @@ export default function OverviewPage() {
                 <p>
                   {isPt ? (
                     <>
-                      Especializou-se no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                      Especializou-se no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
                     </>
                   ) : (
                     <>
@@ -215,9 +215,7 @@ export default function OverviewPage() {
                     <Code2 className="w-3.5 h-3.5 text-[#00D47E]" />
                   </div>
                   <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
-                    {isPt
-                      ? 'Java 21 • Spring Boot • C++20 • Sist. Distribuídos • Hexagonal / DDD'
-                      : 'Java 21 • Spring Boot • C++20 • Distributed Systems • Hexagonal / DDD'}
+                    Java 21 • Spring Boot • C++20 • Distributed Systems • Hexagonal / DDD
                   </div>
                 </div>
 
@@ -243,9 +241,7 @@ export default function OverviewPage() {
                     <Cpu className="w-3.5 h-3.5 text-blue-400" />
                   </div>
                   <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
-                    {isPt
-                      ? 'Switch Adquirente • ISO 8583 • HSM / PIN Block • Clearing (Base II)'
-                      : 'Acquiring Switch • ISO 8583 • HSM / PIN Block • Clearing (Base II)'}
+                    Acquiring Switch • ISO 8583 • HSM / PIN Block • Clearing (Base II)
                   </div>
                 </div>
               </div>

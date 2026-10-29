@@ -678,7 +678,7 @@ export const PROFILE_BIO = {
   paragraphsPt: [
     'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, com sólida experiência prática em Java e C++.',
     'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',
-    'Especializou-se no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
+    'Especializou-se no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (ISO 8583, Acquiring Switch), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
   ],
   paragraphsEn: [
     'Software Engineer with 13 years of experience in backend engineering and mission-critical distributed systems, with strong hands-on proficiency in Java and C++.',
@@ -699,7 +699,7 @@ export const TRIAD_SKILLS = [
       'Java 21 / 17',
       'Spring Boot 3.x',
       'C++20 / Modern C++',
-      'Sistemas Distribuídos',
+      'Distributed Systems',
       'Arquitetura Hexagonal / DDD'
     ],
     itemsEn: [
@@ -754,7 +754,7 @@ export const TRIAD_SKILLS = [
     color: 'blue',
     icon: 'Cpu',
     itemsPt: [
-      'Switch Adquirente',
+      'Acquiring Switch',
       'ISO 8583 / MTI',
       'HSM / PIN Block',
       'Clearing (Base II / TC50)',
