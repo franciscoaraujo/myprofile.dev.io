@@ -65,7 +65,7 @@ export default function ContactPage() {
           </a>
 
           <a
-            href="https://github.com/franciscoaraujo"
+            href="https://github.com/orgs/Orion-Payments/repositories"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-white font-medium text-xs font-mono transition-all"

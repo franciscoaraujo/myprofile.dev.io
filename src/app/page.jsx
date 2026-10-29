@@ -298,7 +298,7 @@ export default function OverviewPage() {
               </a>
 
               <a
-                href="https://github.com/franciscoaraujo"
+                href="https://github.com/orgs/Orion-Payments/repositories"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white"
