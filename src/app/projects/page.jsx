@@ -166,6 +166,25 @@ export default function ProjectsPage() {
               </ul>
             </div>
 
+            {/* Implemented vs. Simulated Scope (Task 1 & Task 5) */}
+            <div className="grid sm:grid-cols-2 gap-3.5 pt-1">
+              <div className="p-4 rounded-xl bg-[#041710]/80 border border-[#00D47E]/30 space-y-1.5">
+                <div className="text-xs font-mono uppercase tracking-wider text-[#00D47E] font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+                  <span>{isPt ? 'Implementado no Código (Local)' : 'Implemented in Code (Local)'}</span>
+                </div>
+                <p className="text-xs text-slate-200 leading-relaxed">{activeData.implemented}</p>
+              </div>
+
+              <div className="p-4 rounded-xl bg-[#1a1205]/80 border border-amber-500/30 space-y-1.5">
+                <div className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+                  <span>{isPt ? 'Simulado / Proposta Arquitetural' : 'Simulated / Design Scope'}</span>
+                </div>
+                <p className="text-xs text-slate-300 leading-relaxed">{activeData.simulated}</p>
+              </div>
+            </div>
+
             {/* Trade-offs & Risk Mitigation */}
             <div className="space-y-2.5">
               <h3 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">

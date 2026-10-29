@@ -867,31 +867,70 @@ export default function SwitchSimulator() {
   return (
     <section id="simulator" className="py-8 max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8">
       {/* Portfolio Header & Simulation Disclaimer */}
-      <div className="text-center max-w-3xl mx-auto space-y-2.5 mb-6">
+      <div className="text-center max-w-4xl mx-auto space-y-3 mb-6">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-amber-950/80 border border-amber-500/50 text-amber-300 font-mono text-[11px] font-bold tracking-wide shadow-sm">
           <Info className="w-3.5 h-3.5 text-amber-400 shrink-0" />
           <span>
             {isPt
-              ? 'SIMULAÇÃO · DADOS SINTÉTICOS · SEM REDES DE PAGAMENTO REAIS'
+              ? 'SIMULAÇÃO · DADOS SINTÉTICOS · SEM CONEXÃO COM REDES REAIS'
               : 'SIMULATION · SYNTHETIC DATA · NO LIVE PAYMENT NETWORKS'}
           </span>
         </div>
         <h1 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
           Payment Systems Lab
         </h1>
-        <p className="text-slate-300 text-xs sm:text-sm">
+        <p className="text-slate-300 text-xs sm:text-sm max-w-2xl mx-auto">
           {isPt
             ? 'Explore autorização de pagamentos, idempotência transacional, o padrão Transactional Outbox, recuperação de mensageria e clearing em lote por meio de simulações determinísticas.'
             : 'Explore payment authorization, transaction idempotency, the Transactional Outbox pattern, message recovery, and batch clearing through deterministic simulations.'}
         </p>
+
+        {/* Component Architecture & Verification Notice (Task 1) */}
+        <div className="grid sm:grid-cols-3 gap-2.5 pt-1 text-left text-[11px] font-mono">
+          <div className="p-2.5 rounded-xl border border-cyan-500/30 bg-[#061124]/90 space-y-1">
+            <div className="text-cyan-300 font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+              {isPt ? 'Simulação no Navegador' : 'Client-Side Simulation'}
+            </div>
+            <p className="text-slate-300 text-[10px] leading-relaxed">
+              {isPt
+                ? 'Máquina de estados visual, partículas SVG e injeção de falhas simuladas em memória.'
+                : 'In-browser state machine, SVG particle traces, and simulated fault injection toggles.'}
+            </p>
+          </div>
+
+          <div className="p-2.5 rounded-xl border border-[#00D47E]/30 bg-[#041710]/90 space-y-1">
+            <div className="text-[#00D47E] font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+              {isPt ? 'Módulos Autorais Locais' : 'Authorial Local Modules'}
+            </div>
+            <p className="text-slate-300 text-[10px] leading-relaxed">
+              {isPt
+                ? 'Switch Java 21, SoftHSM C++ (OpenSSL), Emulador ISO 8583 e Spring Batch TC50.'
+                : 'Java 21 Switch, C++ SoftHSM (OpenSSL), ISO 8583 Emulator, and Spring Batch TC50.'}
+            </p>
+          </div>
+
+          <div className="p-2.5 rounded-xl border border-amber-500/30 bg-[#1a1205]/90 space-y-1">
+            <div className="text-amber-300 font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+              {isPt ? 'Redes Externas / Hardware' : 'External Networks / Hardware'}
+            </div>
+            <p className="text-slate-300 text-[10px] leading-relaxed">
+              {isPt
+                ? 'Nenhuma conexão com VisaNet real ou HSM físico. Parâmetros sintéticos seguros.'
+                : 'Zero connection to live schemes (VisaNet) or physical HSMs. Non-sensitive synthetic data only.'}
+            </p>
+          </div>
+        </div>
       </div>
 
-      {/* ORIONPAY DATADOG LIVE APM & TRANSACTIONAL OUTBOX SIMULATOR (M3 Dark & Light Elevated Surface) */}
+      {/* ORIONPAY APM OBSERVABILITY DEMO & TRANSACTIONAL OUTBOX SIMULATOR (M3 Dark & Light Elevated Surface) */}
       <div
         id="orionpay-datadog-wrapper"
         className="rounded-[28px] border border-[#384152] bg-[#151B28] text-white shadow-2xl overflow-hidden flex flex-col transition-colors duration-300"
       >
-        {/* OrionPay Datadog Header (M3 Surface Container) */}
+        {/* OrionPay Observability Header (M3 Surface Container) */}
         <header className="bg-[#1A2130] border-b border-[#384152] p-4 sm:px-6 shrink-0 shadow-md z-20 relative transition-colors duration-300">
           <div className="max-w-screen-2xl mx-auto flex flex-wrap justify-between items-center gap-4">
             <div className="flex items-center space-x-3.5">
@@ -901,10 +940,10 @@ export default function SwitchSimulator() {
               <div>
                 <div className="flex items-center gap-2.5">
                   <h2 className="text-xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-indigo-300 to-purple-300 tracking-wide">
-                    OrionPay Datadog
+                    {isPt ? 'Observabilidade Local (Estilo Datadog)' : 'Local Observability Demo (Datadog Style)'}
                   </h2>
                   <span className="text-[10px] font-mono px-2.5 py-0.5 rounded-full bg-indigo-950/80 border border-indigo-400/40 text-indigo-200 font-semibold">
-                    OrionPay Switch Lab
+                    {isPt ? 'Simulação de APM' : 'APM Simulation'}
                   </span>
                 </div>
                 <div className="text-xs text-slate-400 font-mono flex items-center mt-0.5">
@@ -927,7 +966,7 @@ export default function SwitchSimulator() {
             <div className="flex flex-wrap items-center gap-1.5 bg-[#111622] px-3.5 py-2 rounded-2xl border border-[#384152]">
               <span className="text-[10px] font-mono uppercase tracking-wider text-slate-300 mr-1 flex items-center gap-1">
                 <i className="fa-solid fa-bolt-lightning text-amber-400"></i>
-                Chaos:
+                {isPt ? 'Injeção de Falhas:' : 'Fault Injection:'}
               </span>
               <button
                 type="button"
@@ -988,7 +1027,7 @@ export default function SwitchSimulator() {
               <div className="flex flex-wrap gap-2 sm:space-x-2.5">
                 <div className="bg-[#232B3D] rounded-2xl px-3 py-2 border border-[#384152] min-w-[92px] flex flex-col items-center justify-center shadow-sm">
                   <span className="text-[9px] text-slate-300 uppercase font-medium">
-                    {isPt ? 'Transações Live' : 'Live Tx'}
+                    {isPt ? 'Transações Simuladas' : 'Simulated Tx'}
                   </span>
                   <span className="text-lg font-bold text-cyan-300">{uiMetrics.pdvCount}</span>
                 </div>
@@ -1000,7 +1039,7 @@ export default function SwitchSimulator() {
                 </div>
                 <div className="bg-[#232B3D] rounded-2xl px-3 py-2 border border-red-500/40 min-w-[92px] flex flex-col items-center justify-center shadow-sm">
                   <span className="text-[9px] text-slate-300 uppercase text-center leading-tight font-medium">
-                    {isPt ? 'Presos no DB' : 'Stuck in DB'}
+                    {isPt ? 'Pendentes Outbox (DB)' : 'Pending Outbox (DB)'}
                   </span>
                   <span className="text-lg font-bold text-red-400">{uiMetrics.dbQueue}</span>
                 </div>
@@ -1158,7 +1197,7 @@ export default function SwitchSimulator() {
             <div className="grid grid-cols-5 gap-6 w-full max-w-7xl mx-auto h-full pt-8 pb-24 relative z-10 items-center justify-items-center">
               {/* Row 1: Crypto Vault */}
               <div className="col-start-3 row-start-1 mb-10">
-                <SoftHSM subtitle={isPt ? 'Cofre Criptográfico' : 'Crypto Vault'} />
+                <SoftHSM subtitle={isPt ? 'Cofre Cripto (Simulado)' : 'Crypto Vault (Simulated)'} />
               </div>
 
               {/* Row 2: Hot Path (Fase 1) */}
@@ -1181,7 +1220,7 @@ export default function SwitchSimulator() {
                 <GatewayVisa subtitle={isPt ? 'Conector Bandeira' : 'Scheme Connector'} />
               </div>
               <div className="col-start-5 row-start-2">
-                <VisaNet subtitle={isPt ? 'Rede Externa' : 'External Network'} />
+                <VisaNet subtitle={isPt ? 'Emulador de Bandeira' : 'Scheme Emulator'} />
               </div>
 
               {/* Row 3: Warm / Event Path (Fase 2) */}

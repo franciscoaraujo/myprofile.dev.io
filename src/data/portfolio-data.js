@@ -9,9 +9,9 @@ export const ORION_TABS_LIST = [
     icon: 'cpu',
     color: 'emerald',
     titleEn: 'Acquiring Switch & Core',
-    subtitleEn: 'Java 21 • Sub-200ms Window • Outbox Pattern',
+    subtitleEn: 'Java 21 • <200ms Target Window • Outbox Pattern',
     titlePt: 'Acquiring Switch & Core',
-    subtitlePt: 'Java 21 • Janela Sub-200ms • Outbox Pattern',
+    subtitlePt: 'Java 21 • Janela Alvo <200ms • Outbox Pattern',
   },
   {
     key: 'softhsm',
@@ -83,6 +83,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: '< 200ms (Design Target; not a measured production SLA)',
       metricsLabel2: 'Delivery Guarantee',
       metricsVal2: 'At-Least-Once + Consumer Dedup',
+      implemented:
+        'Spring Boot 3.2 authorization orchestrator with PostgreSQL ACID Outbox persistence, SHA-256 payload idempotency barrier, and Resilience4j circuit breakers.',
+      simulated:
+        'Multi-region active-active cluster deployment and production telco leased lines to Visa/Mastercard (modeled via local Scheme Emulator).',
       limitations:
         'Authorial reference architecture and protocol testbed. The sub-200ms latency is an architectural design target, not a measured production SLA across live telecom links. In this portfolio, the switch behavior is demonstrated via the client-side state machine in /simulator.',
     },
@@ -116,6 +120,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'In-Memory Zero-Log Buffer',
       metricsLabel2: 'PIN Format Standard',
       metricsVal2: 'ISO 9564-1 Format 0',
+      implemented:
+        'Modern C++17 daemon using OpenSSL EVP APIs for 3DES/AES cryptography, in-memory ISO 9564-1 Format 0 PIN block translation, and KCV calculation.',
+      simulated:
+        'Physical tamper-responsive hardware boundaries, battery zeroization circuits, and official FIPS 140-3 Level 3 / PCI-PTS physical appliance certifications.',
       limitations:
         'Software simulator for architectural demonstration and testing; does not replace physical tamper-responsive HSM hardware in production PCI-PIN environments.',
     },
@@ -147,6 +155,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'Binary Bitmap + 2-Byte Header',
       metricsLabel2: 'Test Scenarios',
       metricsVal2: 'Approve / Decline / Timeout',
+      implemented:
+        'Java 21 NIO socket server parsing ISO 8583:1987 binary bitmaps, validating DE3, DE4, DE11, DE39, DE41, DE52, and returning deterministic approval/reversal codes.',
+      simulated:
+        'Connection to live VisaNet VIP networks, Mastercard Banknet, or real issuing bank authorization hosts.',
       limitations:
         'Synthetic scheme emulator with no connection to Visa, Mastercard, or real issuing banks.',
     },
@@ -179,6 +191,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'Balanced Double-Entry',
       metricsLabel2: 'Concurrency Control',
       metricsVal2: 'ShedLock + Chunk Checkpoints',
+      implemented:
+        'Spring Batch 5 chunk-oriented step reader/processor/writer generating fixed-width positional TC50 clearing files and booking balanced double-entry accounting records.',
+      simulated:
+        'Direct SFTP transmission to Visa Settlement Service (VSS) or Central Bank STR/CIP clearing channels.',
       limitations:
         'Demonstrated in Scenario D of the interactive simulator using synthetic batch records.',
     },
@@ -209,6 +225,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'ISO 14443-4 / APDU',
       metricsLabel2: 'Retry Safety',
       metricsVal2: 'Client UUIDv4 Idempotency Key',
+      implemented:
+        'Android contactless capture client using IsoDep NFC APIs for EMV Tag parsing (9F26, 9F02, 5A) and client-side UUIDv4 idempotency key generation.',
+      simulated:
+        'EMVCo Level 2 formal lab certification, PCI-CPoC / MPoC official compliance approval, and live merchant acquiring registration.',
       limitations:
         'Simulated as the origin node in the browser state machine using synthetic card and EMV data.',
     },
@@ -244,6 +264,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: '< 200ms (Meta de Arquitetura; não é SLA de produção)',
       metricsLabel2: 'Garantia de Entrega',
       metricsVal2: 'At-Least-Once + Dedup no Consumidor',
+      implemented:
+        'Orquestrador de autorização em Spring Boot 3.2 com persistência ACID no Outbox em PostgreSQL, barreira de idempotência via SHA-256 e circuit breakers com Resilience4j.',
+      simulated:
+        'Deploy em cluster ativo-ativo multi-região e links dedicados de telecom com bandeiras (modelados via Emulador de Bandeira local).',
       limitations:
         'Arquitetura de referência autoral e bancada de testes de protocolo. O tempo sub-200ms é uma meta de projeto de arquitetura, e não um SLA de produção medido sob links de telecom de bandeiras. Neste portfólio, o comportamento do switch é demonstrado pela máquina de estados local na página /simulator.',
     },
@@ -277,6 +301,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'Buffer em Memória Zero-Log',
       metricsLabel2: 'Padrão de PIN Block',
       metricsVal2: 'ISO 9564-1 Formato 0',
+      implemented:
+        'Daemon em C++17 moderno utilizando OpenSSL EVP para criptografia 3DES/AES, tradução de PIN block ISO 9564-1 Formato 0 em memória e cálculo de KCV.',
+      simulated:
+        'Gabinete físico com sensores de intrusão, circuitos de auto-destruição e certificação física FIPS 140-3 Nível 3 / PCI-PTS.',
       limitations:
         'Simulador em software para demonstração arquitetural e testes; não substitui hardware HSM físico certificado em ambientes produtivos PCI-PIN.',
     },
@@ -308,6 +336,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'Bitmap Binário + Header 2 Bytes',
       metricsLabel2: 'Cenários de Teste',
       metricsVal2: 'Aprovação / Recusa / Timeout',
+      implemented:
+        'Servidor socket Java 21 NIO interpretando bitmaps binários ISO 8583:1987, validando DE3, DE4, DE11, DE39, DE41, DE52 e retornando códigos determinísticos de aprovação/reversão.',
+      simulated:
+        'Conexão com a rede proprietária VisaNet VIP, Mastercard Banknet ou cores emissores reais.',
       limitations:
         'Emulador sintético de bandeira sem qualquer conexão com Visa, Mastercard ou bancos emissores reais.',
     },
@@ -340,6 +372,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'Partidas Dobradas Balanceadas',
       metricsLabel2: 'Controle de Concorrência',
       metricsVal2: 'ShedLock + Checkpoints de Chunk',
+      implemented:
+        'Pipeline Spring Batch 5 orientado a chunks gerando arquivos posicionais TC50 de compensação e lançamentos contábeis balanceados em partidas dobradas.',
+      simulated:
+        'Transmissão direta via SFTP para o Visa Settlement Service (VSS) ou câmaras do BACEN (STR/CIP).',
       limitations:
         'Demonstrado no Cenário D do simulador interativo utilizando registros sintéticos de lote.',
     },
@@ -370,6 +406,10 @@ export const ORION_CASE_STUDIES = {
       metricsVal1: 'ISO 14443-4 / APDU',
       metricsLabel2: 'Segurança em Retentativas',
       metricsVal2: 'Chave UUIDv4 no Cliente',
+      implemented:
+        'Cliente de captura contactless em Android com APIs IsoDep NFC para leitura de tags EMV (9F26, 9F02, 5A) e geração de chave de idempotência UUIDv4 na borda.',
+      simulated:
+        'Certificação formal de laboratório EMVCo Nível 2, homologação oficial PCI-CPoC / MPoC e credenciamento produtivo em adquirente.',
       limitations:
         'Simulado como nó de origem na máquina de estados do navegador utilizando dados sintéticos.',
     },
@@ -601,8 +641,8 @@ export const SKILLS_DATA = [
     context: 'corporate',
     desc: 'OpenTelemetry, Prometheus, Grafana, MDC Logs',
     descPt: 'OpenTelemetry, Prometheus, Grafana, Logs MDC',
-    evidenceEn: 'Distributed tracing & root-cause diagnostics at RedeFlex & Datadog lab',
-    evidencePt: 'Rastreamento distribuído e diagnósticos na RedeFlex e Datadog lab',
+    evidenceEn: 'Distributed tracing & root-cause diagnostics at RedeFlex & local APM simulation',
+    evidencePt: 'Rastreamento distribuído e diagnósticos na RedeFlex e simulação local de APM',
   },
 
   // Cloud & Infrastructure
@@ -706,10 +746,10 @@ export const CAREER_ERAS = [
     badgeEn: 'Current Phase • Senior Specialization',
     color: 'emerald',
     descPt:
-      'RedeFlex e projeto de referência autoral OrionPay. Desenho e implementação de arquiteturas transacionais completas de adquirência: motores de autorização de baixa latência (ISO 8583, Switch Adquirente C++ / Java 21), mensageria tolerante a falhas (RabbitMQ / Outbox), segurança de balcão (SoftHSM, tradução de PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II TC50 em Spring Batch).',
+      'Atuação profissional sênior na RedeFlex em gateways de captura de transações e mensageria distribuída de alta disponibilidade. Paralelamente, desenvolvimento do projeto autoral de referência OrionPay para modelar a arquitetura completa de adquirência: autorização ISO 8583 (Switch C++ / Java 21), mensageria tolerante a falhas (RabbitMQ / Outbox), segurança criptográfica (SoftHSM, PIN Block, EMV) e conciliação batch Base II (TC50).',
     descEn:
-      'RedeFlex and authorial reference project OrionPay. Architecture and implementation of full transaction acquiring ecosystems: low-latency authorization engines (ISO 8583, C++ / Java 21 Switch), fault-tolerant messaging (RabbitMQ / Outbox), cryptographic POS security (SoftHSM, PIN block translation, EMV), and clearing & settlement pipelines (Base II TC50 via Spring Batch).',
-    institutions: ['RedeFlex', 'OrionPay (Projetos Autorais)']
+      'Senior professional work at RedeFlex on transaction acquiring gateways and high-availability messaging. In parallel, developed the OrionPay authorial reference project to model an end-to-end acquiring architecture: ISO 8583 authorization (C++ / Java 21 Switch), fault-tolerant messaging (RabbitMQ / Outbox), cryptographic POS security (SoftHSM, PIN block, EMV), and Base II (TC50) batch settlement.',
+    institutions: ['RedeFlex (Produção Corporativa)', 'OrionPay (Projeto Autoral de Referência)']
   },
   {
     id: 'era-corporate',
@@ -759,9 +799,9 @@ export const EXPERIENCE_DATA = [
     periodEn: 'March 2023 – Present',
     periodPt: 'Março 2023 – Presente',
     descEn:
-      'Lead individual contributor driving the engineering and scalability of transaction acquiring gateways and high-availability messaging engines. Architected fault-tolerant asynchronous message processing using Java 17/21, AWS cloud infrastructure, and distributed RabbitMQ topologies with Dead Letter Queues (DLQ). Actively leveraged generative AI diagnostic tooling to accelerate root-cause analysis on distributed traces and optimize cryptographic routines.',
+      'Senior individual contributor focused on backend engineering, payment processing, and system scalability for transaction acquiring gateways and high-availability messaging engines. Architected fault-tolerant asynchronous message processing using Java 17/21, AWS cloud infrastructure, and distributed RabbitMQ topologies with Dead Letter Queues (DLQ). Actively leveraged generative AI diagnostic tooling to accelerate root-cause analysis on distributed traces and optimize cryptographic routines.',
     descPt:
-      'Contribuidor individual sênior liderando a engenharia e a escalabilidade de gateways de captura de transações e motores de mensageria de alta disponibilidade. Arquitetou processamento assíncrono tolerante a falhas utilizando Java 17/21, infraestrutura em nuvem AWS e topologias distribuídas RabbitMQ com Dead Letter Queues (DLQ). Utilizou ferramentas de diagnóstico baseadas em IA generativa para acelerar análises de causa-raiz em traces distribuídos e otimizar rotinas criptográficas.',
+      'Contribuidor individual sênior focado em engenharia backend, meios de pagamento e escalabilidade de gateways de captura de transações e motores de mensageria de alta disponibilidade. Arquitetou processamento assíncrono tolerante a falhas utilizando Java 17/21, infraestrutura em nuvem AWS e topologias distribuídas RabbitMQ com Dead Letter Queues (DLQ). Utilizou ferramentas de diagnóstico baseadas em IA generativa para acelerar análises de causa-raiz em traces distribuídos e otimizar rotinas criptográficas.',
     tags: [
       'Java 17 / 21',
       'Spring Boot',

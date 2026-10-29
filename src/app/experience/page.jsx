@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Briefcase, TrendingUp, Landmark, Shield, ArrowRight, Layers, Cpu, Code2 } from 'lucide-react';
+import { Briefcase, TrendingUp, Landmark, Shield, ArrowRight, Layers, Cpu, Code2, Info } from 'lucide-react';
 import { useApp } from '../../context/AppContext';
 import { EXPERIENCE_DATA, CAREER_ERAS } from '../../data/portfolio-data';
 
@@ -13,7 +13,7 @@ export default function ExperiencePage() {
   return (
     <section className="py-12 lg:py-16 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
       {/* Header */}
-      <div className="space-y-3 mb-10 text-center max-w-3xl mx-auto">
+      <div className="space-y-3 mb-8 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
           <Briefcase className="w-3.5 h-3.5" />
           <span>{isPt ? 'Trajetória Profissional de 13 Anos' : '13-Year Verifiable Career Trajectory'}</span>
@@ -25,6 +25,23 @@ export default function ExperiencePage() {
           {isPt
             ? '13 anos de evolução contínua em backend: desde a fundação técnica em baixo nível e visão computacional em C++, passando por escala bancária corporativa (Rabobank, B3, Serasa Experian), até a especialização sênior em adquirência e motores transacionais de meios de pagamento.'
             : '13 years of continuous backend evolution: from foundational low-level systems & computer vision in C++, through enterprise banking scale (Rabobank, B3, Serasa Experian), to senior specialization in transaction acquiring & payment engines.'}
+        </p>
+      </div>
+
+      {/* Corporate Employment vs. Authorial Project Demarcation Notice (Task 6) */}
+      <div className="mb-10 p-4 rounded-xl border border-cyan-500/30 bg-[#061124]/90 space-y-1.5 font-mono text-xs max-w-5xl mx-auto">
+        <div className="text-cyan-300 font-bold uppercase flex items-center gap-2">
+          <Info className="w-4 h-4 text-cyan-400 shrink-0" />
+          <span>
+            {isPt
+              ? 'Transparência de Escopo: Emprego Corporativo vs. Projetos Autorais'
+              : 'Scope Transparency: Corporate Employment vs. Authorial Projects'}
+          </span>
+        </div>
+        <p className="text-slate-300 text-xs font-sans leading-relaxed">
+          {isPt
+            ? 'A linha do tempo abaixo detalha a atuação profissional corporativa contínua em empresas (RedeFlex, Grupo GFT, Duel Midia, Grupo Criar) e clientes do setor financeiro (B3, Rabobank, Serasa Experian). O projeto OrionPay, detalhado na seção Projetos, constitui uma arquitetura de referência autoral desenvolvida de forma independente para modelagem de protocolos e bancada de testes de adquirência, não se confundindo com sistemas proprietários das organizações contratantes.'
+            : 'The timeline below details continuous corporate employment at technology organizations (RedeFlex, Grupo GFT, Duel Midia, Grupo Criar) and regulated financial clients (B3 Stock Exchange, Rabobank, Serasa Experian). The OrionPay project detailed in the Projects section represents an independent authorial reference architecture and integration testbed designed by Francisco Araújo, distinct from proprietary systems developed under client employment.'}
         </p>
       </div>
 

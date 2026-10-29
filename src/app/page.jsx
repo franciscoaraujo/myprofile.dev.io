@@ -349,8 +349,8 @@ export default function OverviewPage() {
               </div>
               <p className="text-xs text-slate-400">
                 {isPt
-                  ? 'Meta de projeto arquitetural (design target; não é SLA de produção) cobrindo captura, tradução e roteamento no switch.'
-                  : 'Architectural design target (not a measured production SLA) spanning terminal capture, crypto translation, and switch routing.'}
+                  ? 'Meta de projeto arquitetural: sob 200 ms (meta de design; não é SLA de produção medido).'
+                  : 'Authorization latency target: under 200 ms (design target; not a measured production SLA).'}
               </p>
             </div>
 
