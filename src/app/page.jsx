@@ -100,7 +100,7 @@ export default function OverviewPage() {
     <div>
       {/* HERO SECTION */}
       <section className="relative pt-10 pb-16 lg:pt-16 lg:pb-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid lg:grid-cols-12 gap-10 items-center">
+        <div className="grid lg:grid-cols-12 gap-8 xl:gap-10 items-start">
           {/* Left Column */}
           <div className="lg:col-span-7 space-y-6">
             {/* Candidate Bio & Photo */}
@@ -141,7 +141,7 @@ export default function OverviewPage() {
                     Senior IC
                   </span>
                 </h2>
-                <p className="text-xs font-mono text-slate-400 flex items-center gap-2">
+                <p className="text-xs font-mono text-slate-400 flex flex-wrap items-center gap-1.5 sm:gap-2">
                   <span className="text-slate-300 font-medium">
                     {isPt ? '13 Anos de Trajetória Backend' : '13-Year Backend Trajectory'}
                   </span>
@@ -155,10 +155,10 @@ export default function OverviewPage() {
 
             {/* Main Heading & Tagline */}
             <div className="space-y-4">
-              <h1 className="text-3xl sm:text-4xl lg:text-5xl font-black tracking-tight text-white leading-tight">
+              <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-5xl font-black tracking-tight text-white leading-tight">
                 {isPt ? 'Engenheiro de Software Especialista' : 'Specialist Software Engineer'}
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400 text-2xl sm:text-3xl lg:text-4xl">
+                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400 text-2xl sm:text-3xl lg:text-[28px] xl:text-4xl">
                   {isPt
                     ? 'Backend Java & C++ | Sistemas Críticos & Meios de Pagamento'
                     : 'Backend Java & C++ | Mission-Critical Systems & Payment Processing'}
@@ -247,7 +247,7 @@ export default function OverviewPage() {
               </div>
 
               {/* Location & Work Scope Bar */}
-              <div className="flex items-center justify-between px-3 py-1.5 rounded-lg border border-[#152342]/70 bg-[#060B17]/60 text-[11px] font-mono text-slate-400">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-lg border border-[#152342]/70 bg-[#060B17]/60 text-[11px] font-mono text-slate-400">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-amber-400" />
                   <span className="text-slate-300">

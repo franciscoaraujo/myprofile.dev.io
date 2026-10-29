@@ -13,15 +13,15 @@ export default function Navbar() {
 
   const navLinks = [
     { href: '/', labelEn: 'Overview', labelPt: 'Visão Geral' },
-    { href: '/projects', labelEn: 'Projects (Case Studies)', labelPt: 'Projetos (Estudos de Caso)' },
-    { href: '/simulator', labelEn: 'Payment Systems Lab', labelPt: 'Payment Systems Lab', isHighlight: true },
+    { href: '/projects', labelEn: 'Projects', labelPt: 'Projetos' },
+    { href: '/simulator', labelEn: 'Payment Lab', labelPt: 'Payment Lab', isHighlight: true },
     { href: '/experience', labelEn: 'Experience', labelPt: 'Experiência' },
-    { href: '/skills', labelEn: 'Skills Matrix', labelPt: 'Matriz de Habilidades' },
+    { href: '/skills', labelEn: 'Skills', labelPt: 'Habilidades' },
   ];
 
   return (
     <header className="sticky top-0 z-40 w-full border-b border-[#152342]/90 bg-[#040711]/90 backdrop-blur-md no-print">
-      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-20 py-3.5 flex items-center justify-between gap-4">
+      <div className="max-w-7xl 2xl:max-w-[1440px] mx-auto px-4 sm:px-6 lg:px-8 h-20 py-3.5 flex items-center justify-between gap-2 lg:gap-3 xl:gap-4">
         {/* Corporate Brand Mark */}
         <Link href="/" className="flex items-center gap-3 group shrink-0" aria-label="Francisco Araújo Home">
           <div className="relative w-10 h-10 rounded-xl bg-gradient-to-br from-blue-600 via-[#00D47E] to-cyan-400 p-[1.5px] shadow-lg shadow-blue-900/20 group-hover:scale-105 transition-all">
@@ -38,7 +38,7 @@ export default function Navbar() {
                 Senior IC
               </span>
             </div>
-            <span className="text-[11px] font-mono text-slate-400 tracking-wider whitespace-nowrap">
+            <span className="hidden sm:block text-[11px] font-mono text-slate-400 tracking-wider whitespace-nowrap">
               {isPt ? 'Engenheiro Especialista | Java & C++' : 'Specialist Software Engineer | Java & C++'}
             </span>
           </div>
@@ -53,7 +53,7 @@ export default function Navbar() {
                 <Link
                   key={item.href}
                   href={item.href}
-                  className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1.5 whitespace-nowrap font-semibold border ${
+                  className={`px-3 py-1.5 rounded-full transition-all flex items-center gap-1.5 whitespace-nowrap font-semibold border ${
                     isActive
                       ? 'bg-cyan-500/20 text-white border-cyan-400 shadow-sm'
                       : 'text-cyan-300 hover:text-cyan-200 hover:bg-cyan-950/40 border-cyan-500/20'
@@ -69,7 +69,7 @@ export default function Navbar() {
               <Link
                 key={item.href}
                 href={item.href}
-                className={`px-3.5 py-1.5 rounded-full transition-all whitespace-nowrap ${
+                className={`px-3 py-1.5 rounded-full transition-all whitespace-nowrap ${
                   isActive
                     ? 'bg-[#081229] text-[#00D47E] border border-[#00D47E]/40 font-bold shadow-sm'
                     : 'hover:text-white hover:bg-slate-800/60'
@@ -103,7 +103,7 @@ export default function Navbar() {
             type="button"
             onClick={toggleTheme}
             id="theme-toggle"
-            className="relative inline-flex items-center gap-2 px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
+            className="relative inline-flex items-center gap-2 px-2.5 sm:px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-[#00D47E]/60 text-xs font-mono transition-all group select-none shadow-sm cursor-pointer"
             title="Toggle Dark / Light Theme"
             aria-label="Toggle Theme"
           >
@@ -114,7 +114,7 @@ export default function Navbar() {
                 }`}
               ></div>
             </div>
-            <span className="flex items-center gap-1 text-slate-300">
+            <span className="hidden xl:flex items-center gap-1 text-slate-300">
               {theme === 'light' ? (
                 <Sun className="w-3.5 h-3.5 text-amber-500" />
               ) : (
@@ -131,19 +131,19 @@ export default function Navbar() {
             type="button"
             onClick={() => window.print()}
             title="Print / Export Engineering CV"
-            className="hidden sm:inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-500 text-xs font-mono text-slate-300 transition-all whitespace-nowrap"
+            className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-500 text-xs font-mono text-slate-300 transition-all whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5 text-slate-400" />
-            <span>{isPt ? 'Currículo (PDF)' : 'Resume (PDF)'}</span>
+            <span>{isPt ? 'Currículo' : 'Resume'}</span>
           </button>
 
           {/* Contact CTA (M3 Primary Filled Pill Button) */}
           <Link
             href="/contact"
-            className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-md shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
+            className="inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-full bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs tracking-wide uppercase transition-all shadow-md shadow-emerald-500/20 active:scale-95 whitespace-nowrap"
           >
             <Mail className="w-3.5 h-3.5" />
-            <span>{isPt ? 'Entrar em Contato' : 'Get in Touch'}</span>
+            <span>{isPt ? 'Contato' : 'Get in Touch'}</span>
           </Link>
         </div>
       </div>
