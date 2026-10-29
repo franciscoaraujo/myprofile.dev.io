@@ -672,18 +672,18 @@ export const PROFILE_BIO = {
   taglinePt: 'Engenharia Backend para Sistemas Críticos & Meios de Pagamento',
   taglineEn: 'Backend Engineering for Critical Systems & Payment Processing',
   shortBioPt:
-    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
+    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, com sólida experiência prática em Java e C++.',
   shortBioEn:
-    'Senior Software Engineer with 13 years of experience in high-performance backend and mission-critical distributed systems, combining deep mastery of Java and C++.',
+    'Experienced in Java and C++, with a focus on reliable backend architectures, distributed systems, and payment processing across a 13-year engineering trajectory.',
   paragraphsPt: [
-    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em Java e C++.',
+    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, com sólida experiência prática em Java e C++.',
     'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',
-    'Especializou-se fortemente no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais completas: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
+    'Especializou-se no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (ISO 8583, Switch Adquirente), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
   ],
   paragraphsEn: [
-    'Software Engineer with 13 years of trajectory in high-performance backend and mission-critical distributed systems, combining deep mastery in Java and C++.',
+    'Software Engineer with 13 years of experience in backend engineering and mission-critical distributed systems, with strong hands-on proficiency in Java and C++.',
     'Built a solid corporate track record across enterprise banking integration (Rabobank), financial asset registry platforms (B3 Stock Exchange), and legacy enterprise modernization (Serasa Experian), alongside low-level computer vision systems in C++.',
-    'Specialized deeply in Payment Processing and Acquiring ecosystems, contributing to implementations of end-to-end transactional architectures: low-latency authorization engines (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
+    'Focused in Payment Processing and Acquiring ecosystems, contributing to implementations of transactional architectures: authorization workflows (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
   ]
 };
 

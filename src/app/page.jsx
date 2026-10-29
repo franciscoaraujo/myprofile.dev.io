@@ -170,33 +170,33 @@ export default function OverviewPage() {
                 <p>
                   {isPt ? (
                     <>
-                      Engenheiro de Software com <strong className="text-white font-semibold">13 anos de trajetória</strong> em backend de alta performance e sistemas distribuídos críticos, combinando profundo domínio em <span className="text-cyan-300 font-mono font-medium">Java</span> e <span className="text-[#00D47E] font-mono font-medium">C++</span>.
+                      Engenheiro de Software com <strong className="text-white font-semibold">13 anos de trajetória</strong> em desenvolvimento backend e sistemas distribuídos, com sólida experiência prática em <span className="text-cyan-300 font-mono font-medium">Java</span> e <span className="text-[#00D47E] font-mono font-medium">C++</span>.
                     </>
                   ) : (
                     <>
-                      Software Engineer with <strong className="text-white font-semibold">13 years of trajectory</strong> in high-performance backend and mission-critical distributed systems, combining deep mastery of <span className="text-cyan-300 font-mono font-medium">Java</span> and <span className="text-[#00D47E] font-mono font-medium">C++</span>.
+                      Software Engineer with <strong className="text-white font-semibold">13 years of trajectory</strong> in backend development and distributed systems, experienced in <span className="text-cyan-300 font-mono font-medium">Java</span> and <span className="text-[#00D47E] font-mono font-medium">C++</span>, with a focus on reliable backend architectures and payment processing.
                     </>
                   )}
                 </p>
                 <p>
                   {isPt ? (
                     <>
-                      Construiu sólida bagagem corporativa atuando em integração bancária corporativa (<strong className="text-white">Rabobank</strong>), plataformas de registro financeiro (<strong className="text-white">B3</strong>) e modernização de grandes serviços corporativos (<strong className="text-white">Serasa Experian</strong>), além de projetos de visão computacional em C++.
+                      Construiu sólida bagagem corporativa atuando em integração bancária corporativa (<strong className="text-white">Rabobank</strong>), plataformas de registro financeiro (<strong className="text-white">B3</strong>) e modernização de serviços corporativos (<strong className="text-white">Serasa Experian</strong>), além de projetos de visão computacional em C++.
                     </>
                   ) : (
                     <>
-                      Built a solid corporate track record across enterprise banking integration (<strong className="text-white">Rabobank</strong>), financial asset registry platforms (<strong className="text-white">B3 Stock Exchange</strong>), and legacy enterprise modernization (<strong className="text-white">Serasa Experian</strong>), alongside low-level computer vision systems in C++.
+                      Built a solid corporate track record across enterprise banking integration (<strong className="text-white">Rabobank</strong>), financial asset registry platforms (<strong className="text-white">B3 Stock Exchange</strong>), and enterprise service modernization (<strong className="text-white">Serasa Experian</strong>), alongside low-level computer vision systems in C++.
                     </>
                   )}
                 </p>
                 <p>
                   {isPt ? (
                     <>
-                      Especializou-se fortemente no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, participando de implementações de arquiteturas transacionais completas: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                      Especializou-se no ecossistema de <strong className="text-white">Meios de Pagamento e Adquirência</strong>, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (<span className="font-mono text-cyan-300">ISO 8583, Switch Adquirente</span>), mensageria com resiliência distribuída, segurança de balcão (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>) e pipelines de compensação e liquidação (<span className="font-mono text-blue-300">Clearing / Base II</span>).
                     </>
                   ) : (
                     <>
-                      Specialized deeply in <strong className="text-white">Payment Processing and Acquiring</strong>, contributing to implementations of end-to-end transactional architectures: low-latency authorization engines (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), distributed resilient messaging, point-of-sale security (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>), and clearing & settlement pipelines (<span className="font-mono text-blue-300">Clearing / Base II</span>).
+                      Specialized in <strong className="text-white">Payment Processing and Acquiring</strong>, contributing to implementations of transactional architectures: low-latency authorization engines (<span className="font-mono text-cyan-300">ISO 8583, Acquiring Switch</span>), distributed resilient messaging, point-of-sale security (<span className="font-mono text-[#00D47E]">HSM/PIN Block, EMV</span>), and clearing & settlement pipelines (<span className="font-mono text-blue-300">Clearing / Base II</span>).
                     </>
                   )}
                 </p>
@@ -505,17 +505,8 @@ export default function OverviewPage() {
                 </div>
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
                   <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-[#00D47E]" />
-                    <strong>{isPt ? 'Português:' : 'Portuguese:'}</strong> {isPt ? 'Nativo' : 'Native'}
-                  </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
                     <Languages className="w-3.5 h-3.5 text-cyan-400" />
-                    <strong>{isPt ? 'Inglês:' : 'English:'}</strong>{' '}
-                    {isPt ? 'Técnico / Profissional (B1-B2)' : 'Technical / Professional Working (B1-B2)'}
-                  </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
-                    <strong>{isPt ? 'Francês:' : 'French:'}</strong> {isPt ? 'Intermediário' : 'Intermediate'}
+                    <span>English — A2/B1</span>
                   </span>
                 </div>
               </div>
