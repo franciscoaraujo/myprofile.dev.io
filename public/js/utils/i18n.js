@@ -579,8 +579,8 @@ const PT_HTML_FRAGMENTS = [
         ptHtml: '<strong class="text-slate-200">Execução Local &amp; Verificação:</strong> Repositório estático HTML5/ES6 compatível com GitHub Pages (<code class="text-cyan-300">npx serve .</code> ou <code class="text-cyan-300">python -m http.server 8080</code>). Os módulos backend Java/C++ descritos nos estudos de caso do OrionPay são representados aqui como especificações arquiteturais e simulações determinísticas locais; nenhum número de benchmark não verificado ou link externo quebrado é exibido.'
     },
     {
-        enMatch: 'Deep familiarity with payment standards',
-        ptHtml: 'Profunda familiaridade com padrões de meios de pagamento (<span class="font-mono text-cyan-300">ISO 8583, EMV, SPB Banco Central</span>), rotinas criptográficas de baixo nível em C++ e arquitetura de microsserviços moderna em Java 21 me permitem resolver casos extremos antes que se tornem divergências de conciliação ou deadlocks de concorrência.'
+        enMatch: 'Experience with payment standards',
+        ptHtml: 'Experiência prática com padrões de meios de pagamento (<span class="font-mono text-cyan-300">ISO 8583 e EMV</span>), aliada ao desenvolvimento backend em Java e C++, permitindo tratar casos de borda antes que se tornem divergências de conciliação ou problemas de concorrência.'
     }
 ];
 
