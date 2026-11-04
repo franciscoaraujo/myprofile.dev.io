@@ -14,7 +14,7 @@ export default function Navbar() {
   const navLinks = [
     { href: '/', labelEn: 'Overview', labelPt: 'Visão Geral' },
     { href: '/projects', labelEn: 'Projects', labelPt: 'Projetos' },
-    { href: '/simulator', labelEn: 'Payment Lab', labelPt: 'Payment Lab', isHighlight: true },
+    { href: '/simulator', labelEn: 'Payment Systems Lab', labelPt: 'Payment Systems Lab', isHighlight: true },
     { href: '/experience', labelEn: 'Experience', labelPt: 'Experiência' },
     { href: '/skills', labelEn: 'Skills', labelPt: 'Habilidades' },
   ];
@@ -33,9 +33,6 @@ export default function Navbar() {
             <div className="flex items-center gap-2">
               <span className="font-bold text-sm tracking-tight text-white group-hover:text-slate-200 whitespace-nowrap">
                 Francisco Araújo
-              </span>
-              <span className="px-1.5 py-0.5 rounded text-[9px] font-mono font-bold bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 uppercase whitespace-nowrap">
-                Senior IC
               </span>
             </div>
             <span className="hidden sm:block text-[11px] font-mono text-slate-400 tracking-wider whitespace-nowrap">
@@ -127,15 +124,16 @@ export default function Navbar() {
           </button>
 
           {/* CV / Resume Action */}
-          <button
-            type="button"
-            onClick={() => window.print()}
-            title="Print / Export Engineering CV"
+          <a
+            href="/assets/curriculo-francisco-araujo.pdf"
+            target="_blank"
+            rel="noopener noreferrer"
+            title="Download Engineering CV (PDF)"
             className="hidden sm:inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-500 text-xs font-mono text-slate-300 transition-all whitespace-nowrap"
           >
             <FileText className="w-3.5 h-3.5 text-slate-400" />
             <span>{isPt ? 'Currículo' : 'Resume'}</span>
-          </button>
+          </a>
 
           {/* Contact CTA (M3 Primary Filled Pill Button) */}
           <Link

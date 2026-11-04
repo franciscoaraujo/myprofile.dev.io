@@ -16,7 +16,7 @@ export default function ExperiencePage() {
       <div className="space-y-3 mb-8 text-center max-w-3xl mx-auto">
         <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
           <Briefcase className="w-3.5 h-3.5" />
-          <span>{isPt ? 'Trajetória Profissional de 13 Anos' : '13-Year Verifiable Career Trajectory'}</span>
+          <span>{isPt ? 'Trajetória Profissional' : 'Career Trajectory'}</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold text-white tracking-tight">
           {isPt ? 'Experiência Profissional & Trajetória' : 'Professional Experience & Career History'}
@@ -172,9 +172,22 @@ export default function ExperiencePage() {
                 </span>
               </div>
 
-              {job.descEn && (
+              {job.bulletsEn ? (
+                <div className="space-y-2 text-sm text-slate-300">
+                  <p className="leading-relaxed font-medium text-slate-200">
+                    {isPt ? job.summaryPt : job.summaryEn}
+                  </p>
+                  <ul className="space-y-1.5 list-disc list-inside text-slate-300 leading-relaxed text-xs sm:text-sm">
+                    {(isPt ? job.bulletsPt : job.bulletsEn).map((bullet, bIdx) => (
+                      <li key={bIdx} className="pl-1">
+                        <span>{bullet}</span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              ) : job.descEn ? (
                 <p className="text-sm text-slate-300 leading-relaxed">{isPt ? job.descPt : job.descEn}</p>
-              )}
+              ) : null}
 
               {job.clients && (
                 <div className="space-y-3 pt-1">
@@ -230,8 +243,8 @@ export default function ExperiencePage() {
           </h3>
           <p className="text-xs text-slate-400 mt-0.5">
             {isPt
-              ? 'Veja as competências técnicas centrais organizadas por domínio com evidências verificáveis de produção corporativa e projetos autorais.'
-              : 'Browse core technical competencies structured by domain with verifiable evidence across corporate production and authorial projects.'}
+              ? 'Veja as competências técnicas centrais organizadas por domínio com evidências de produção corporativa e projetos autorais.'
+              : 'Browse core technical competencies structured by domain with technical evidence across corporate production and authorial projects.'}
           </p>
         </div>
         <Link

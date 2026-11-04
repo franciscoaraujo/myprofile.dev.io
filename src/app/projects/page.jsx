@@ -241,7 +241,7 @@ export default function ProjectsPage() {
                     {isPt ? 'Testar no Simulador →' : 'Test in Simulator →'}
                   </Link>
                   <a
-                    href="https://github.com/franciscoaraujo/myprofile.dev.io"
+                    href="https://github.com/orgs/Orion-Payments/repositories"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-cyan-400 hover:underline"

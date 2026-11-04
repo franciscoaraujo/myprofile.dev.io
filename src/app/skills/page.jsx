@@ -77,8 +77,8 @@ export default function SkillsPage() {
             </h1>
             <p className="text-slate-300 text-sm max-w-2xl">
               {isPt
-                ? 'Matriz estruturada de competências com evidências técnicas verificáveis, diferenciando experiência corporativa em produção, projetos de arquitetura autoral e padrões de mercado.'
-                : 'Structured skills matrix with verifiable technical evidence, distinguishing corporate production experience, authorial reference architectures, and industry domain standards.'}
+                ? 'Matriz estruturada de competências com evidências técnicas, diferenciando experiência corporativa em produção, projetos de arquitetura autoral e padrões de mercado.'
+                : 'Structured skills matrix with technical evidence, distinguishing corporate production experience, authorial reference architectures, and industry domain standards.'}
             </p>
           </div>
 
@@ -226,7 +226,15 @@ export default function SkillsPage() {
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
                   <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
                     <Languages className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>English — A2/B1</span>
+                    <span>
+                      {isPt
+                        ? 'Inglês: Intermediário (B1), leitura técnica e documentação'
+                        : 'English: Intermediate (B1), technical reading and documentation'}
+                    </span>
+                  </span>
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
+                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>{isPt ? 'Francês: Intermediário' : 'French: Intermediate'}</span>
                   </span>
                 </div>
               </div>
@@ -264,8 +272,8 @@ export default function SkillsPage() {
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isPt
-                    ? 'Simulação em software (C++17 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
-                    : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++17 and OpenSSL without persisting plaintext PINs.'}
+                    ? 'Simulação em software (C++20 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
+                    : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++20 and OpenSSL without persisting plaintext PINs.'}
                 </p>
               </div>
 

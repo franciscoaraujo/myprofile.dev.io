@@ -69,14 +69,14 @@ export default function OverviewPage() {
     {
       href: '/experience',
       icon: Briefcase,
-      badgeEn: '13+ YEARS CAREER',
-      badgePt: '13+ ANOS DE CARREIRA',
+      badgeEn: 'CAREER TRAJECTORY',
+      badgePt: 'TRAJETÓRIA PROFISSIONAL',
       titleEn: 'Professional Experience',
       titlePt: 'Experiência Profissional',
       descEn:
-        'Verifiable corporate trajectory across RedeFlex (Card Acquiring), Grupo GFT (B3 Stock Exchange, Rabobank, Serasa Experian), Duel Midia, and Grupo Criar.',
+        'Corporate trajectory across RedeFlex (Card Acquiring), Grupo GFT (B3 Stock Exchange, Rabobank, Serasa Experian), Duel Midia, and Grupo Criar.',
       descPt:
-        'Trajetória corporativa verificável na RedeFlex (Adquirência), Grupo GFT (B3, Rabobank Brasil, Serasa Experian), Duel Midia e Grupo Criar.',
+        'Trajetória corporativa na RedeFlex (Adquirência), Grupo GFT (B3, Rabobank Brasil, Serasa Experian), Duel Midia e Grupo Criar.',
       color: 'text-blue-400',
       border: 'hover:border-blue-400/60',
     },
@@ -88,9 +88,9 @@ export default function OverviewPage() {
       titleEn: 'Technical Skills Matrix',
       titlePt: 'Matriz de Habilidades Técnicas',
       descEn:
-        'Structured domain matrix with verifiable technical evidence spanning Backend & C++, Payment Protocols, Distributed Systems, Persistence, Cloud, and Cryptographic Security.',
+        'Structured domain matrix with technical evidence spanning Backend & C++, Payment Protocols, Distributed Systems, Persistence, Cloud, and Cryptographic Security.',
       descPt:
-        'Matriz estruturada por domínio com evidências técnicas verificáveis cobrindo Backend & C++, Meios de Pagamento, Sistemas Distribuídos, Persistência, Cloud e Segurança Criptográfica.',
+        'Matriz estruturada por domínio com evidências técnicas cobrindo Backend & C++, Meios de Pagamento, Sistemas Distribuídos, Persistência, Cloud e Segurança Criptográfica.',
       color: 'text-amber-400',
       border: 'hover:border-amber-400/60',
     },
@@ -137,13 +137,10 @@ export default function OverviewPage() {
                 </div>
                 <h2 className="text-2xl sm:text-3xl font-black text-white tracking-tight flex items-center gap-2">
                   Francisco Araújo
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono font-bold bg-[#00D47E]/10 text-[#00D47E] border border-[#00D47E]/30 uppercase tracking-wider">
-                    Senior IC
-                  </span>
                 </h2>
                 <p className="text-xs font-mono text-slate-400 flex flex-wrap items-center gap-1.5 sm:gap-2">
                   <span className="text-slate-300 font-medium">
-                    {isPt ? '13 Anos de Trajetória Backend' : '13-Year Backend Trajectory'}
+                    {isPt ? 'Trajetória Backend' : 'Backend Trajectory'}
                   </span>
                   <span>&bull;</span>
                   <span className="text-cyan-400 font-medium">
@@ -165,16 +162,16 @@ export default function OverviewPage() {
                 </span>
               </h1>
 
-              {/* Opção 1: Bio / Perfil Profissional (3 Parágrafos) */}
+              {/* Bio / Perfil Profissional */}
               <div className="space-y-3 text-sm text-slate-300 leading-relaxed max-w-2xl">
                 <p>
                   {isPt ? (
                     <>
-                      Engenheiro de Software com <strong className="text-white font-semibold">13 anos de trajetória</strong> em desenvolvimento backend e sistemas distribuídos, com sólida experiência prática em <span className="text-cyan-300 font-mono font-medium">Java</span> e <span className="text-[#00D47E] font-mono font-medium">C++</span>.
+                      Engenheiro de Software com <strong className="text-white font-semibold">13 anos de trajetória</strong> em desenvolvimento backend (Java e C++). Atuação no setor financeiro desde 2019 e especialização em sistemas de pagamento de missão crítica desde 2023: autorização, criptografia, compensação e liquidação.
                     </>
                   ) : (
                     <>
-                      Software Engineer with <strong className="text-white font-semibold">13 years of trajectory</strong> in backend development and distributed systems, experienced in <span className="text-cyan-300 font-mono font-medium">Java</span> and <span className="text-[#00D47E] font-mono font-medium">C++</span>, with a focus on reliable backend architectures and payment processing.
+                      Software Engineer with <strong className="text-white font-semibold">13 years</strong> in backend development (Java and C++). Working in the financial sector since 2019 and specialized in mission-critical payment systems since 2023: authorization, cryptography, clearing and settlement.
                     </>
                   )}
                 </p>
@@ -270,14 +267,23 @@ export default function OverviewPage() {
                 <span>{isPt ? 'Ver Projetos' : 'View Projects'}</span>
               </Link>
 
-              <button
-                type="button"
-                onClick={() => window.print()}
+              <a
+                href="/assets/curriculo-francisco-araujo.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-slate-500 text-slate-200 text-xs font-mono transition-all"
               >
                 <Download className="w-4 h-4 text-slate-400" />
                 <span>{isPt ? 'Baixar Currículo (CV)' : 'Download Resume (CV)'}</span>
-              </button>
+              </a>
+
+              <a
+                href="mailto:chicoaraujo1063@gmail.com"
+                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-slate-500 text-slate-200 text-xs font-mono transition-all"
+              >
+                <Mail className="w-4 h-4 text-[#00D47E]" />
+                <span>chicoaraujo1063@gmail.com</span>
+              </a>
 
               <Link
                 href="/contact"
@@ -288,7 +294,7 @@ export default function OverviewPage() {
               </Link>
 
               <a
-                href="https://www.linkedin.com/in/francisco-jos%C3%A9-oliveira-araujo-b0185772/"
+                href="https://www.linkedin.com/in/francisco-araujo-dev"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white"
@@ -316,7 +322,7 @@ export default function OverviewPage() {
         </div>
       </section>
 
-      {/* VERIFIABLE ENGINEERING INDICATORS */}
+      {/* KEY ENGINEERING METRICS */}
       <section className="border-y border-[#152342] bg-[#060B17]/90 py-8 relative" aria-label="Key Engineering Metrics">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
@@ -505,7 +511,15 @@ export default function OverviewPage() {
                 <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
                   <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
                     <Languages className="w-3.5 h-3.5 text-cyan-400" />
-                    <span>English — A2/B1</span>
+                    <span>
+                      {isPt
+                        ? 'Inglês: Intermediário (B1), leitura técnica e documentação'
+                        : 'English: Intermediate (B1), technical reading and documentation'}
+                    </span>
+                  </span>
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
+                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
+                    <span>{isPt ? 'Francês: Intermediário' : 'French: Intermediate'}</span>
                   </span>
                 </div>
               </div>
@@ -533,8 +547,8 @@ export default function OverviewPage() {
                 </h3>
                 <p className="text-xs text-slate-300 leading-relaxed">
                   {isPt
-                    ? 'Simulação em software (C++17 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
-                    : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++17 and OpenSSL without persisting plaintext PINs.'}
+                    ? 'Simulação em software (C++20 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
+                    : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++20 and OpenSSL without persisting plaintext PINs.'}
                 </p>
               </div>
 

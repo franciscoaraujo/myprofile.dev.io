@@ -11,7 +11,7 @@ export const metadata = {
     template: '%s | Francisco Araújo',
   },
   description:
-    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos (Java & C++). Bagagem corporativa no Rabobank, B3 e Serasa Experian, com especialização sênior em adquirência e meios de pagamento.',
+    'Engenheiro de Software com 13 anos em desenvolvimento backend (Java e C++). Atuação no setor financeiro desde 2019 e especialização em sistemas de pagamento de missão crítica desde 2023: autorização, criptografia, compensação e liquidação.',
   keywords: [
     'Engenheiro de Software Especialista',
     'Senior Backend Engineer',
@@ -29,7 +29,7 @@ export const metadata = {
     'Spring Batch',
     'Francisco Araújo',
   ],
-  authors: [{ name: 'Francisco José Oliveira Araújo', url: 'https://github.com/franciscoaraujo' }],
+  authors: [{ name: 'Francisco José Oliveira Araújo', url: 'https://github.com/orgs/Orion-Payments/repositories' }],
   creator: 'Francisco Araújo',
   openGraph: {
     type: 'website',
@@ -38,22 +38,22 @@ export const metadata = {
     url: 'https://franciscoaraujoprofile.vercel.app',
     title: 'Francisco Araújo | Specialist Software Engineer | Backend Java & C++',
     description:
-      'Specialist Backend Engineer with 13 years building high-performance backend systems (Java & C++), enterprise banking integrations (Rabobank, B3, Serasa Experian), and mission-critical payment switches.',
+      'Software Engineer with 13 years in backend development (Java and C++). Working in the financial sector since 2019 and specialized in mission-critical payment systems since 2023: authorization, cryptography, clearing and settlement.',
     siteName: 'Francisco Araújo Portfolio',
     images: [
       {
         url: '/assets/profile.jpg',
         width: 800,
         height: 800,
-        alt: 'Francisco Araújo - Senior Backend Engineer',
+        alt: 'Francisco Araújo - Specialist Software Engineer',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Francisco Araújo | Senior Backend Engineer',
+    title: 'Francisco Araújo | Specialist Software Engineer',
     description:
-      'Card acquiring infrastructure, ISO 8583 switches, C++ SoftHSM cryptography, and distributed Java systems.',
+      'Software Engineer with 13 years in backend development (Java and C++). Working in the financial sector since 2019 and specialized in mission-critical payment systems since 2023.',
     images: ['/assets/profile.jpg'],
   },
   robots: {

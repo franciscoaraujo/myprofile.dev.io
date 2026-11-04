@@ -383,6 +383,7 @@ const PT_TEXT_DICTIONARY = {
     'Spring Batch • Positional TC50 File • Ledger': 'Spring Batch • Arquivo Posicional TC50 • Ledger',
     'SoftPOS Mobile Contactless': 'SoftPOS Mobile Contactless',
     'Android NFC • EMV L2 Kernel • APDU Commands': 'Android NFC • Kernel EMV L2 • Comandos APDU',
+    'Android NFC • EMV contactless transaction flow (non-certified) • APDU Commands': 'Android NFC • Fluxo de transação EMV contactless (não certificado) • Comandos APDU',
 
     // Simulator Section
     'SIMULATION · SYNTHETIC DATA · NO LIVE PAYMENT NETWORKS': 'SIMULAÇÃO · DADOS SINTÉTICOS · SEM REDES DE PAGAMENTO REAIS',
@@ -466,13 +467,20 @@ const PT_TEXT_DICTIONARY = {
 
     // Professional Experience Section
     'Verifiable Career Trajectory': 'Trajetória Profissional Verificável',
+    'Career Trajectory': 'Trajetória Profissional',
     'Professional Experience': 'Experiência Profissional',
     '13+ years delivering backend architectures across payments acquirers, stock exchange clearing infrastructure, and financial consulting.': 'Mais de 13 anos entregando arquiteturas backend em adquirentes de pagamentos, infraestrutura de compensação em bolsa de valores e consultoria financeira.',
     'Current Role': 'Cargo Atual',
     'Card Acquiring & FinTech': 'Adquirência de Cartões & FinTech',
     'Specialist Java Backend Engineer (Senior IC)': 'Engenheiro Backend Java Especialista (Senior IC)',
+    'Specialist Java Developer': 'Desenvolvedor Especialista Java',
     'March 2023 – Present': 'Março 2023 – Presente',
+    'March 2023 – Present · Barueri, SP': 'mar/2023 – atual · Barueri – SP',
     'Lead individual contributor driving the engineering and scalability of transaction acquiring gateways and high-availability messaging engines. Architected fault-tolerant asynchronous message processing using Java 17/21, AWS cloud infrastructure, and distributed RabbitMQ topologies with Dead Letter Queues (DLQ). Actively leveraged generative AI diagnostic tooling to accelerate root-cause analysis on distributed traces and optimize cryptographic routines.': 'Contribuidor individual sênior liderando a engenharia e a escalabilidade de gateways de captura de transações e motores de mensageria de alta disponibilidade. Arquitetou processamento assíncrono tolerante a falhas utilizando Java 17/21, infraestrutura em nuvem AWS e topologias distribuídas RabbitMQ com Dead Letter Queues (DLQ). Utilizou ferramentas de diagnóstico baseadas em IA generativa para acelerar análises de causa-raiz em traces distribuídos e otimizar rotinas criptográficas.',
+    'Member of the engineering team responsible for payment processing for acquiring and sub-acquiring.': 'Atuo na equipe responsável pelo processamento de pagamentos para adquirência e subadquirência.',
+    'Contribute to the maintenance and evolution of a distributed architecture with horizontal scalability and RabbitMQ-based decoupling, processing 1.7 million transactions per day at 99.9% availability.': 'Colaboro na manutenção e evolução de uma arquitetura distribuída, com escalabilidade horizontal e desacoplamento via RabbitMQ, que processa 1,7 milhão de transações por dia com 99,9% de disponibilidade.',
+    'Currently developing the generation of CADOC 3040 (Credit Risk Data), the regulatory report submitted monthly to the Central Bank of Brazil\'s Credit Information System (SCR), in compliance with the official layout.': 'Atualmente desenvolvo a geração do CADOC 3040 (Dados de Risco de Crédito), documento regulatório enviado mensalmente ao SCR do Banco Central, em conformidade com o leiaute oficial.',
+    'Applied generative AI to root-cause analysis of failures in distributed systems, cutting diagnosis time by about 70% (from one week to one to two days).': 'Apliquei IA generativa à análise de causa raiz de falhas em sistemas distribuídos, reduzindo o tempo de diagnóstico em cerca de 70% (de 1 semana para 1 a 2 dias).',
     'Global Financial Technology Consulting': 'Consultoria Global em Tecnologia Financeira',
     'Senior Java Engineer': 'Engenheiro Java Sênior',
     'February 2019 – February 2023 (4 years)': 'Fevereiro 2019 – Fevereiro 2023 (4 anos)',
@@ -513,6 +521,8 @@ const PT_TEXT_DICTIONARY = {
     'Language Proficiency:': 'Proficiência em Idiomas:',
     'English:': 'Inglês:',
     'English — A2/B1': 'Inglês — A2/B1',
+    'English: Intermediate (B1), technical reading and documentation': 'Inglês: Intermediário (B1), leitura técnica e documentação',
+    'French: Intermediate': 'Francês: Intermediário',
     'Location: Barueri, SP, Brazil (UTC-3 / BRT) • Open to Remote Worldwide & Relocation': 'Localização: Barueri, SP, Brasil (UTC-3 / BRT) • Aberto a Remoto Global & Realocação',
     'Resilience': 'Resiliência',
     'Transactional Outbox & ShedLock': 'Transactional Outbox & ShedLock',

@@ -55,7 +55,7 @@ export default function ContactPage() {
           </button>
 
           <a
-            href="https://www.linkedin.com/in/francisco-jos%C3%A9-oliveira-araujo-b0185772/"
+            href="https://www.linkedin.com/in/francisco-araujo-dev"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-white font-medium text-xs font-mono transition-all"

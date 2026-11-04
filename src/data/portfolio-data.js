@@ -45,9 +45,9 @@ export const ORION_TABS_LIST = [
     icon: 'smartphone',
     color: 'indigo',
     titleEn: 'SoftPOS Mobile Contactless',
-    subtitleEn: 'Android NFC • EMV L2 Kernel • APDU Commands',
+    subtitleEn: 'Android NFC • EMV contactless transaction flow (non-certified) • APDU Commands',
     titlePt: 'SoftPOS Mobile Contactless',
-    subtitlePt: 'Android NFC • Kernel EMV L2 • Comandos APDU',
+    subtitlePt: 'Android NFC • Fluxo de transação EMV contactless (não certificado) • Comandos APDU',
   },
 ];
 
@@ -91,14 +91,14 @@ export const ORION_CASE_STUDIES = {
         'Authorial reference architecture and protocol testbed. The sub-200ms latency is an architectural design target, not a measured production SLA across live telecom links. In this portfolio, the switch behavior is demonstrated via the client-side state machine in /simulator.',
     },
     softhsm: {
-      badge: 'CRYPTOGRAPHIC SECURITY • MODERN C++17',
+      badge: 'CRYPTOGRAPHIC SECURITY • MODERN C++20',
       title: 'C++ SoftHSM — Cryptographic Hardware Simulator',
       subtitle:
         'Low-latency software simulation of a Financial Hardware Security Module (HSM) performing PIN Block translation and key verification.',
       problem:
         'In payment acquiring, cardholder PIN blocks encrypted under a Terminal Master Key (TMK) at the POS must be translated to the card scheme Zone PIN Key (ZPK) without ever exposing plaintext PIN digits in application logs or JVM heap memory.',
       architecture: [
-        'Written in Modern C++17 using OpenSSL EVP APIs for Triple-DES (3DES) and AES-256 symmetric key operations.',
+        'Written in Modern C++20 using OpenSSL EVP APIs for Triple-DES (3DES) and AES-256 symmetric key operations.',
         'Implements ISO 9564 Format 0 (ANSI X9.8) PIN Block XOR construction, decryption under TMK, and immediate re-encryption under ZPK inside isolated memory buffers.',
         'Validates Key Check Values (KCV) prior to key ceremony injection to prevent parity or key-mismatch errors during authorization.',
         'Exposes a lightweight binary TCP command interface inspired by Thales PayShield host commands.',
@@ -108,7 +108,7 @@ export const ORION_CASE_STUDIES = {
         'Explicitly scoped as an educational/testing simulator: production acquiring environments require physical FIPS 140-3 Level 3 / PCI-HSM certified hardware.',
       ],
       stack: [
-        'C++17',
+        'C++20',
         'OpenSSL Crypto',
         'ISO 9564 Format 0',
         '3DES / DUKPT / AES',
@@ -121,7 +121,7 @@ export const ORION_CASE_STUDIES = {
       metricsLabel2: 'PIN Format Standard',
       metricsVal2: 'ISO 9564-1 Format 0',
       implemented:
-        'Modern C++17 daemon using OpenSSL EVP APIs for 3DES/AES cryptography, in-memory ISO 9564-1 Format 0 PIN block translation, and KCV calculation.',
+        'Modern C++20 daemon using OpenSSL EVP APIs for 3DES/AES cryptography, in-memory ISO 9564-1 Format 0 PIN block translation, and KCV calculation.',
       simulated:
         'Physical tamper-responsive hardware boundaries, battery zeroization circuits, and official FIPS 140-3 Level 3 / PCI-PTS physical appliance certifications.',
       limitations:
@@ -272,14 +272,14 @@ export const ORION_CASE_STUDIES = {
         'Arquitetura de referência autoral e bancada de testes de protocolo. O tempo sub-200ms é uma meta de projeto de arquitetura, e não um SLA de produção medido sob links de telecom de bandeiras. Neste portfólio, o comportamento do switch é demonstrado pela máquina de estados local na página /simulator.',
     },
     softhsm: {
-      badge: 'SEGURANÇA CRIPTOGRÁFICA • MODERN C++17',
+      badge: 'SEGURANÇA CRIPTOGRÁFICA • MODERN C++20',
       title: 'C++ SoftHSM — Simulador de Hardware Criptográfico',
       subtitle:
         'Simulação em software de baixa latência de um Hardware Security Module (HSM) financeiro realizando tradução de PIN Block e verificação de chaves.',
       problem:
         'Na adquirência, os PIN blocks criptografados sob a chave do terminal (TMK) no POS precisam ser traduzidos para a chave de zona da bandeira (ZPK) sem jamais expor os dígitos do PIN em texto aberto em logs ou na memória heap da JVM.',
       architecture: [
-        'Desenvolvido em C++17 moderno utilizando APIs OpenSSL EVP para operações simétricas Triple-DES (3DES) e AES-256.',
+        'Desenvolvido em C++20 moderno utilizando APIs OpenSSL EVP para operações simétricas Triple-DES (3DES) e AES-256.',
         'Implementa construção XOR de PIN Block ISO 9564 Formato 0 (ANSI X9.8), decriptografia sob TMK e recriptografia imediata sob ZPK em buffers isolados de memória.',
         'Valida Key Check Values (KCV) antes da injeção de chaves para evitar erros de paridade ou divergência criptográfica durante a autorização.',
         'Expõe interface TCP binária enxuta inspirada em comandos host de HSMs financeiros.',
@@ -289,7 +289,7 @@ export const ORION_CASE_STUDIES = {
         'Escopo explicitamente educacional e de testes: ambientes produtivos reais exigem hardware físico certificado FIPS 140-3 Nível 3 / PCI-HSM.',
       ],
       stack: [
-        'C++17',
+        'C++20',
         'OpenSSL Crypto',
         'ISO 9564 Formato 0',
         '3DES / DUKPT / AES',
@@ -302,7 +302,7 @@ export const ORION_CASE_STUDIES = {
       metricsLabel2: 'Padrão de PIN Block',
       metricsVal2: 'ISO 9564-1 Formato 0',
       implemented:
-        'Daemon em C++17 moderno utilizando OpenSSL EVP para criptografia 3DES/AES, tradução de PIN block ISO 9564-1 Formato 0 em memória e cálculo de KCV.',
+        'Daemon em C++20 moderno utilizando OpenSSL EVP para criptografia 3DES/AES, tradução de PIN block ISO 9564-1 Formato 0 em memória e cálculo de KCV.',
       simulated:
         'Gabinete físico com sensores de intrusão, circuitos de auto-destruição e certificação física FIPS 140-3 Nível 3 / PCI-PTS.',
       limitations:
@@ -446,7 +446,7 @@ export const SKILLS_DATA = [
     evidencePt: 'Pipeline de liquidação Base II do OrionPay (Cenário D em /simulator)',
   },
   {
-    name: 'C++ (Modern 17)',
+    name: 'C++ (Modern 20)',
     cat: 'backend',
     context: 'corporate',
     desc: 'Memory-Safe Crypto Buffers, SoftHSM, OpenCV',
@@ -672,16 +672,16 @@ export const PROFILE_BIO = {
   taglinePt: 'Engenharia Backend para Sistemas Críticos & Meios de Pagamento',
   taglineEn: 'Backend Engineering for Critical Systems & Payment Processing',
   shortBioPt:
-    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, com sólida experiência prática em Java e C++.',
+    'Engenheiro de Software com 13 anos em desenvolvimento backend (Java e C++). Atuação no setor financeiro desde 2019 e especialização em sistemas de pagamento de missão crítica desde 2023: autorização, criptografia, compensação e liquidação.',
   shortBioEn:
-    'Experienced in Java and C++, with a focus on reliable backend architectures, distributed systems, and payment processing across a 13-year engineering trajectory.',
+    'Software Engineer with 13 years in backend development (Java and C++). Working in the financial sector since 2019 and specialized in mission-critical payment systems since 2023: authorization, cryptography, clearing and settlement.',
   paragraphsPt: [
-    'Engenheiro de Software com 13 anos de trajetória em backend de alta performance e sistemas distribuídos críticos, com sólida experiência prática em Java e C++.',
+    'Engenheiro de Software com 13 anos em desenvolvimento backend (Java e C++). Atuação no setor financeiro desde 2019 e especialização em sistemas de pagamento de missão crítica desde 2023: autorização, criptografia, compensação e liquidação.',
     'Construiu sólida bagagem corporativa atuando em integração bancária corporativa (Rabobank), plataformas de registro financeiro (B3) e modernização de grandes serviços corporativos (Serasa Experian), além de projetos de visão computacional em C++.',
     'Especializou-se no ecossistema de Meios de Pagamento e Adquirência, participando de implementações de arquiteturas transacionais: motores de autorização de baixa latência (ISO 8583, Acquiring Switch), mensageria com resiliência distribuída, segurança de balcão (HSM/PIN Block, EMV) e pipelines de compensação e liquidação (Clearing / Base II).'
   ],
   paragraphsEn: [
-    'Software Engineer with 13 years of experience in backend engineering and mission-critical distributed systems, with strong hands-on proficiency in Java and C++.',
+    'Software Engineer with 13 years in backend development (Java and C++). Working in the financial sector since 2019 and specialized in mission-critical payment systems since 2023: authorization, cryptography, clearing and settlement.',
     'Built a solid corporate track record across enterprise banking integration (Rabobank), financial asset registry platforms (B3 Stock Exchange), and legacy enterprise modernization (Serasa Experian), alongside low-level computer vision systems in C++.',
     'Focused in Payment Processing and Acquiring ecosystems, contributing to implementations of transactional architectures: authorization workflows (ISO 8583, Acquiring Switch), distributed resilient messaging, point-of-sale security (HSM/PIN Block, EMV), and clearing & settlement pipelines (Clearing / Base II).'
   ]
@@ -788,9 +788,9 @@ export const CAREER_ERAS = [
     badgeEn: 'Current Phase • Senior Specialization',
     color: 'emerald',
     descPt:
-      'Atuação profissional sênior na RedeFlex em gateways de captura de transações e mensageria distribuída de alta disponibilidade. Paralelamente, desenvolvimento do projeto autoral de referência OrionPay para modelar a arquitetura completa de adquirência: autorização ISO 8583 (Switch C++ / Java 21), mensageria tolerante a falhas (RabbitMQ / Outbox), segurança criptográfica (SoftHSM, PIN Block, EMV) e conciliação batch Base II (TC50).',
+      'Atuação na equipe de engenharia da RedeFlex no processamento de pagamentos para adquirência (1,7 milhão de transações/dia, 99,9% de disponibilidade) e reporte regulatório ao BACEN (CADOC 3040). Em paralelo, desenvolvimento do OrionPay, projeto autoral independente de referência modelando uma arquitetura completa de adquirência: autorização ISO 8583 (switch em Java 21), mensageria tolerante a falhas (RabbitMQ / Outbox), segurança criptográfica de balcão (SoftHSM em C++, PIN block, EMV) e liquidação em lote Base II (TC50).',
     descEn:
-      'Senior professional work at RedeFlex on transaction acquiring gateways and high-availability messaging. In parallel, developed the OrionPay authorial reference project to model an end-to-end acquiring architecture: ISO 8583 authorization (C++ / Java 21 Switch), fault-tolerant messaging (RabbitMQ / Outbox), cryptographic POS security (SoftHSM, PIN block, EMV), and Base II (TC50) batch settlement.',
+      'Member of the RedeFlex engineering team working on acquiring payment processing (1.7M transactions/day, 99.9% availability) and BACEN regulatory reporting (CADOC 3040). In parallel, developed OrionPay, an independent authorial reference project modeling an end-to-end acquiring architecture: ISO 8583 authorization (Java 21 switch), fault-tolerant messaging (RabbitMQ / Outbox), cryptographic POS security (C++ SoftHSM, PIN block, EMV), and Base II (TC50) batch settlement.',
     institutions: ['RedeFlex (Produção Corporativa)', 'OrionPay (Projeto Autoral de Referência)']
   },
   {
@@ -836,20 +836,34 @@ export const EXPERIENCE_DATA = [
     badgePt: 'Cargo Atual',
     domainEn: 'Card Acquiring & FinTech',
     domainPt: 'Adquirência de Cartões & FinTech',
-    roleEn: 'Specialist Java Backend Engineer (Senior IC)',
-    rolePt: 'Engenheiro Backend Java Especialista (Senior IC)',
-    periodEn: 'March 2023 – Present',
-    periodPt: 'Março 2023 – Presente',
+    roleEn: 'Specialist Java Developer',
+    rolePt: 'Desenvolvedor Especialista Java',
+    periodEn: 'March 2023 – Present · Barueri, SP',
+    periodPt: 'mar/2023 – atual · Barueri – SP',
+    summaryEn: 'Member of the engineering team responsible for payment processing for acquiring and sub-acquiring.',
+    summaryPt: 'Atuo na equipe responsável pelo processamento de pagamentos para adquirência e subadquirência.',
+    bulletsEn: [
+      'Contribute to the maintenance and evolution of a distributed architecture with horizontal scalability and RabbitMQ-based decoupling, processing 1.7 million transactions per day at 99.9% availability.',
+      'Currently developing the generation of CADOC 3040 (Credit Risk Data), the regulatory report submitted monthly to the Central Bank of Brazil\'s Credit Information System (SCR), in compliance with the official layout.',
+      'Applied generative AI to root-cause analysis of failures in distributed systems, cutting diagnosis time by about 70% (from one week to one to two days).',
+    ],
+    bulletsPt: [
+      'Colaboro na manutenção e evolução de uma arquitetura distribuída, com escalabilidade horizontal e desacoplamento via RabbitMQ, que processa 1,7 milhão de transações por dia com 99,9% de disponibilidade.',
+      'Atualmente desenvolvo a geração do CADOC 3040 (Dados de Risco de Crédito), documento regulatório enviado mensalmente ao SCR do Banco Central, em conformidade com o leiaute oficial.',
+      'Apliquei IA generativa à análise de causa raiz de falhas em sistemas distribuídos, reduzindo o tempo de diagnóstico em cerca de 70% (de 1 semana para 1 a 2 dias).',
+    ],
     descEn:
-      'Senior individual contributor focused on backend engineering, payment processing, and system scalability for transaction acquiring gateways and high-availability messaging engines. Architected fault-tolerant asynchronous message processing using Java 17/21, AWS cloud infrastructure, and distributed RabbitMQ topologies with Dead Letter Queues (DLQ). Actively leveraged generative AI diagnostic tooling to accelerate root-cause analysis on distributed traces and optimize cryptographic routines.',
+      'Member of the engineering team responsible for payment processing for acquiring and sub-acquiring. Contribute to the maintenance and evolution of a distributed architecture with horizontal scalability and RabbitMQ-based decoupling, processing 1.7 million transactions per day at 99.9% availability. Currently developing the generation of CADOC 3040 (Credit Risk Data), the regulatory report submitted monthly to the Central Bank of Brazil\'s Credit Information System (SCR), in compliance with the official layout. Applied generative AI to root-cause analysis of failures in distributed systems, cutting diagnosis time by about 70% (from one week to one to two days).',
     descPt:
-      'Contribuidor individual sênior focado em engenharia backend, meios de pagamento e escalabilidade de gateways de captura de transações e motores de mensageria de alta disponibilidade. Arquitetou processamento assíncrono tolerante a falhas utilizando Java 17/21, infraestrutura em nuvem AWS e topologias distribuídas RabbitMQ com Dead Letter Queues (DLQ). Utilizou ferramentas de diagnóstico baseadas em IA generativa para acelerar análises de causa-raiz em traces distribuídos e otimizar rotinas criptográficas.',
+      'Atuo na equipe responsável pelo processamento de pagamentos para adquirência e subadquirência. Colaboro na manutenção e evolução de uma arquitetura distribuída, com escalabilidade horizontal e desacoplamento via RabbitMQ, que processa 1,7 milhão de transações por dia com 99,9% de disponibilidade. Atualmente desenvolvo a geração do CADOC 3040 (Dados de Risco de Crédito), documento regulatório enviado mensalmente ao SCR do Banco Central, em conformidade com o leiaute oficial. Apliquei IA generativa à análise de causa raiz de falhas em sistemas distribuídos, reduzindo o tempo de diagnóstico em cerca de 70% (de 1 semana para 1 a 2 dias).',
     tags: [
-      'Java 17 / 21',
+      'Java 17',
       'Spring Boot',
-      'AWS Cloud',
-      'RabbitMQ (DLQ / Retries)',
-      'High-Availability Acquirer Switch',
+      'AWS',
+      'RabbitMQ',
+      'PostgreSQL',
+      'Keycloak',
+      'Regulatory Reporting (BACEN / SCR)',
     ],
   },
   {
