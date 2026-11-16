@@ -109,7 +109,7 @@ export default function SkillsPage() {
                 className={`px-3.5 py-1.5 rounded-full text-xs font-mono transition-all ${
                   isActive
                     ? 'bg-[#00D47E] text-slate-950 font-bold shadow-md shadow-emerald-500/20'
-                    : 'bg-[#080E1E] text-slate-300 border border-[#152342] hover:border-slate-500 font-medium'
+                    : 'bg-white dark:bg-[#080E1E] text-slate-700 dark:text-slate-300 border border-slate-200 dark:border-[#152342] hover:border-slate-400 font-medium shadow-sm'
                 }`}
               >
                 {isPt ? cat.labelPt : cat.labelEn}
@@ -122,37 +122,37 @@ export default function SkillsPage() {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
           {filteredSkills.map((skill) => {
             const badgeStyle =
-              catColorMap[skill.cat] || 'text-slate-400 border-slate-700 bg-slate-800';
+              catColorMap[skill.cat] || 'text-slate-500 dark:text-slate-400 border-slate-200 dark:border-slate-700 bg-slate-100 dark:bg-slate-800';
             const contextInfo = contextMap[skill.context] || contextMap.corporate;
             return (
               <div
                 key={skill.name}
-                className="p-5 rounded-2xl border border-[#152342] bg-[#080E1E]/90 hover:border-[#00D47E]/50 transition-all flex flex-col justify-between gap-3 group glass-metal"
+                className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E]/90 hover:border-[#00D47E]/50 transition-all flex flex-col justify-between gap-3 group glass-metal shadow-sm"
               >
                 <div className="space-y-2">
                   <div className="flex items-center justify-between gap-2">
-                    <span className="text-sm font-bold text-white group-hover:text-[#00D47E] transition-colors">
+                    <span className="text-sm font-bold text-slate-900 dark:text-white group-hover:text-[#00D47E] transition-colors">
                       {skill.name}
                     </span>
                     <span className={`text-[9px] font-mono uppercase px-2 py-0.5 rounded-full border font-bold ${badgeStyle}`}>
                       {skill.cat}
                     </span>
                   </div>
-                  <p className="text-xs text-slate-300 font-mono leading-relaxed">
+                  <p className="text-xs text-slate-600 dark:text-slate-300 font-mono leading-relaxed">
                     {isPt && skill.descPt ? skill.descPt : skill.desc}
                   </p>
                 </div>
 
-                <div className="pt-2.5 border-t border-[#152342]/80 space-y-1.5">
+                <div className="pt-2.5 border-t border-slate-100 dark:border-[#152342]/80 space-y-1.5">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] font-mono text-slate-400 uppercase font-semibold">
+                    <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase font-semibold">
                       {isPt ? 'Evidência Técnica:' : 'Technical Evidence:'}
                     </span>
                     <span className={`text-[9px] font-mono px-2 py-0.5 rounded-full border ${contextInfo.color}`}>
                       {isPt ? contextInfo.badgePt : contextInfo.badgeEn}
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-300 leading-snug">
+                  <p className="text-[11px] text-slate-600 dark:text-slate-300 leading-snug">
                     {isPt && skill.evidencePt ? skill.evidencePt : skill.evidenceEn}
                   </p>
                 </div>
@@ -163,38 +163,38 @@ export default function SkillsPage() {
       </section>
 
       {/* ENGINEERING PILLARS & INTERNATIONAL READINESS */}
-      <section className="py-16 border-t border-[#152342] bg-[#040711]">
+      <section className="py-16 border-t border-slate-200 dark:border-[#152342] bg-slate-50 dark:bg-[#040711] transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-500/40 text-blue-700 dark:text-blue-300 font-mono text-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>{isPt ? 'Valor de Engenharia Sênior' : 'Senior Engineering Value'}</span>
               </div>
-              <h2 className="text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 {isPt ? 'Por Que Contratar para o Seu Core Backend?' : 'Why Hire for Your Core Backend?'}
               </h2>
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 {isPt ? (
                   <>
                     Experiência prática com padrões de meios de pagamento como{' '}
-                    <span className="font-mono text-cyan-300">ISO 8583 e EMV</span>, aliada ao desenvolvimento backend
+                    <span className="font-mono text-cyan-600 dark:text-cyan-300 font-semibold">ISO 8583 e EMV</span>, aliada ao desenvolvimento backend
                     em Java e C++, permitindo tratar casos de borda antes que se tornem divergências de conciliação
                     ou problemas de concorrência.
                   </>
                 ) : (
                   <>
                     Experience with payment standards such as{' '}
-                    <span className="font-mono text-cyan-300">ISO 8583 and EMV</span>, alongside backend development in
+                    <span className="font-mono text-cyan-600 dark:text-cyan-300 font-semibold">ISO 8583 and EMV</span>, alongside backend development in
                     Java and C++, allowing me to resolve edge cases before they escalate into reconciliation debt or
                     concurrency issues.
                   </>
                 )}
               </p>
 
-              <div className="pt-2 space-y-3 text-sm text-slate-200">
+              <div className="pt-2 space-y-3 text-sm text-slate-700 dark:text-slate-200">
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Consistência transacional entre autorização síncrona e fila de liquidação via padrão Outbox'
@@ -202,7 +202,7 @@ export default function SkillsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Bancadas de teste de protocolo para validação de fluxos e testes de carga antes de homologações formais'
@@ -210,7 +210,7 @@ export default function SkillsPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Diagnóstico de concorrência distribuída e otimização fina de pools de conexão no PostgreSQL'
@@ -220,20 +220,20 @@ export default function SkillsPage() {
               </div>
 
               <div className="pt-4 space-y-2">
-                <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+                <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400 font-semibold">
                   {isPt ? 'Proficiência em Idiomas:' : 'Language Proficiency:'}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-cyan-400" />
+                <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-700 dark:text-slate-300">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#080E1E] border border-slate-200 dark:border-[#152342] shadow-sm">
+                    <Languages className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                     <span>
                       {isPt
                         ? 'Inglês: Intermediário (B1), leitura técnica e documentação'
                         : 'English: Intermediate (B1), technical reading and documentation'}
                     </span>
                   </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#080E1E] border border-slate-200 dark:border-[#152342] shadow-sm">
+                    <Languages className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                     <span>{isPt ? 'Francês: Intermediário' : 'French: Intermediate'}</span>
                   </span>
                 </div>
@@ -242,7 +242,7 @@ export default function SkillsPage() {
               <div className="pt-3">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00D47E] to-emerald-500 text-slate-950 font-mono font-bold text-xs uppercase tracking-wider shadow-lg"
+                  className="inline-flex items-center gap-2 px-5 py-3 rounded-full bg-[#00D47E] hover:bg-[#00D47E]/90 text-slate-950 font-bold text-xs uppercase tracking-wider shadow-md transition-all active:scale-95"
                 >
                   <Mail className="w-4 h-4" />
                   <span>{isPt ? 'Entrar em Contato' : 'Get in Touch'}</span>
@@ -251,54 +251,54 @@ export default function SkillsPage() {
             </div>
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-[#00D47E] font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-emerald-600 dark:text-[#00D47E] font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Repeat className="w-3.5 h-3.5" /> {isPt ? 'Resiliência' : 'Resilience'}
                 </div>
-                <h3 className="text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Prevenção de inconsistências de dual-write com persistência local ACID no Outbox, relay assíncrono para o broker e travas de idempotência para retentativas de rede.'
                     : 'Preventing dual-write inconsistencies with local ACID Outbox persistence, asynchronous broker relay, and distributed locks for idempotency on network retries.'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-cyan-600 dark:text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5" /> {isPt ? 'Criptografia' : 'Cryptography'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Simulador C++ SoftHSM (Educacional & Testes)' : 'C++ SoftHSM Simulator (Testbed)'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Simulação em software (C++20 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
                     : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++20 and OpenSSL without persisting plaintext PINs.'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-blue-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-blue-600 dark:text-blue-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <FileSpreadsheet className="w-3.5 h-3.5" /> {isPt ? 'Compensação (Clearing)' : 'Clearing'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Pipelines Batch Orientados a Chunks' : 'Chunk-Oriented Batch Pipelines'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Pipelines Spring Batch projetados para processar transações em layouts posicionais padronizados (Visa Base II TC50) com conciliação contábil em partidas dobradas (Débito = Crédito Lojista + Receita MDR).'
                     : 'Spring Batch pipelines designed to process transactions into standardized positional layouts (Visa Base II TC50) with balanced double-entry accounting (Debit = Credit + MDR fee revenue).'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-amber-600 dark:text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Workflow className="w-3.5 h-3.5" /> {isPt ? 'Modernização' : 'Modernization'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Arquitetura de Domínio Desacoplada' : 'Decoupled Domain Architecture'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Transição de monólitos legados em Java EE para microsserviços em arquitetura hexagonal limpa, elevando a vazão e a manutenibilidade sob normas bancárias.'
                     : 'Transitioning legacy Java EE monoliths to clean hexagonal microservices, improving throughput and maintainability under stringent banking regulations.'}

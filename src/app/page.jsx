@@ -106,8 +106,8 @@ export default function OverviewPage() {
             {/* Candidate Bio & Photo */}
             <div className="flex items-center gap-4 sm:gap-6 pb-2">
               <div className="relative group shrink-0">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl p-1 bg-[#1A2130] border border-[#384152] shadow-md group-hover:border-[#00D47E]/60 transition-all">
-                  <div className="w-full h-full rounded-[12px] overflow-hidden bg-[#060B17] relative flex items-center justify-center">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl p-1 bg-white dark:bg-[#1A2130] border border-slate-200 dark:border-[#384152] shadow-md group-hover:border-[#00D47E]/60 transition-all">
+                  <div className="w-full h-full rounded-[12px] overflow-hidden bg-slate-100 dark:bg-[#060B17] relative flex items-center justify-center">
                     <img
                       src="/assets/profile.jpg"
                       alt="Francisco Araújo - Specialist Software Engineer"
@@ -119,7 +119,7 @@ export default function OverviewPage() {
                   </div>
                 </div>
                 <div
-                  className="absolute -bottom-1 -right-1 flex items-center justify-center w-6 h-6 rounded-full bg-[#1A2130] border-2 border-[#00D47E] shadow-sm"
+                  className="absolute -bottom-1 -right-1 flex items-center justify-center w-6 h-6 rounded-full bg-white dark:bg-[#1A2130] border-2 border-[#00D47E] shadow-sm"
                   title="Active & Open to Global Roles"
                 >
                   <span className="w-2.5 h-2.5 rounded-full bg-[#00D47E] animate-pulse"></span>
@@ -204,54 +204,54 @@ export default function OverviewPage() {
             <div className="space-y-2.5 pt-1">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
                 {/* 1. Core Engineering */}
-                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
+                <div className="p-3.5 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-[#00D47E] uppercase font-bold tracking-wider">
                       {isPt ? 'Core Engineering' : 'Core Engineering'}
                     </span>
                     <Code2 className="w-3.5 h-3.5 text-[#00D47E]" />
                   </div>
-                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                  <div className="text-slate-700 dark:text-slate-200 text-[11px] font-medium leading-relaxed">
                     Java 21 • Spring Boot • C++20 • Distributed Systems • Hexagonal / DDD
                   </div>
                 </div>
 
                 {/* 2. Setor Bancário & Corporativo */}
-                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
+                <div className="p-3.5 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-cyan-400 uppercase font-bold tracking-wider">
+                    <span className="text-[10px] text-cyan-600 dark:text-cyan-400 uppercase font-bold tracking-wider">
                       {isPt ? 'Setor Bancário & Corp.' : 'Enterprise Banking'}
                     </span>
-                    <Landmark className="w-3.5 h-3.5 text-cyan-400" />
+                    <Landmark className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                   </div>
-                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                  <div className="text-slate-700 dark:text-slate-200 text-[11px] font-medium leading-relaxed">
                     Rabobank • B3 • Serasa Experian • Apache Camel • OpenCV
                   </div>
                 </div>
 
                 {/* 3. Adquirência & Fintechs */}
-                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
+                <div className="p-3.5 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
-                    <span className="text-[10px] text-blue-400 uppercase font-bold tracking-wider">
+                    <span className="text-[10px] text-blue-600 dark:text-blue-400 uppercase font-bold tracking-wider">
                       {isPt ? 'Adquirência & Fintechs' : 'Acquiring & Fintechs'}
                     </span>
-                    <Cpu className="w-3.5 h-3.5 text-blue-400" />
+                    <Cpu className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                   </div>
-                  <div className="text-slate-200 text-[11px] font-medium leading-relaxed">
+                  <div className="text-slate-700 dark:text-slate-200 text-[11px] font-medium leading-relaxed">
                     Acquiring Switch • ISO 8583 • HSM / PIN Block • Clearing (Base II)
                   </div>
                 </div>
               </div>
 
               {/* Location & Work Scope Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 rounded-full border border-[#384152] bg-[#151B28] text-[11px] font-mono text-slate-400">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 rounded-full border border-slate-200 dark:border-[#384152] bg-slate-50 dark:bg-[#151B28] text-[11px] font-mono text-slate-500 dark:text-slate-400">
                 <div className="flex items-center gap-1.5">
-                  <MapPin className="w-3.5 h-3.5 text-amber-400" />
-                  <span className="text-slate-300">
+                  <MapPin className="w-3.5 h-3.5 text-amber-500 dark:text-amber-400" />
+                  <span className="text-slate-700 dark:text-slate-300">
                     {isPt ? 'São Paulo / Barueri, Brasil' : 'São Paulo / Barueri, Brazil'}
                   </span>
                 </div>
-                <span className="text-[#00D47E] font-medium">
+                <span className="text-emerald-600 dark:text-[#00D47E] font-medium">
                   {isPt ? 'Disponível para Posições Globais / Remoto' : 'Open to Global / Remote Roles'}
                 </span>
               </div>
@@ -271,25 +271,25 @@ export default function OverviewPage() {
                 href="/assets/curriculo-francisco-araujo.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-300 dark:border-[#384152] bg-white dark:bg-[#1A2130] hover:bg-slate-100 dark:hover:bg-[#232B3D] text-slate-800 dark:text-slate-200 text-xs font-mono transition-all"
               >
-                <Download className="w-4 h-4 text-slate-400" />
+                <Download className="w-4 h-4 text-slate-500 dark:text-slate-400" />
                 <span>{isPt ? 'Baixar Currículo (CV)' : 'Download Resume (CV)'}</span>
               </a>
 
               <a
                 href="mailto:chicoaraujo1063@gmail.com"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-300 dark:border-[#384152] bg-white dark:bg-[#1A2130] hover:bg-slate-100 dark:hover:bg-[#232B3D] text-slate-800 dark:text-slate-200 text-xs font-mono transition-all"
               >
-                <Mail className="w-4 h-4 text-[#00D47E]" />
+                <Mail className="w-4 h-4 text-emerald-600 dark:text-[#00D47E]" />
                 <span>chicoaraujo1063@gmail.com</span>
               </a>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-300 dark:border-[#384152] bg-white dark:bg-[#1A2130] hover:bg-slate-100 dark:hover:bg-[#232B3D] text-slate-800 dark:text-slate-200 text-xs font-mono transition-all"
               >
-                <Mail className="w-4 h-4 text-[#00D47E]" />
+                <Mail className="w-4 h-4 text-emerald-600 dark:text-[#00D47E]" />
                 <span>{isPt ? 'Fale Comigo' : 'Contact Me'}</span>
               </Link>
 
@@ -297,9 +297,9 @@ export default function OverviewPage() {
                 href="https://www.linkedin.com/in/francisco-araujo-dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-blue-400 text-slate-300 text-xs font-medium transition-all hover:text-white"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-300 dark:border-[#384152] bg-white dark:bg-[#1A2130] hover:bg-slate-100 dark:hover:bg-[#232B3D] text-slate-700 dark:text-slate-300 text-xs font-medium transition-all hover:text-slate-950 dark:hover:text-white"
               >
-                <Linkedin className="w-4 h-4 text-blue-400" />
+                <Linkedin className="w-4 h-4 text-blue-600 dark:text-blue-400" />
                 <span>LinkedIn</span>
               </a>
 
@@ -307,9 +307,9 @@ export default function OverviewPage() {
                 href="https://github.com/orgs/Orion-Payments/repositories"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-300 text-xs font-medium transition-all hover:text-white"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-slate-300 dark:border-[#384152] bg-white dark:bg-[#1A2130] hover:bg-slate-100 dark:hover:bg-[#232B3D] text-slate-700 dark:text-slate-300 text-xs font-medium transition-all hover:text-slate-950 dark:hover:text-white"
               >
-                <Github className="w-4 h-4 text-slate-300" />
+                <Github className="w-4 h-4 text-slate-600 dark:text-slate-300" />
                 <span>GitHub</span>
               </a>
             </div>
@@ -323,71 +323,71 @@ export default function OverviewPage() {
       </section>
 
       {/* KEY ENGINEERING METRICS */}
-      <section className="border-y border-[#384152] bg-[#131926] py-8 relative" aria-label="Key Engineering Metrics">
+      <section className="border-y border-slate-200 dark:border-[#384152] bg-slate-100/80 dark:bg-[#131926] py-8 relative transition-colors duration-200" aria-label="Key Engineering Metrics">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
-            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
+            <div className="p-4 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Trajetória Backend' : 'Backend Trajectory'}
                 </span>
-                <Clock className="w-4 h-4 text-[#00D47E]" />
+                <Clock className="w-4 h-4 text-emerald-600 dark:text-[#00D47E]" />
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                13 <span className="text-[#00D47E] text-lg font-sans">{isPt ? 'Anos' : 'Years'}</span>
+              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">
+                13 <span className="text-emerald-600 dark:text-[#00D47E] text-lg font-sans">{isPt ? 'Anos' : 'Years'}</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 {isPt
                   ? 'Bagagem corporativa sólida em grandes instituições (Rabobank, B3, Serasa Experian) e especialização em adquirência.'
                   : 'Solid corporate background across major institutions (Rabobank, B3, Serasa Experian) and acquiring specialization.'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
+            <div className="p-4 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Alvo de Latência' : 'Latency Target'}
                 </span>
-                <Gauge className="w-4 h-4 text-cyan-400" />
+                <Gauge className="w-4 h-4 text-cyan-600 dark:text-cyan-400" />
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                &lt; 200<span className="text-cyan-400 text-lg font-sans">ms</span>
+              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">
+                &lt; 200<span className="text-cyan-600 dark:text-cyan-400 text-lg font-sans">ms</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 {isPt
                   ? 'Meta de projeto arquitetural: sob 200 ms (meta de design; não é SLA de produção medido).'
                   : 'Authorization latency target: under 200 ms (design target; not a measured production SLA).'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
+            <div className="p-4 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Confiabilidade de Dados' : 'Data Reliability'}
                 </span>
-                <Database className="w-4 h-4 text-blue-400" />
+                <Database className="w-4 h-4 text-blue-600 dark:text-blue-400" />
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                Outbox <span className="text-blue-400 text-lg font-sans">Pattern</span>
+              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">
+                Outbox <span className="text-blue-600 dark:text-blue-400 text-lg font-sans">Pattern</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 {isPt
                   ? 'Eliminação de dual-write com commits locais ACID no PostgreSQL e repasse desacoplado ao broker.'
                   : 'Dual-write elimination with local ACID PostgreSQL commits and decoupled broker relay.'}
               </p>
             </div>
 
-            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-amber-400/60 transition-all shadow-sm">
+            <div className="p-4 rounded-2xl border border-slate-200 dark:border-[#384152] bg-white dark:bg-[#1A2130] space-y-1.5 hover:border-amber-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
-                <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
+                <span className="text-[10px] font-mono text-slate-500 dark:text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Segurança Criptográfica' : 'Cryptographic Security'}
                 </span>
-                <Shield className="w-4 h-4 text-amber-400" />
+                <Shield className="w-4 h-4 text-amber-600 dark:text-amber-400" />
               </div>
-              <div className="text-3xl sm:text-4xl font-black text-white font-mono">
-                SoftHSM <span className="text-amber-400 text-lg font-sans">{isPt ? 'Simulator' : 'Simulator'}</span>
+              <div className="text-3xl sm:text-4xl font-black text-slate-900 dark:text-white font-mono">
+                SoftHSM <span className="text-amber-600 dark:text-amber-400 text-lg font-sans">{isPt ? 'Simulator' : 'Simulator'}</span>
               </div>
-              <p className="text-xs text-slate-400">
+              <p className="text-xs text-slate-600 dark:text-slate-400">
                 {isPt
                   ? 'Simulador em software (C++ / OpenSSL) de chaves 3DES/AES, recriptografia de PIN block TMK-para-ZPK e validação KCV.'
                   : 'Software simulation (C++ / OpenSSL) of 3DES/AES keys, TMK-to-ZPK PIN block re-encryption, and KCV validation.'}
@@ -420,7 +420,7 @@ export default function OverviewPage() {
               <Link
                 key={card.href}
                 href={card.href}
-                className={`p-6 rounded-2xl border border-[#152342] bg-[#080E1E]/85 ${card.border} transition-all group flex flex-col justify-between space-y-4 glass-metal`}
+                className={`p-6 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E]/85 ${card.border} transition-all group flex flex-col justify-between space-y-4 glass-metal shadow-sm`}
               >
                 <div className="space-y-2.5">
                   <div className="flex items-center justify-between">
@@ -429,15 +429,15 @@ export default function OverviewPage() {
                     </span>
                     <IconComponent className={`w-5 h-5 ${card.color}`} />
                   </div>
-                  <h3 className="text-lg font-bold text-white group-hover:text-[#00D47E] transition-colors">
+                  <h3 className="text-lg font-bold text-slate-900 dark:text-white group-hover:text-[#00D47E] transition-colors">
                     {isPt ? card.titlePt : card.titleEn}
                   </h3>
-                  <p className="text-xs sm:text-sm text-slate-300 leading-relaxed">
+                  <p className="text-xs sm:text-sm text-slate-600 dark:text-slate-300 leading-relaxed">
                     {isPt ? card.descPt : card.descEn}
                   </p>
                 </div>
 
-                <div className="pt-2 border-t border-[#152342]/80 flex items-center justify-between text-xs font-mono font-bold text-cyan-400 group-hover:text-[#00D47E]">
+                <div className="pt-2 border-t border-slate-100 dark:border-[#152342]/80 flex items-center justify-between text-xs font-mono font-bold text-cyan-600 dark:text-cyan-400 group-hover:text-[#00D47E]">
                   <span>{isPt ? 'Abrir página dedicada' : 'Open dedicated page'}</span>
                   <ArrowRight className="w-4 h-4 transform group-hover:translate-x-1 transition-transform" />
                 </div>
@@ -448,38 +448,38 @@ export default function OverviewPage() {
       </section>
 
       {/* ENGINEERING PILLARS & INTERNATIONAL READINESS */}
-      <section className="py-16 border-t border-[#152342] bg-[#040711]">
+      <section className="py-16 border-t border-slate-200 dark:border-[#152342] bg-slate-50 dark:bg-[#040711] transition-colors duration-200">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid lg:grid-cols-12 gap-10 items-center">
             <div className="lg:col-span-5 space-y-4">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-950/70 border border-blue-500/40 text-blue-300 font-mono text-xs">
-                <ShieldCheck className="w-3.5 h-3.5 text-blue-400" />
+              <div className="inline-flex items-center gap-2 px-3.5 py-1 rounded-full bg-blue-100 dark:bg-blue-950/70 border border-blue-200 dark:border-blue-500/40 text-blue-700 dark:text-blue-300 font-mono text-xs">
+                <ShieldCheck className="w-3.5 h-3.5 text-blue-600 dark:text-blue-400" />
                 <span>{isPt ? 'Valor de Engenharia Sênior' : 'Senior Engineering Value'}</span>
               </div>
-              <h2 className="text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 {isPt ? 'Por Que Contratar para o Seu Core Backend?' : 'Why Hire for Your Core Backend?'}
               </h2>
-              <p className="text-slate-300 text-sm leading-relaxed">
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">
                 {isPt ? (
                   <>
                     Experiência prática com padrões de meios de pagamento como{' '}
-                    <span className="font-mono text-cyan-300">ISO 8583 e EMV</span>, aliada ao desenvolvimento backend
+                    <span className="font-mono text-cyan-600 dark:text-cyan-300 font-semibold">ISO 8583 e EMV</span>, aliada ao desenvolvimento backend
                     em Java e C++, permitindo tratar casos de borda antes que se tornem divergências de conciliação
                     ou problemas de concorrência.
                   </>
                 ) : (
                   <>
                     Experience with payment standards such as{' '}
-                    <span className="font-mono text-cyan-300">ISO 8583 and EMV</span>, alongside backend development in
+                    <span className="font-mono text-cyan-600 dark:text-cyan-300 font-semibold">ISO 8583 and EMV</span>, alongside backend development in
                     Java and C++, allowing me to resolve edge cases before they escalate into reconciliation debt or
                     concurrency issues.
                   </>
                 )}
               </p>
 
-              <div className="pt-2 space-y-3 text-sm text-slate-200">
+              <div className="pt-2 space-y-3 text-sm text-slate-700 dark:text-slate-200">
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Consistência transacional entre autorização síncrona e fila de liquidação via padrão Outbox'
@@ -487,7 +487,7 @@ export default function OverviewPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Bancadas de teste de protocolo para validação de fluxos e testes de carga antes de homologações formais'
@@ -495,7 +495,7 @@ export default function OverviewPage() {
                   </span>
                 </div>
                 <div className="flex items-center gap-2.5">
-                  <Check className="w-4 h-4 text-[#00D47E] shrink-0" />
+                  <Check className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0" />
                   <span>
                     {isPt
                       ? 'Diagnóstico de concorrência distribuída e otimização fina de pools de conexão no PostgreSQL'
@@ -505,20 +505,20 @@ export default function OverviewPage() {
               </div>
 
               <div className="pt-4 space-y-2">
-                <div className="text-xs font-mono uppercase text-slate-400 font-semibold">
+                <div className="text-xs font-mono uppercase text-slate-500 dark:text-slate-400 font-semibold">
                   {isPt ? 'Proficiência em Idiomas:' : 'Language Proficiency:'}
                 </div>
-                <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-300">
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-cyan-400" />
+                <div className="flex flex-wrap items-center gap-3 text-xs font-mono text-slate-700 dark:text-slate-300">
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#080E1E] border border-slate-200 dark:border-[#152342] shadow-sm">
+                    <Languages className="w-3.5 h-3.5 text-cyan-600 dark:text-cyan-400" />
                     <span>
                       {isPt
                         ? 'Inglês: Intermediário (B1), leitura técnica e documentação'
                         : 'English: Intermediate (B1), technical reading and documentation'}
                     </span>
                   </span>
-                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-[#080E1E] border border-[#152342]">
-                    <Languages className="w-3.5 h-3.5 text-indigo-400" />
+                  <span className="flex items-center gap-1.5 px-3 py-1 rounded-md bg-white dark:bg-[#080E1E] border border-slate-200 dark:border-[#152342] shadow-sm">
+                    <Languages className="w-3.5 h-3.5 text-indigo-600 dark:text-indigo-400" />
                     <span>{isPt ? 'Francês: Intermediário' : 'French: Intermediate'}</span>
                   </span>
                 </div>
@@ -526,54 +526,54 @@ export default function OverviewPage() {
             </div>
 
             <div className="lg:col-span-7 grid sm:grid-cols-2 gap-4">
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-[#00D47E] font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-emerald-600 dark:text-[#00D47E] font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Repeat className="w-3.5 h-3.5" /> {isPt ? 'Resiliência' : 'Resilience'}
                 </div>
-                <h3 className="text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">Transactional Outbox &amp; ShedLock</h3>
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Prevenção de inconsistências de dual-write com persistência local ACID no Outbox, relay assíncrono para o broker e travas de idempotência para retentativas de rede.'
                     : 'Preventing dual-write inconsistencies with local ACID Outbox persistence, asynchronous broker relay, and distributed locks for idempotency on network retries.'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-cyan-600 dark:text-cyan-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Lock className="w-3.5 h-3.5" /> {isPt ? 'Criptografia' : 'Cryptography'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Simulador C++ SoftHSM (Educacional & Testes)' : 'C++ SoftHSM Simulator (Testbed)'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Simulação em software (C++20 e OpenSSL) para testes e fins educacionais de gerenciamento de chaves (TMK, ZPK, LMK) e tradução de PIN block ISO 9564 em memória sem persistir PIN em texto aberto.'
                     : 'Educational/testbed software simulation of Financial HSM key management (TMK, ZPK, LMK) and in-memory ISO 9564 PIN block translation using C++20 and OpenSSL without persisting plaintext PINs.'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-blue-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-blue-600 dark:text-blue-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <FileSpreadsheet className="w-3.5 h-3.5" /> {isPt ? 'Compensação (Clearing)' : 'Clearing'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Pipelines Batch Orientados a Chunks' : 'Chunk-Oriented Batch Pipelines'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Pipelines Spring Batch projetados para processar transações em layouts posicionais padronizados (Visa Base II TC50) com conciliação contábil em partidas dobradas (Débito = Crédito Lojista + Receita MDR).'
                     : 'Spring Batch pipelines designed to process transactions into standardized positional layouts (Visa Base II TC50) with balanced double-entry accounting (Debit = Credit + MDR fee revenue).'}
                 </p>
               </div>
 
-              <div className="p-5 rounded-xl border border-[#152342] bg-[#080E1E] space-y-2 glass-metal">
-                <div className="text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
+              <div className="p-5 rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] space-y-2 glass-metal shadow-sm">
+                <div className="text-amber-600 dark:text-amber-400 font-mono text-xs font-bold uppercase tracking-wider flex items-center gap-1.5">
                   <Workflow className="w-3.5 h-3.5" /> {isPt ? 'Modernização' : 'Modernization'}
                 </div>
-                <h3 className="text-white font-bold text-sm">
+                <h3 className="text-slate-900 dark:text-white font-bold text-sm">
                   {isPt ? 'Arquitetura de Domínio Desacoplada' : 'Decoupled Domain Architecture'}
                 </h3>
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
                   {isPt
                     ? 'Transição de monólitos legados em Java EE para microsserviços em arquitetura hexagonal limpa, elevando a vazão e a manutenibilidade sob normas bancárias.'
                     : 'Transitioning legacy Java EE monoliths to clean hexagonal microservices, improving throughput and maintainability under stringent banking regulations.'}
