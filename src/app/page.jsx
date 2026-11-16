@@ -106,11 +106,11 @@ export default function OverviewPage() {
             {/* Candidate Bio & Photo */}
             <div className="flex items-center gap-4 sm:gap-6 pb-2">
               <div className="relative group shrink-0">
-                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl p-[2px] bg-gradient-to-br from-[#00D47E] via-cyan-500 to-blue-600 shadow-xl shadow-cyan-950/40">
-                  <div className="w-full h-full rounded-[14px] overflow-hidden bg-[#060B17] relative flex items-center justify-center">
+                <div className="w-20 h-20 sm:w-24 sm:h-24 rounded-2xl p-1 bg-[#1A2130] border border-[#384152] shadow-md group-hover:border-[#00D47E]/60 transition-all">
+                  <div className="w-full h-full rounded-[12px] overflow-hidden bg-[#060B17] relative flex items-center justify-center">
                     <img
                       src="/assets/profile.jpg"
-                      alt="Francisco Araújo - Senior Backend Engineer"
+                      alt="Francisco Araújo - Specialist Software Engineer"
                       className="w-full h-full object-cover object-top transition-transform duration-300 group-hover:scale-105"
                       onError={(e) => {
                         e.currentTarget.src = 'https://github.com/franciscoaraujo.png';
@@ -119,7 +119,7 @@ export default function OverviewPage() {
                   </div>
                 </div>
                 <div
-                  className="absolute -bottom-1 -right-1 flex items-center justify-center w-6 h-6 rounded-full bg-[#080E1E] border-2 border-[#00D47E] shadow-md"
+                  className="absolute -bottom-1 -right-1 flex items-center justify-center w-6 h-6 rounded-full bg-[#1A2130] border-2 border-[#00D47E] shadow-sm"
                   title="Active & Open to Global Roles"
                 >
                   <span className="w-2.5 h-2.5 rounded-full bg-[#00D47E] animate-pulse"></span>
@@ -155,7 +155,7 @@ export default function OverviewPage() {
               <h1 className="text-3xl sm:text-4xl lg:text-[40px] xl:text-5xl font-black tracking-tight text-white leading-tight">
                 {isPt ? 'Engenheiro de Software Especialista' : 'Specialist Software Engineer'}
                 <br />
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#00D47E] via-cyan-300 to-blue-400 text-2xl sm:text-3xl lg:text-[28px] xl:text-4xl">
+                <span className="text-[#00D47E] text-2xl sm:text-3xl lg:text-[28px] xl:text-4xl font-bold">
                   {isPt
                     ? 'Backend Java & C++ | Sistemas Críticos & Meios de Pagamento'
                     : 'Backend Java & C++ | Mission-Critical Systems & Payment Processing'}
@@ -204,7 +204,7 @@ export default function OverviewPage() {
             <div className="space-y-2.5 pt-1">
               <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5 text-xs font-mono">
                 {/* 1. Core Engineering */}
-                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-[#00D47E]/40 transition-all glass-metal">
+                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-[#00D47E] uppercase font-bold tracking-wider">
                       {isPt ? 'Core Engineering' : 'Core Engineering'}
@@ -217,7 +217,7 @@ export default function OverviewPage() {
                 </div>
 
                 {/* 2. Setor Bancário & Corporativo */}
-                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-cyan-400/40 transition-all glass-metal">
+                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-cyan-400 uppercase font-bold tracking-wider">
                       {isPt ? 'Setor Bancário & Corp.' : 'Enterprise Banking'}
@@ -230,7 +230,7 @@ export default function OverviewPage() {
                 </div>
 
                 {/* 3. Adquirência & Fintechs */}
-                <div className="p-3 rounded-xl border border-[#152342] bg-[#080E1E]/90 space-y-1.5 hover:border-blue-400/40 transition-all glass-metal">
+                <div className="p-3.5 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
                   <div className="flex items-center justify-between">
                     <span className="text-[10px] text-blue-400 uppercase font-bold tracking-wider">
                       {isPt ? 'Adquirência & Fintechs' : 'Acquiring & Fintechs'}
@@ -244,7 +244,7 @@ export default function OverviewPage() {
               </div>
 
               {/* Location & Work Scope Bar */}
-              <div className="flex flex-wrap items-center justify-between gap-2 px-3 py-1.5 rounded-lg border border-[#152342]/70 bg-[#060B17]/60 text-[11px] font-mono text-slate-400">
+              <div className="flex flex-wrap items-center justify-between gap-2 px-3.5 py-2 rounded-full border border-[#384152] bg-[#151B28] text-[11px] font-mono text-slate-400">
                 <div className="flex items-center gap-1.5">
                   <MapPin className="w-3.5 h-3.5 text-amber-400" />
                   <span className="text-slate-300">
@@ -257,11 +257,11 @@ export default function OverviewPage() {
               </div>
             </div>
 
-            {/* Primary CTAs */}
+            {/* Primary CTAs (M3 Action Buttons) */}
             <div className="flex flex-wrap items-center gap-3 pt-3">
               <Link
                 href="/projects"
-                className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-gradient-to-r from-[#00D47E] to-emerald-500 hover:from-emerald-400 hover:to-emerald-500 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-lg shadow-emerald-500/20 active:scale-95"
+                className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-[#00D47E] hover:bg-[#00D47E]/90 text-slate-950 font-bold text-xs uppercase tracking-wider transition-all shadow-md active:scale-95"
               >
                 <FolderCode className="w-4 h-4" />
                 <span>{isPt ? 'Ver Projetos' : 'View Projects'}</span>
@@ -271,7 +271,7 @@ export default function OverviewPage() {
                 href="/assets/curriculo-francisco-araujo.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-slate-500 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
               >
                 <Download className="w-4 h-4 text-slate-400" />
                 <span>{isPt ? 'Baixar Currículo (CV)' : 'Download Resume (CV)'}</span>
@@ -279,7 +279,7 @@ export default function OverviewPage() {
 
               <a
                 href="mailto:chicoaraujo1063@gmail.com"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-slate-500 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
               >
                 <Mail className="w-4 h-4 text-[#00D47E]" />
                 <span>chicoaraujo1063@gmail.com</span>
@@ -287,7 +287,7 @@ export default function OverviewPage() {
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:border-slate-500 text-slate-200 text-xs font-mono transition-all"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-200 text-xs font-mono transition-all"
               >
                 <Mail className="w-4 h-4 text-[#00D47E]" />
                 <span>{isPt ? 'Fale Comigo' : 'Contact Me'}</span>
@@ -297,7 +297,7 @@ export default function OverviewPage() {
                 href="https://www.linkedin.com/in/francisco-araujo-dev"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-blue-400 text-slate-300 text-xs font-medium transition-all hover:text-white"
               >
                 <Linkedin className="w-4 h-4 text-blue-400" />
                 <span>LinkedIn</span>
@@ -307,7 +307,7 @@ export default function OverviewPage() {
                 href="https://github.com/orgs/Orion-Payments/repositories"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-4 py-3 rounded-xl border border-[#152342] bg-[#080E1E] hover:bg-[#0D172F] text-slate-300 text-xs font-medium transition-all hover:text-white"
+                className="inline-flex items-center gap-2 px-4 py-2.5 rounded-full border border-[#384152] bg-[#1A2130] hover:bg-[#232B3D] hover:border-slate-400 text-slate-300 text-xs font-medium transition-all hover:text-white"
               >
                 <Github className="w-4 h-4 text-slate-300" />
                 <span>GitHub</span>
@@ -323,10 +323,10 @@ export default function OverviewPage() {
       </section>
 
       {/* KEY ENGINEERING METRICS */}
-      <section className="border-y border-[#152342] bg-[#060B17]/90 py-8 relative" aria-label="Key Engineering Metrics">
+      <section className="border-y border-[#384152] bg-[#131926] py-8 relative" aria-label="Key Engineering Metrics">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6 lg:gap-8">
-            <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-[#00D47E]/40 transition-all">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4 lg:gap-6">
+            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-[#00D47E]/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Trajetória Backend' : 'Backend Trajectory'}
@@ -343,7 +343,7 @@ export default function OverviewPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-cyan-400/40 transition-all">
+            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-cyan-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Alvo de Latência' : 'Latency Target'}
@@ -360,7 +360,7 @@ export default function OverviewPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-blue-400/40 transition-all">
+            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-blue-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Confiabilidade de Dados' : 'Data Reliability'}
@@ -377,7 +377,7 @@ export default function OverviewPage() {
               </p>
             </div>
 
-            <div className="p-4 rounded-xl border border-[#152342] bg-[#080E1E]/80 space-y-1.5 hover:border-amber-400/40 transition-all">
+            <div className="p-4 rounded-2xl border border-[#384152] bg-[#1A2130] space-y-1.5 hover:border-amber-400/60 transition-all shadow-sm">
               <div className="flex items-center justify-between">
                 <span className="text-[10px] font-mono text-slate-400 uppercase tracking-wider font-semibold">
                   {isPt ? 'Segurança Criptográfica' : 'Cryptographic Security'}

@@ -472,7 +472,7 @@ const PT_TEXT_DICTIONARY = {
     '13+ years delivering backend architectures across payments acquirers, stock exchange clearing infrastructure, and financial consulting.': 'Mais de 13 anos entregando arquiteturas backend em adquirentes de pagamentos, infraestrutura de compensação em bolsa de valores e consultoria financeira.',
     'Current Role': 'Cargo Atual',
     'Card Acquiring & FinTech': 'Adquirência de Cartões & FinTech',
-    'Specialist Java Backend Engineer (Senior IC)': 'Engenheiro Backend Java Especialista (Senior IC)',
+    'Specialist Java Backend Engineer': 'Engenheiro Backend Java Especialista',
     'Specialist Java Developer': 'Desenvolvedor Especialista Java',
     'March 2023 – Present': 'Março 2023 – Presente',
     'March 2023 – Present · Barueri, SP': 'mar/2023 – atual · Barueri – SP',

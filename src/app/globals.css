@@ -17,18 +17,18 @@ html.dark {
     --md-sys-color-surface-dim: #0B0F17;
     --md-sys-color-surface-bright: #2C3446;
     --md-sys-color-surface-container-lowest: #070A10;
-    --md-sys-color-surface-container-low: #151B28;
-    --md-sys-color-surface-container: #1A2130;
-    --md-sys-color-surface-container-high: #232B3D;
-    --md-sys-color-surface-container-highest: #2E374D;
+    --md-sys-color-surface-container-low: #131926;
+    --md-sys-color-surface-container: #182030;
+    --md-sys-color-surface-container-high: #222B3E;
+    --md-sys-color-surface-container-highest: #2C374D;
     --md-sys-color-on-surface: #E2E8F0;
     --md-sys-color-on-surface-variant: #C4C6D0;
     --md-sys-color-outline: #8E9099;
-    --md-sys-color-outline-variant: #384152;
+    --md-sys-color-outline-variant: #2A364E;
 
     /* Primary / Secondary / Tertiary Roles (M3 Dark Tone 80 / Container Tone 30) */
-    --md-sys-color-primary: #4ADE80;
-    --md-sys-color-on-primary: #00391F;
+    --md-sys-color-primary: #00D47E;
+    --md-sys-color-on-primary: #00381F;
     --md-sys-color-primary-container: #064E3B;
     --md-sys-color-on-primary-container: #A7F3D0;
 
@@ -42,49 +42,61 @@ html.dark {
     --md-sys-color-tertiary-container: #312E81;
     --md-sys-color-on-tertiary-container: #E0E7FF;
 
-    /* M3 Elevation Shadows (Dark with Tonal Surface Tint) */
-    --md-sys-elevation-1: 0 1px 3px 1px rgba(0, 0, 0, 0.4), 0 1px 2px 0 rgba(0, 0, 0, 0.55);
-    --md-sys-elevation-2: 0 4px 12px -1px rgba(0, 0, 0, 0.5), 0 2px 6px -1px rgba(56, 189, 248, 0.07);
-    --md-sys-elevation-3: 0 12px 28px -4px rgba(0, 0, 0, 0.6), 0 4px 12px -2px rgba(99, 102, 241, 0.1);
+    /* M3 Elevation Shadows (Layered ambient + key shadows) */
+    --md-sys-elevation-0: none;
+    --md-sys-elevation-1: 0 1px 3px 0 rgba(0, 0, 0, 0.4), 0 1px 2px -1px rgba(0, 0, 0, 0.5);
+    --md-sys-elevation-2: 0 4px 14px -1px rgba(0, 0, 0, 0.55), 0 2px 6px -1px rgba(0, 0, 0, 0.4);
+    --md-sys-elevation-3: 0 10px 24px -3px rgba(0, 0, 0, 0.6), 0 4px 8px -2px rgba(0, 0, 0, 0.45);
+    --md-sys-elevation-4: 0 16px 36px -4px rgba(0, 0, 0, 0.65), 0 6px 12px -3px rgba(0, 0, 0, 0.5);
+
+    /* M3 Motion Easing */
+    --md-sys-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
 }
 
 html:not(.dark) {
     /* M3 Light Scheme Tokens (Material 3 Tonal Surfaces) */
-    --md-sys-color-background: #F7F9FC;
-    --md-sys-color-on-background: #191C20;
+    --md-sys-color-background: #F8FAFC;
+    --md-sys-color-on-background: #0F172A;
     --md-sys-color-surface: #FFFFFF;
-    --md-sys-color-surface-dim: #D8DAE0;
+    --md-sys-color-surface-dim: #E2E8F0;
     --md-sys-color-surface-bright: #FFFFFF;
     --md-sys-color-surface-container-lowest: #FFFFFF;
     --md-sys-color-surface-container-low: #F1F5F9;
-    --md-sys-color-surface-container: #EBF0F7;
+    --md-sys-color-surface-container: #EBF1F8;
     --md-sys-color-surface-container-high: #E2E8F0;
     --md-sys-color-surface-container-highest: #CBD5E1;
     --md-sys-color-on-surface: #0F172A;
-    --md-sys-color-on-surface-variant: #44474E;
-    --md-sys-color-outline: #74777F;
+    --md-sys-color-on-surface-variant: #475569;
+    --md-sys-color-outline: #64748B;
     --md-sys-color-outline-variant: #CBD5E1;
 
     /* Primary / Secondary / Tertiary Roles (Light - High Contrast WCAG AA/AAA) */
-    --md-sys-color-primary: #006C4C;
+    --md-sys-color-primary: #007A4D;
     --md-sys-color-on-primary: #FFFFFF;
-    --md-sys-color-primary-container: #CCFBF1;
-    --md-sys-color-on-primary-container: #002114;
+    --md-sys-color-primary-container: #D1FAE5;
+    --md-sys-color-on-primary-container: #002D1A;
 
-    --md-sys-color-secondary: #006399;
+    --md-sys-color-secondary: #0284C7;
     --md-sys-color-on-secondary: #FFFFFF;
     --md-sys-color-secondary-container: #E0F2FE;
-    --md-sys-color-on-secondary-container: #001D32;
+    --md-sys-color-on-secondary-container: #082F49;
 
     --md-sys-color-tertiary: #4338CA;
     --md-sys-color-on-tertiary: #FFFFFF;
-    --md-sys-color-tertiary-container: #E0E7FF;
+    --md-sys-color-tertiary-container: #EEF2FF;
     --md-sys-color-on-tertiary-container: #1E1B4B;
 
     /* M3 Elevation Shadows (Light) */
-    --md-sys-elevation-1: 0 1px 2px 0 rgba(15, 23, 42, 0.06), 0 1px 3px 1px rgba(15, 23, 42, 0.08);
-    --md-sys-elevation-2: 0 4px 12px -1px rgba(15, 23, 42, 0.08), 0 2px 6px -1px rgba(15, 23, 42, 0.05);
-    --md-sys-elevation-3: 0 12px 28px -4px rgba(15, 23, 42, 0.12), 0 4px 10px -2px rgba(15, 23, 42, 0.06);
+    --md-sys-elevation-0: none;
+    --md-sys-elevation-1: 0 1px 3px 0 rgba(15, 23, 42, 0.08), 0 1px 2px -1px rgba(15, 23, 42, 0.06);
+    --md-sys-elevation-2: 0 4px 14px -1px rgba(15, 23, 42, 0.09), 0 2px 6px -1px rgba(15, 23, 42, 0.05);
+    --md-sys-elevation-3: 0 10px 24px -3px rgba(15, 23, 42, 0.12), 0 4px 8px -2px rgba(15, 23, 42, 0.06);
+    --md-sys-elevation-4: 0 16px 36px -4px rgba(15, 23, 42, 0.14), 0 6px 12px -3px rgba(15, 23, 42, 0.08);
+
+    /* M3 Motion Easing */
+    --md-sys-motion-standard: cubic-bezier(0.2, 0, 0, 1);
+    --md-sys-motion-emphasized: cubic-bezier(0.05, 0.7, 0.1, 1);
 }
 
 ::-webkit-scrollbar {
@@ -102,46 +114,44 @@ html:not(.dark) {
     background: var(--md-sys-color-secondary);
 }
 
-/* M3 Surface & Grid Background */
+/* M3 Surface & Subtle Technical Grid */
 .fintech-grid {
     background-color: var(--md-sys-color-background);
     background-image:
-        linear-gradient(rgba(56, 65, 82, 0.25) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(56, 65, 82, 0.25) 1px, transparent 1px);
-    background-size: 40px 40px;
+        linear-gradient(rgba(56, 65, 82, 0.15) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(56, 65, 82, 0.15) 1px, transparent 1px);
+    background-size: 32px 32px;
     background-position: -1px -1px;
     transition: background-color 0.25s cubic-bezier(0.2, 0, 0, 1), color 0.25s cubic-bezier(0.2, 0, 0, 1);
 }
 
+/* Material 3 Tonal Depth (Clean, ambient, non-neon) */
 .radial-mesh {
     background:
-        radial-gradient(circle at 50% 0%, rgba(99, 102, 241, 0.12) 0%, transparent 60%),
-        radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.08) 0%, transparent 45%),
-        radial-gradient(circle at 15% 70%, rgba(56, 189, 248, 0.07) 0%, transparent 40%);
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(30, 58, 138, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 20%, rgba(16, 185, 129, 0.05), transparent);
 }
 
-/* M3 Elevated & Outlined Card Surface (.glass-metal) */
+/* M3 Elevated Card Surface (Replaces generic AI frosted-glass with authentic Material surfaces) */
 .glass-metal {
-    background: linear-gradient(145deg, var(--md-sys-color-surface-container) 0%, var(--md-sys-color-surface-container-low) 100%);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
+    background-color: var(--md-sys-color-surface-container);
     border: 1px solid var(--md-sys-color-outline-variant);
     box-shadow: var(--md-sys-elevation-1);
-    border-radius: 24px;
-    transition: background 0.25s cubic-bezier(0.2, 0, 0, 1),
-                border-color 0.25s cubic-bezier(0.2, 0, 0, 1),
-                box-shadow 0.25s cubic-bezier(0.2, 0, 0, 1),
+    border-radius: 20px;
+    transition: background-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                border-color 0.2s cubic-bezier(0.2, 0, 0, 1),
+                box-shadow 0.2s cubic-bezier(0.2, 0, 0, 1),
                 transform 0.2s cubic-bezier(0.2, 0, 0, 1);
 }
 
 .glass-metal:hover {
-    background: linear-gradient(145deg, var(--md-sys-color-surface-container-high) 0%, var(--md-sys-color-surface-container) 100%);
-    border-color: rgba(56, 189, 248, 0.5);
+    background-color: var(--md-sys-color-surface-container-high);
+    border-color: var(--md-sys-color-outline);
     box-shadow: var(--md-sys-elevation-2);
 }
 
 .terminal-glow {
-    box-shadow: var(--md-sys-elevation-3);
+    box-shadow: var(--md-sys-elevation-2);
 }
 
 /* ========================================================
@@ -209,9 +219,8 @@ html:not(.dark) .fintech-grid {
 
 html:not(.dark) .radial-mesh {
     background:
-        radial-gradient(circle at 50% 0%, rgba(2, 132, 199, 0.07) 0%, transparent 60%),
-        radial-gradient(circle at 85% 30%, rgba(5, 150, 105, 0.06) 0%, transparent 45%),
-        radial-gradient(circle at 15% 70%, rgba(79, 70, 229, 0.05) 0%, transparent 40%) !important;
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(2, 132, 199, 0.05), transparent),
+        radial-gradient(ellipse 60% 40% at 90% 20%, rgba(5, 150, 105, 0.04), transparent) !important;
 }
 
 /* M3 Top App Bar (Navbar) in Light Mode */
