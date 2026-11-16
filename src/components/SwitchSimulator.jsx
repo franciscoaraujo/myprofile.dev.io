@@ -887,36 +887,36 @@ export default function SwitchSimulator() {
 
         {/* Component Architecture & Verification Notice (Task 1) */}
         <div className="grid sm:grid-cols-3 gap-2.5 pt-1 text-left text-[11px] font-mono">
-          <div className="p-2.5 rounded-xl border border-cyan-500/30 bg-[#061124]/90 space-y-1">
-            <div className="text-cyan-300 font-bold uppercase flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-cyan-400"></span>
+          <div className="p-2.5 rounded-xl border border-sky-200 dark:border-cyan-500/30 bg-sky-50 dark:bg-[#061124]/90 space-y-1 shadow-sm">
+            <div className="text-sky-800 dark:text-cyan-300 font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-sky-600 dark:bg-cyan-400"></span>
               {isPt ? 'Simulação no Navegador' : 'Client-Side Simulation'}
             </div>
-            <p className="text-slate-300 text-[10px] leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-[10px] leading-relaxed">
               {isPt
                 ? 'Máquina de estados visual, partículas SVG e injeção de falhas simuladas em memória.'
                 : 'In-browser state machine, SVG particle traces, and simulated fault injection toggles.'}
             </p>
           </div>
 
-          <div className="p-2.5 rounded-xl border border-[#00D47E]/30 bg-[#041710]/90 space-y-1">
-            <div className="text-[#00D47E] font-bold uppercase flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+          <div className="p-2.5 rounded-xl border border-emerald-200 dark:border-[#00D47E]/30 bg-emerald-50 dark:bg-[#041710]/90 space-y-1 shadow-sm">
+            <div className="text-emerald-800 dark:text-[#00D47E] font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-[#00D47E]"></span>
               {isPt ? 'Módulos Autorais Locais' : 'Authorial Local Modules'}
             </div>
-            <p className="text-slate-300 text-[10px] leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-[10px] leading-relaxed">
               {isPt
                 ? 'Switch Java 21, SoftHSM C++ (OpenSSL), Emulador ISO 8583 e Spring Batch TC50.'
                 : 'Java 21 Switch, C++ SoftHSM (OpenSSL), ISO 8583 Emulator, and Spring Batch TC50.'}
             </p>
           </div>
 
-          <div className="p-2.5 rounded-xl border border-amber-500/30 bg-[#1a1205]/90 space-y-1">
-            <div className="text-amber-300 font-bold uppercase flex items-center gap-1.5">
-              <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+          <div className="p-2.5 rounded-xl border border-amber-200 dark:border-amber-500/30 bg-amber-50 dark:bg-[#1a1205]/90 space-y-1 shadow-sm">
+            <div className="text-amber-800 dark:text-amber-300 font-bold uppercase flex items-center gap-1.5">
+              <span className="w-2 h-2 rounded-full bg-amber-600 dark:bg-amber-400"></span>
               {isPt ? 'Redes Externas / Hardware' : 'External Networks / Hardware'}
             </div>
-            <p className="text-slate-300 text-[10px] leading-relaxed">
+            <p className="text-slate-600 dark:text-slate-300 text-[10px] leading-relaxed">
               {isPt
                 ? 'Nenhuma conexão com VisaNet real ou HSM físico. Parâmetros sintéticos seguros.'
                 : 'Zero connection to live schemes (VisaNet) or physical HSMs. Non-sensitive synthetic data only.'}

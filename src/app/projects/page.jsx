@@ -89,18 +89,18 @@ export default function ProjectsPage() {
                 onClick={() => setActiveTab(tab.key)}
                 className={`w-full text-left p-4 rounded-xl border transition-all flex items-start gap-3.5 ${
                   isSelected
-                    ? 'border-[#00D47E] bg-[#080E1E] shadow-lg shadow-emerald-500/10'
-                    : 'border-[#152342] bg-[#080E1E]/50 hover:bg-[#080E1E]'
+                    ? 'border-[#00D47E] bg-emerald-50/50 dark:bg-[#080E1E] shadow-sm'
+                    : 'border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E]/50 hover:bg-slate-50 dark:hover:bg-[#080E1E]'
                 }`}
               >
                 <div className="p-2.5 rounded-lg bg-[#00D47E]/10 text-[#00D47E] shrink-0">
                   <IconComp className="w-5 h-5" />
                 </div>
                 <div>
-                  <div className="text-sm font-bold text-white">
+                  <div className="text-sm font-bold text-slate-900 dark:text-white">
                     {isPt ? tab.titlePt : tab.titleEn}
                   </div>
-                  <div className="text-xs text-slate-400 mt-0.5">
+                  <div className="text-xs text-slate-500 dark:text-slate-400 mt-0.5">
                     {isPt ? tab.subtitlePt : tab.subtitleEn}
                   </div>
                 </div>
@@ -109,19 +109,19 @@ export default function ProjectsPage() {
           })}
 
           {/* Direct CTA to Test in Switch Demo */}
-          <div className="p-4 rounded-xl border border-cyan-500/30 bg-[#061124]/80 space-y-2.5">
-            <div className="text-xs font-mono font-bold text-cyan-300 flex items-center gap-1.5">
+          <div className="p-4 rounded-xl border border-sky-200 dark:border-cyan-500/30 bg-sky-50 dark:bg-[#061124]/80 space-y-2.5 shadow-sm">
+            <div className="text-xs font-mono font-bold text-sky-800 dark:text-cyan-300 flex items-center gap-1.5">
               <Terminal className="w-4 h-4" />
               <span>{isPt ? 'Laboratório Interativo' : 'Interactive Switch Lab'}</span>
             </div>
-            <p className="text-xs text-slate-300 leading-relaxed">
+            <p className="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">
               {isPt
                 ? 'Execute este módulo em tempo real na máquina de estados interativa (Cenários A, B, C e D).'
                 : 'Execute this module in real time inside the interactive state machine (Scenarios A, B, C, and D).'}
             </p>
             <Link
               href="/simulator"
-              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-[#00D47E] hover:underline"
+              className="inline-flex items-center gap-1.5 text-xs font-mono font-bold text-emerald-700 dark:text-[#00D47E] hover:underline"
             >
               <span>{isPt ? 'Ir para Payment Systems Lab' : 'Go to Payment Systems Lab'}</span>
               <ArrowRight className="w-3.5 h-3.5" />
@@ -131,35 +131,35 @@ export default function ProjectsPage() {
 
         {/* Right Detail Card */}
         <div className="lg:col-span-8">
-          <div className="rounded-2xl border border-[#152342] bg-[#080E1E] p-6 sm:p-8 glass-metal space-y-6">
-            <div className="space-y-2 border-b border-[#152342] pb-5">
-              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#00D47E]/10 text-[#00D47E] font-mono text-xs font-bold">
+          <div className="rounded-2xl border border-slate-200 dark:border-[#152342] bg-white dark:bg-[#080E1E] p-6 sm:p-8 glass-metal space-y-6 shadow-sm">
+            <div className="space-y-2 border-b border-slate-200 dark:border-[#152342] pb-5">
+              <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded-md bg-[#00D47E]/10 text-emerald-700 dark:text-[#00D47E] font-mono text-xs font-bold">
                 {activeData.badge}
               </div>
-              <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+              <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900 dark:text-white tracking-tight">
                 {activeData.title}
               </h2>
-              <p className="text-slate-300 text-sm leading-relaxed">{activeData.subtitle}</p>
+              <p className="text-slate-600 dark:text-slate-300 text-sm leading-relaxed">{activeData.subtitle}</p>
             </div>
 
             {/* Problem Statement */}
-            <div className="p-4 rounded-xl bg-[#040711] border border-[#152342] space-y-1.5">
-              <div className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
+            <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#040711] border border-slate-200 dark:border-[#152342] space-y-1.5">
+              <div className="text-xs font-mono uppercase tracking-wider text-amber-700 dark:text-amber-400 font-bold flex items-center gap-1.5">
                 <AlertCircle className="w-3.5 h-3.5" />
                 <span>{isPt ? 'Problema de Engenharia Resolvido' : 'Engineering Problem Solved'}</span>
               </div>
-              <p className="text-slate-300 text-xs sm:text-sm leading-relaxed">{activeData.problem}</p>
+              <p className="text-slate-700 dark:text-slate-300 text-xs sm:text-sm leading-relaxed">{activeData.problem}</p>
             </div>
 
             {/* Architecture & Implementation Decisions */}
             <div className="space-y-3">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-400 font-bold">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-slate-500 dark:text-slate-400 font-bold">
                 {isPt ? 'Decisões de Arquitetura & Implementação' : 'Architecture & Implementation Decisions'}
               </h3>
               <ul className="space-y-2.5">
                 {activeData.architecture.map((item, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-200">
-                    <CheckCircle2 className="w-4 h-4 text-[#00D47E] shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2.5 text-xs sm:text-sm text-slate-700 dark:text-slate-200">
+                    <CheckCircle2 className="w-4 h-4 text-emerald-600 dark:text-[#00D47E] shrink-0 mt-0.5" />
                     <span>{item}</span>
                   </li>
                 ))}
@@ -168,32 +168,32 @@ export default function ProjectsPage() {
 
             {/* Implemented vs. Simulated Scope (Task 1 & Task 5) */}
             <div className="grid sm:grid-cols-2 gap-3.5 pt-1">
-              <div className="p-4 rounded-xl bg-[#041710]/80 border border-[#00D47E]/30 space-y-1.5">
-                <div className="text-xs font-mono uppercase tracking-wider text-[#00D47E] font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-[#00D47E]"></span>
+              <div className="p-4 rounded-xl bg-emerald-50 dark:bg-[#041710]/80 border border-emerald-200 dark:border-[#00D47E]/30 space-y-1.5 shadow-sm">
+                <div className="text-xs font-mono uppercase tracking-wider text-emerald-700 dark:text-[#00D47E] font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-emerald-600 dark:bg-[#00D47E]"></span>
                   <span>{isPt ? 'Implementado no Código (Local)' : 'Implemented in Code (Local)'}</span>
                 </div>
-                <p className="text-xs text-slate-200 leading-relaxed">{activeData.implemented}</p>
+                <p className="text-xs text-slate-700 dark:text-slate-200 leading-relaxed">{activeData.implemented}</p>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#1a1205]/80 border border-amber-500/30 space-y-1.5">
-                <div className="text-xs font-mono uppercase tracking-wider text-amber-400 font-bold flex items-center gap-1.5">
-                  <span className="w-2 h-2 rounded-full bg-amber-400"></span>
+              <div className="p-4 rounded-xl bg-amber-50 dark:bg-[#1a1205]/80 border border-amber-200 dark:border-amber-500/30 space-y-1.5 shadow-sm">
+                <div className="text-xs font-mono uppercase tracking-wider text-amber-800 dark:text-amber-400 font-bold flex items-center gap-1.5">
+                  <span className="w-2 h-2 rounded-full bg-amber-600 dark:bg-amber-400"></span>
                   <span>{isPt ? 'Simulado / Proposta Arquitetural' : 'Simulated / Design Scope'}</span>
                 </div>
-                <p className="text-xs text-slate-300 leading-relaxed">{activeData.simulated}</p>
+                <p className="text-xs text-slate-700 dark:text-slate-300 leading-relaxed">{activeData.simulated}</p>
               </div>
             </div>
 
             {/* Trade-offs & Risk Mitigation */}
             <div className="space-y-2.5">
-              <h3 className="text-xs font-mono uppercase tracking-wider text-cyan-400 font-bold">
+              <h3 className="text-xs font-mono uppercase tracking-wider text-sky-700 dark:text-cyan-400 font-bold">
                 {isPt ? 'Trade-offs Arquiteturais & Mitigação de Riscos' : 'Architectural Trade-offs & Risk Mitigation'}
               </h3>
               <ul className="space-y-2">
                 {activeData.tradeoffs.map((t, i) => (
-                  <li key={i} className="flex items-start gap-2.5 text-xs text-slate-300">
-                    <Scale className="w-3.5 h-3.5 text-cyan-400 shrink-0 mt-0.5" />
+                  <li key={i} className="flex items-start gap-2.5 text-xs text-slate-700 dark:text-slate-300">
+                    <Scale className="w-3.5 h-3.5 text-sky-600 dark:text-cyan-400 shrink-0 mt-0.5" />
                     <span>{t}</span>
                   </li>
                 ))}
@@ -202,15 +202,15 @@ export default function ProjectsPage() {
 
             {/* Technologies & Design Targets */}
             <div className="grid sm:grid-cols-2 gap-4 pt-2">
-              <div className="p-4 rounded-xl bg-[#040711] border border-[#152342] space-y-2">
-                <div className="text-[11px] font-mono text-slate-400 uppercase">
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#040711] border border-slate-200 dark:border-[#152342] space-y-2 shadow-sm">
+                <div className="text-[11px] font-mono text-slate-500 dark:text-slate-400 uppercase">
                   {isPt ? 'Stack & Protocolos' : 'Technology Stack & Protocols'}
                 </div>
                 <div className="flex flex-wrap gap-1.5">
                   {activeData.stack.map((s) => (
                     <span
                       key={s}
-                      className="px-2.5 py-1 rounded-md bg-[#080E1E] border border-[#152342] text-xs font-mono text-cyan-300"
+                      className="px-2.5 py-1 rounded-md bg-white dark:bg-[#080E1E] border border-slate-200 dark:border-[#152342] text-xs font-mono text-sky-700 dark:text-cyan-300 shadow-2xs"
                     >
                       {s}
                     </span>
@@ -218,20 +218,20 @@ export default function ProjectsPage() {
                 </div>
               </div>
 
-              <div className="p-4 rounded-xl bg-[#040711] border border-[#152342] flex flex-col justify-center space-y-2">
-                <div className="flex items-center justify-between border-b border-[#152342] pb-2">
-                  <span className="text-xs text-slate-400 font-mono">{activeData.metricsLabel1}</span>
-                  <span className="text-sm font-bold text-[#00D47E] font-mono">{activeData.metricsVal1}</span>
+              <div className="p-4 rounded-xl bg-slate-50 dark:bg-[#040711] border border-slate-200 dark:border-[#152342] flex flex-col justify-center space-y-2 shadow-sm">
+                <div className="flex items-center justify-between border-b border-slate-200 dark:border-[#152342] pb-2">
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{activeData.metricsLabel1}</span>
+                  <span className="text-sm font-bold text-emerald-700 dark:text-[#00D47E] font-mono">{activeData.metricsVal1}</span>
                 </div>
                 <div className="flex items-center justify-between pt-1">
-                  <span className="text-xs text-slate-400 font-mono">{activeData.metricsLabel2}</span>
-                  <span className="text-sm font-bold text-white font-mono">{activeData.metricsVal2}</span>
+                  <span className="text-xs text-slate-500 dark:text-slate-400 font-mono">{activeData.metricsLabel2}</span>
+                  <span className="text-sm font-bold text-slate-900 dark:text-white font-mono">{activeData.metricsVal2}</span>
                 </div>
               </div>
             </div>
 
             {/* Scope & Limitations */}
-            <div className="p-3.5 rounded-xl bg-slate-900/70 border border-slate-800 space-y-2">
+            <div className="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/70 border border-slate-200 dark:border-slate-800 space-y-2 shadow-sm">
               <div className="flex flex-wrap items-center justify-between gap-2">
                 <span className="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">
                   {isPt ? 'Escopo & Limitações Conhecidas' : 'Scope & Known Limitations'}

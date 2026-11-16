@@ -451,6 +451,8 @@ html:not(.dark) .bg-\[\#071526\],
 html.light-mode .bg-\[\#071526\],
 html:not(.dark) .bg-\[\#041710\],
 html.light-mode .bg-\[\#041710\],
+html:not(.dark) .bg-\[\#041710\]\/80,
+html.light-mode .bg-\[\#041710\]\/80,
 html:not(.dark) .bg-\[\#041710\]\/90,
 html.light-mode .bg-\[\#041710\]\/90 {
     background-color: #ECFDF5 !important; /* Emerald 50 Tonal Container */
@@ -467,6 +469,8 @@ html:not(.dark) .bg-yellow-950\/30,
 html.light-mode .bg-yellow-950\/30,
 html:not(.dark) .bg-\[\#1a1205\],
 html.light-mode .bg-\[\#1a1205\],
+html:not(.dark) .bg-\[\#1a1205\]\/80,
+html.light-mode .bg-\[\#1a1205\]\/80,
 html:not(.dark) .bg-\[\#1a1205\]\/90,
 html.light-mode .bg-\[\#1a1205\]\/90 {
     background-color: #FFFBEB !important; /* Amber 50 Tonal Container */
